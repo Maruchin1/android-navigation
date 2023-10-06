@@ -55,6 +55,7 @@ android {
 
 dependencies {
     implementation(project(":data:categories"))
+    implementation(project(":data:products"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)
