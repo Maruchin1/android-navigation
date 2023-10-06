@@ -17,3 +17,4 @@ rootProject.name = "android-navigation"
 include(":app")
 include(":data:categories")
 include(":data:products")
+include(":features:home")

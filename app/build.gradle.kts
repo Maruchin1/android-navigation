@@ -44,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packaging {
         resources {
@@ -56,6 +56,8 @@ android {
 dependencies {
     implementation(project(":data:categories"))
     implementation(project(":data:products"))
+
+    implementation(project(":features:home"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)
