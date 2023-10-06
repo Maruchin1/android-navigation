@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "android-navigation"
 include(":app")
- 
+include(":data:categories")

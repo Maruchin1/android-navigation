@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -53,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data:categories"))
+
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)
     implementation(libs.bundles.ui)
