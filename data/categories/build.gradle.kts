@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.maruchin.data.categories"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26

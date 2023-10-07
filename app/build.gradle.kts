@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.maruchin.androidnavigation"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.maruchin.androidnavigation"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":data:products"))
 
     implementation(project(":features:home"))
+    implementation(project(":features:navigation-bar"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)

@@ -1,14 +1,13 @@
-@Suppress("DSL_SCOPE_VIOLATION")
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.serialization)
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.maruchin.data.products"
+    namespace = "com.maruchin.features.navigationbar"
     compileSdk = 34
 
     defaultConfig {
@@ -27,12 +26,25 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
 }
 
 dependencies {
-    implementation(project(":data:categories"))
+    implementation(project(":features:home"))
 
-    implementation(libs.bundles.ktor)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.ui)
+    implementation(libs.bundles.navigation)
     implementation(libs.hilt)
+
     kapt(libs.hilt.compiler)
+
+    debugImplementation(libs.compose.ui.tooling)
 }

@@ -36,16 +36,16 @@ import com.maruchin.data.products.sampleProducts
 import java.net.URL
 
 @Composable
-fun HomeScreen() {
+internal fun HomeScreen(onShowAllFromCategory: (Category) -> Unit) {
     val viewModel: HomeViewModel = hiltViewModel()
     HomeScreen(
         products = viewModel.products,
-        onShowAllFromCategory = {}
+        onShowAllFromCategory = onShowAllFromCategory
     )
 }
 
 @Composable
-internal fun HomeScreen(
+private fun HomeScreen(
     products: Map<Category, List<Product>>,
     onShowAllFromCategory: (Category) -> Unit,
 ) {

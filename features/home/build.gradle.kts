@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.maruchin.features.home"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -43,8 +43,9 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)
     implementation(libs.bundles.navigation)
-    debugImplementation(libs.compose.ui.tooling)
-
     implementation(libs.hilt)
+
     kapt(libs.hilt.compiler)
+
+    debugImplementation(libs.compose.ui.tooling)
 }
