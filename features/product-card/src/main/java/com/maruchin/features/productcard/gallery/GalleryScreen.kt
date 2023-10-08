@@ -18,7 +18,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -62,7 +62,7 @@ private fun TopAppBar(onBack: () -> Unit) {
         title = {},
         navigationIcon = {
             IconButton(onClick = onBack) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                Icon(imageVector = Icons.Default.Close, contentDescription = null)
             }
         }
     )

@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.maruchin.core.ui.AllProductsButton
 import com.maruchin.core.ui.ProductItem
 import com.maruchin.data.categories.Category
@@ -33,21 +32,8 @@ import com.maruchin.data.products.sampleProducts
 
 @Composable
 internal fun HomeScreen(
-    onShowAllFromCategory: (Category) -> Unit,
-    onShowProduct: (Product) -> Unit
-) {
-    val viewModel: HomeViewModel = hiltViewModel()
-    HomeScreen(
-        products = viewModel.products,
-        onShowAllFromCategory = onShowAllFromCategory,
-        onShowProduct = onShowProduct,
-    )
-}
-
-@Composable
-private fun HomeScreen(
     products: Map<Category, List<Product>>,
-    onShowAllFromCategory: (Category) -> Unit,
+    onShowProductsFromCategory: (Category) -> Unit,
     onShowProduct: (Product) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -62,7 +48,7 @@ private fun HomeScreen(
                 modifier = Modifier
                     .padding(padding)
                     .nestedScroll(scrollBehavior.nestedScrollConnection),
-                onShowAllFromCategory = onShowAllFromCategory,
+                onShowProductsFromCategory = onShowProductsFromCategory,
                 onShowProduct = onShowProduct,
             )
         }
@@ -87,7 +73,7 @@ private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior) {
 @Composable
 private fun CategoryProductsList(
     products: Map<Category, List<Product>>,
-    onShowAllFromCategory: (Category) -> Unit,
+    onShowProductsFromCategory: (Category) -> Unit,
     onShowProduct: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -102,7 +88,7 @@ private fun CategoryProductsList(
                 CategoryHeadline(name = category.name)
                 ProductRow(
                     products = products,
-                    onShowAll = { onShowAllFromCategory(category) },
+                    onShowAll = { onShowProductsFromCategory(category) },
                     onShowProduct = onShowProduct,
                 )
             }
@@ -150,7 +136,7 @@ private fun HomeScreenPreview() {
     MaterialTheme {
         HomeScreen(
             products = sampleProducts.groupBy { it.category },
-            onShowAllFromCategory = {},
+            onShowProductsFromCategory = {},
             onShowProduct = {},
         )
     }

@@ -4,7 +4,7 @@ import com.maruchin.data.categories.Category
 
 interface ProductsRepository {
 
-    suspend fun getForCategory(category: Category): List<Product>
+    suspend fun getForCategory(category: Category, filters: ProductFilters? = null): List<Product>
 
     suspend fun getRecommendedForCategory(category: Category): List<Product>
 

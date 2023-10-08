@@ -11,8 +11,13 @@ internal class DefaultProductsRepository @Inject constructor(
     private val productsApi: ProductsApi
 ) : ProductsRepository {
 
-    override suspend fun getForCategory(category: Category): List<Product> {
-        return productsApi.getForCategory(category.name).map { it.toDomainModel() }
+    override suspend fun getForCategory(
+        category: Category,
+        filters: ProductFilters?
+    ): List<Product> {
+        return productsApi.getForCategory(category.name)
+            .map { it.toDomainModel() }
+            .let { filters?.invoke(it) ?: it }
     }
 
     override suspend fun getRecommendedForCategory(category: Category): List<Product> {

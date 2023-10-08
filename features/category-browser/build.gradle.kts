@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maruchin.features.navigationbar"
+    namespace = "com.maruchin.features.categorybrowser"
     compileSdk = 34
 
     defaultConfig {
@@ -37,10 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":features:home"))
-    implementation(project(":features:category-browser"))
-    implementation(project(":features:product-browser"))
-    implementation(project(":features:product-card"))
+    api(project(":data:categories"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

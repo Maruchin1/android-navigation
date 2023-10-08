@@ -15,8 +15,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.maruchin.features.categorybrowser.CATEGORY_BROWSER_GRAPH_ROUTE
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
-import com.maruchin.features.productbrowser.PRODUCT_BROWSER_GRAPH_ROUTE
 
 @Composable
 internal fun NavigationBar(navController: NavController) {
@@ -35,11 +35,11 @@ internal fun NavigationBar(navController: NavController) {
             }
         )
         NavigationBarItem(
-            selected = state.isRouteSelected(PRODUCT_BROWSER_GRAPH_ROUTE)
+            selected = state.isRouteSelected(CATEGORY_BROWSER_GRAPH_ROUTE)
                 .collectAsState(initial = false)
                 .value,
             onClick = {
-                state.openRoute(PRODUCT_BROWSER_GRAPH_ROUTE)
+                state.openRoute(CATEGORY_BROWSER_GRAPH_ROUTE)
             },
             icon = {
                 Icon(imageVector = Icons.Default.Search, contentDescription = null)
@@ -47,21 +47,21 @@ internal fun NavigationBar(navController: NavController) {
         )
         NavigationBarItem(
             selected = false,
-            onClick = { },
+            onClick = {},
             icon = {
                 Icon(imageVector = Icons.Default.Favorite, contentDescription = null)
             }
         )
         NavigationBarItem(
             selected = false,
-            onClick = { },
+            onClick = {},
             icon = {
                 Icon(imageVector = Icons.Default.ShoppingBag, contentDescription = null)
             }
         )
         NavigationBarItem(
             selected = false,
-            onClick = { },
+            onClick = {},
             icon = {
                 Icon(imageVector = Icons.Default.Person, contentDescription = null)
             }

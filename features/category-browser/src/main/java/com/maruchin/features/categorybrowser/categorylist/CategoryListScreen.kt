@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.maruchin.features.productbrowser.categorylist
+package com.maruchin.features.categorybrowser.categorylist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +27,10 @@ import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
 
 @Composable
-internal fun CategoryListScreen(categories: List<Category>, onShowCategory: (Category) -> Unit) {
+internal fun CategoryListScreen(
+    categories: List<Category>,
+    onShowCategory: (Category) -> Unit,
+) {
     Scaffold(
         topBar = {
             TopAppBar()
@@ -46,7 +49,7 @@ private fun TopAppBar() {
     CenterAlignedTopAppBar(
         title = {
             Text(text = "Categories")
-        }
+        },
     )
 }
 

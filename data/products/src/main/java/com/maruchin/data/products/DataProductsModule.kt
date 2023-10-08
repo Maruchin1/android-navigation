@@ -11,4 +11,7 @@ internal interface DataProductsModule {
 
     @Binds
     fun productsRepository(impl: DefaultProductsRepository): ProductsRepository
+
+    @Binds
+    fun productFiltersRepository(impl: DefaultProductFiltersRepository): ProductFiltersRepository
 }

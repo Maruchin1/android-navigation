@@ -20,10 +20,10 @@ internal data class ProductCardArgs(val productId: Int) {
     )
 }
 
-fun NavGraphBuilder.productCardGraph(navController: NavController, parent: String) {
+fun NavGraphBuilder.productCardGraph(navController: NavController) {
     navigation(
         startDestination = CARD_ROUTE,
-        route = "$parent/$PRODUCT_CARD_GRAPH_ROUTE",
+        route = PRODUCT_CARD_GRAPH_ROUTE,
         arguments = listOf(
             navArgument(PRODUCT_ID_ARG) { type = NavType.IntType }
         )
@@ -44,6 +44,6 @@ fun NavGraphBuilder.productCardGraph(navController: NavController, parent: Strin
     }
 }
 
-fun NavController.navigateToProductCardGraph(parent: String, productId: Int) {
-    navigate("$parent/$PRODUCT_CARD_GRAPH_ROUTE".replace("{$PRODUCT_ID_ARG}", productId.toString()))
+fun NavController.navigateToProductCardGraph(productId: Int) {
+    navigate(PRODUCT_CARD_GRAPH_ROUTE.replace("{$PRODUCT_ID_ARG}", productId.toString()))
 }

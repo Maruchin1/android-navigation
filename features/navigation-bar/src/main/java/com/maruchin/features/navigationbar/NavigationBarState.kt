@@ -4,17 +4,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.maruchin.features.categorybrowser.CATEGORY_BROWSER_GRAPH_ROUTE
+import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @Stable
 internal class NavigationBarState(private val navController: NavController) {
+    private val navigationBarRoutes = listOf(HOME_GRAPH_ROUTE, CATEGORY_BROWSER_GRAPH_ROUTE)
 
     fun isRouteSelected(route: String): Flow<Boolean> {
-        return navController.currentBackStackEntryFlow.map { entry ->
-            entry.destination.hierarchy.any { it.route == route }
+        return navController.currentBackStack.map { backStack ->
+            backStack
+                .map { it.destination.route }
+                .last { navigationBarRoutes.contains(it) }
+                .let { it == route }
         }
     }
 

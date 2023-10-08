@@ -1,38 +1,55 @@
 package com.maruchin.features.productbrowser
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.navigation
-import com.maruchin.features.productbrowser.categorylist.CATEGORY_LIST_ROUTE
-import com.maruchin.features.productbrowser.categorylist.categoryListScreen
-import com.maruchin.features.productbrowser.category.categoryScreen
-import com.maruchin.features.productbrowser.category.navigateToCategory
-import com.maruchin.features.productcard.productCardGraph
-import com.maruchin.features.productcard.navigateToProductCardGraph
+import androidx.navigation.navArgument
+import com.maruchin.data.products.Product
+import com.maruchin.features.productbrowser.filters.filtersScreen
+import com.maruchin.features.productbrowser.filters.navigateToFilters
+import com.maruchin.features.productbrowser.productlist.PRODUCT_LIST_ROUTE
+import com.maruchin.features.productbrowser.productlist.productListScreen
 
-const val PRODUCT_BROWSER_GRAPH_ROUTE = "product-browser-graph"
+private const val CATEGORY_NAME = "categoryName"
+const val PRODUCT_BROWSER_GRAPH_ROUTE = "product-browser-graph/{$CATEGORY_NAME}"
 
-fun NavGraphBuilder.productBrowserGraph(navController: NavController) {
+internal data class ProductBrowserArgs(val categoryName: String) {
+    constructor(savedStateHandle: SavedStateHandle) : this(
+        categoryName = requireNotNull(savedStateHandle[CATEGORY_NAME])
+    )
+}
+
+fun NavGraphBuilder.productBrowserGraph(
+    navController: NavController,
+    onShowProduct: (Product) -> Unit
+) {
     navigation(
-        startDestination = CATEGORY_LIST_ROUTE,
+        startDestination = PRODUCT_LIST_ROUTE,
         route = PRODUCT_BROWSER_GRAPH_ROUTE,
-    ) {
-        categoryListScreen(
-            onShowCategory = {
-                navController.navigateToCategory(it.name)
-            }
+        arguments = listOf(
+            navArgument(CATEGORY_NAME) { type = NavType.StringType }
         )
-        categoryScreen(
+    ) {
+        productListScreen(
             onBack = {
                 navController.navigateUp()
             },
-            onShowProduct = { product ->
-                navController.navigateToProductCardGraph(
-                    parent = PRODUCT_BROWSER_GRAPH_ROUTE,
-                    productId = product.id
-                )
+            onShowProduct = onShowProduct,
+            onShowFilters = {
+                navController.navigateToFilters()
             }
         )
-        productCardGraph(navController, parent = PRODUCT_BROWSER_GRAPH_ROUTE)
+        filtersScreen(
+            onBack = {
+                navController.navigateUp()
+            }
+        )
     }
+}
+
+fun NavController.navigateToProductBrowserGraph(categoryName: String) {
+    val route = PRODUCT_BROWSER_GRAPH_ROUTE.replace("{$CATEGORY_NAME}", categoryName)
+    navigate(route)
 }

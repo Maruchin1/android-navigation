@@ -1,25 +1,30 @@
-package com.maruchin.features.productcard.gallery
+package com.maruchin.features.productbrowser.productlist
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maruchin.data.categories.Category
+import com.maruchin.data.products.ProductFiltersRepository
 import com.maruchin.data.products.ProductsRepository
+import com.maruchin.features.productbrowser.ProductBrowserArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-internal class GalleryViewModel @Inject constructor(
+internal class ProductListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val productsRepository: ProductsRepository,
+    private val productFiltersRepository: ProductFiltersRepository,
 ) : ViewModel() {
 
-    private val args = GalleryArgs(savedStateHandle)
+    private val args = ProductBrowserArgs(savedStateHandle)
 
-    val images = flow { emit(productsRepository.getById(args.productId)) }
-        .map { it.images }
+    val category = Category(args.categoryName)
+
+    val products = productFiltersRepository.get()
+        .map { productsRepository.getForCategory(category, it) }
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 }

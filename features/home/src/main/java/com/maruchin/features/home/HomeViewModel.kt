@@ -1,18 +1,17 @@
 package com.maruchin.features.home
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maruchin.data.categories.CategoriesRepository
-import com.maruchin.data.categories.Category
-import com.maruchin.data.products.Product
 import com.maruchin.data.products.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,20 +20,14 @@ internal class HomeViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
 ) : ViewModel() {
 
-    var products by mutableStateOf<Map<Category, List<Product>>>(emptyMap())
-        private set
-
-    init {
-        loadProducts()
-    }
-
-    private fun loadProducts() = viewModelScope.launch {
-        val categories = categoriesRepository.getAll()
-        val productsFromCategories = categories.map { category ->
-            async {
-                productsRepository.getRecommendedForCategory(category)
+    val products = flow { emit(categoriesRepository.getAll()) }
+        .map { categories ->
+            coroutineScope {
+                val productsFromCategory = categories.map { category ->
+                    async { productsRepository.getRecommendedForCategory(category) }
+                }.awaitAll()
+                categories.zip(productsFromCategory).toMap()
             }
-        }.awaitAll()
-        products = categories.zip(productsFromCategories).toMap()
-    }
+        }
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyMap())
 }

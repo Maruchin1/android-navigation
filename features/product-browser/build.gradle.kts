@@ -40,7 +40,6 @@ dependencies {
     api(project(":data:categories"))
     api(project(":data:products"))
     implementation(project(":core:ui"))
-    implementation(project(":features:product-card"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)
