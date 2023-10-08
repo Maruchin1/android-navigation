@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.features.home.HOME_GRAPH
 import com.maruchin.features.home.homeGraph
+import com.maruchin.features.productbrowser.productBrowserGraph
 
 @Composable
 fun NavigationBarHost() {
@@ -20,6 +21,7 @@ fun NavigationBarHost() {
     ) { padding ->
         NavHost(navController, HOME_GRAPH, modifier = Modifier.padding(padding)) {
             homeGraph(navController)
+            productBrowserGraph(navController)
         }
     }
 }

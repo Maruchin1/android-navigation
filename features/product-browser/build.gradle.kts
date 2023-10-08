@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maruchin.features.home"
+    namespace = "com.maruchin.features.productbrowser"
     compileSdk = 34
 
     defaultConfig {
@@ -39,8 +39,8 @@ android {
 dependencies {
     api(project(":data:categories"))
     api(project(":data:products"))
-    implementation(project(":features:product-card"))
     implementation(project(":core:ui"))
+    implementation(project(":features:product-card"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

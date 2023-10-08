@@ -5,7 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-private const val RECOMMENDED_LIMIT = 5
+private const val RECOMMENDED_LIMIT = 3
 
 internal class ProductsApi @Inject constructor(private val client: HttpClient) {
 

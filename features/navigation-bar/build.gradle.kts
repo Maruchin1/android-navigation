@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation(project(":features:home"))
     implementation(project(":features:product-card"))
+    implementation(project(":features:product-browser"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

@@ -2,12 +2,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
-    kotlin("kapt")
 }
 
 android {
-    namespace = "com.maruchin.features.home"
+    namespace = "com.maruchin.core.ui"
     compileSdk = 34
 
     defaultConfig {
@@ -37,17 +35,10 @@ android {
 }
 
 dependencies {
-    api(project(":data:categories"))
-    api(project(":data:products"))
-    implementation(project(":features:product-card"))
-    implementation(project(":core:ui"))
+    implementation(project(":data:products"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)
-    implementation(libs.bundles.navigation)
-    implementation(libs.hilt)
-
-    kapt(libs.hilt.compiler)
 
     debugImplementation(libs.compose.ui.tooling)
 }

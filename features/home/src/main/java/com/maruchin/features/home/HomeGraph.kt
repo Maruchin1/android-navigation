@@ -13,9 +13,9 @@ fun NavGraphBuilder.homeGraph(navController: NavController) {
         homeScreen(
             onShowAllFromCategory = {},
             onShowProduct = { product ->
-                navController.toProductCardGraph(product.id)
+                navController.toProductCardGraph(parent = HOME_GRAPH, productId = product.id)
             }
         )
-        productCardGraph(navController)
+        productCardGraph(navController, parent = HOME_GRAPH)
     }
 }

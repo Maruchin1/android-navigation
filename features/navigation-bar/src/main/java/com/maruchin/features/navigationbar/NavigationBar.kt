@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.features.home.HOME_GRAPH
+import com.maruchin.features.productbrowser.PRODUCT_BROWSER_GRAPH
 
 @Composable
 internal fun NavigationBar(navController: NavController) {
@@ -24,6 +25,8 @@ internal fun NavigationBar(navController: NavController) {
 
     NavigationBar {
         val isHomeSelected by state.isRouteSelected(HOME_GRAPH).collectAsState(initial = false)
+        val isProductBrowserSelected by state.isRouteSelected(PRODUCT_BROWSER_GRAPH)
+            .collectAsState(initial = false)
 
         NavigationBarItem(
             selected = isHomeSelected,
@@ -33,8 +36,8 @@ internal fun NavigationBar(navController: NavController) {
             }
         )
         NavigationBarItem(
-            selected = false,
-            onClick = { },
+            selected = isProductBrowserSelected,
+            onClick = { state.openRoute(PRODUCT_BROWSER_GRAPH) },
             icon = {
                 Icon(imageVector = Icons.Default.Search, contentDescription = null)
             }
