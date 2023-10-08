@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.maruchin.features.productcard
+package com.maruchin.features.productcard.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,16 +30,19 @@ import com.maruchin.data.products.Product
 import com.maruchin.data.products.sampleProducts
 
 @Composable
-internal fun ProductCardScreen(onBack: () -> Unit) {
-    val viewModel: ProductCardViewModel = hiltViewModel()
-    ProductCardScreen(
+internal fun CardScreen(onBack: () -> Unit, onOpenGallery: (Product) -> Unit) {
+    val viewModel: CardViewModel = hiltViewModel()
+    CardScreen(
         product = viewModel.product,
         onBack = onBack,
+        onOpenGallery = {
+            viewModel.product?.let(onOpenGallery)
+        }
     )
 }
 
 @Composable
-private fun ProductCardScreen(product: Product?, onBack: () -> Unit) {
+private fun CardScreen(product: Product?, onBack: () -> Unit, onOpenGallery: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -53,20 +56,24 @@ private fun ProductCardScreen(product: Product?, onBack: () -> Unit) {
         }
     ) { padding ->
         if (product != null) {
-            Content(product = product, modifier = Modifier.padding(padding))
+            Content(
+                product = product,
+                modifier = Modifier.padding(padding),
+                onOpenGallery = onOpenGallery
+            )
         }
     }
 }
 
 @Composable
-private fun Content(product: Product, modifier: Modifier) {
+private fun Content(product: Product, modifier: Modifier, onOpenGallery: () -> Unit) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
-            OutlinedCard {
+            OutlinedCard(onClick = onOpenGallery) {
                 AsyncImage(
                     model = product.image.toString(),
                     contentDescription = null,
@@ -100,8 +107,8 @@ private fun Content(product: Product, modifier: Modifier) {
 
 @Preview
 @Composable
-private fun ProductCardScreenPreview() {
+private fun CardScreenPreview() {
     MaterialTheme {
-        ProductCardScreen(product = sampleProducts[0], onBack = {})
+        CardScreen(product = sampleProducts[0], onBack = {}, onOpenGallery = {})
     }
 }
