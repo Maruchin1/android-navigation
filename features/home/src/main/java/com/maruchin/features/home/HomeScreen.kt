@@ -22,10 +22,13 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,14 +58,18 @@ private fun HomeScreen(
     onShowAllFromCategory: (Category) -> Unit,
     onShowProduct: (Product) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     Scaffold(
         topBar = {
-            TopAppBar()
+            TopAppBar(scrollBehavior = scrollBehavior)
         },
         content = { padding ->
             CategoryProductsList(
                 products = products,
-                modifier = Modifier.padding(padding),
+                modifier = Modifier
+                    .padding(padding)
+                    .nestedScroll(scrollBehavior.nestedScrollConnection),
                 onShowAllFromCategory = onShowAllFromCategory,
                 onShowProduct = onShowProduct,
             )
@@ -71,7 +78,7 @@ private fun HomeScreen(
 }
 
 @Composable
-private fun TopAppBar() {
+private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior) {
     CenterAlignedTopAppBar(
         title = {
             Text(text = "Home")
@@ -80,7 +87,8 @@ private fun TopAppBar() {
             TextButton(onClick = { /*TODO*/ }) {
                 Text(text = "Login")
             }
-        }
+        },
+        scrollBehavior = scrollBehavior,
     )
 }
 
