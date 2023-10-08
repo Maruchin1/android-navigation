@@ -31,7 +31,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.Rating
@@ -39,19 +38,7 @@ import com.maruchin.data.products.sampleProducts
 import java.net.URL
 
 @Composable
-internal fun CardScreen(onBack: () -> Unit, onOpenGallery: (Product) -> Unit) {
-    val viewModel: CardViewModel = hiltViewModel()
-    CardScreen(
-        product = viewModel.product,
-        onBack = onBack,
-        onOpenGallery = {
-            viewModel.product?.let(onOpenGallery)
-        }
-    )
-}
-
-@Composable
-private fun CardScreen(product: Product?, onBack: () -> Unit, onOpenGallery: () -> Unit) {
+internal fun CardScreen(product: Product?, onBack: () -> Unit, onOpenGallery: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         topBar = {

@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.maruchin.data.categories.Category
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.ProductsRepository
-import com.maruchin.features.productbrowser.CATEGORY_NAME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,9 +19,9 @@ internal class CategoryViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
 ) : ViewModel() {
 
-    private val categoryName: String = requireNotNull(savedStateHandle[CATEGORY_NAME])
+    private val args = CategoryArgs(savedStateHandle)
 
-    val category = Category(categoryName)
+    val category = Category(args.categoryName)
 
     var products by mutableStateOf<List<Product>>(emptyList())
         private set

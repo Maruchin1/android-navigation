@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.ProductsRepository
-import com.maruchin.features.productcard.PRODUCT_ID
+import com.maruchin.features.productcard.ProductCardArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +19,7 @@ internal class CardViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
 ) : ViewModel() {
 
-    private val productId: Int = requireNotNull(savedStateHandle[PRODUCT_ID])
+    private val args = ProductCardArgs(savedStateHandle)
 
     var product by mutableStateOf<Product?>(null)
         private set
@@ -29,6 +29,6 @@ internal class CardViewModel @Inject constructor(
     }
 
     private fun loadProduct() = viewModelScope.launch {
-        product = productsRepository.getById(productId)
+        product = productsRepository.getById(args.productId)
     }
 }

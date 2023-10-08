@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.maruchin.features.productbrowser.categories
+package com.maruchin.features.productbrowser.categorylist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,18 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
 
 @Composable
-internal fun CategoriesScreen(onShowCategory: (Category) -> Unit) {
-    val viewModel: CategoriesViewModel = hiltViewModel()
-    CategoriesScreen(categories = viewModel.categories, onShowCategory = onShowCategory)
-}
-
-@Composable
-private fun CategoriesScreen(categories: List<Category>, onShowCategory: (Category) -> Unit) {
+internal fun CategoryListScreen(categories: List<Category>, onShowCategory: (Category) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar()
@@ -93,6 +86,6 @@ private fun CategoryItem(category: Category, onShowCategory: (Category) -> Unit)
 @Composable
 private fun CategoriesScreenPreview() {
     MaterialTheme {
-        CategoriesScreen(categories = sampleCategories, onShowCategory = {})
+        CategoryListScreen(categories = sampleCategories, onShowCategory = {})
     }
 }

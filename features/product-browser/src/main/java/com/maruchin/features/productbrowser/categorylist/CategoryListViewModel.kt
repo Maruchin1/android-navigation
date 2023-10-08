@@ -1,4 +1,4 @@
-package com.maruchin.features.productbrowser.categories
+package com.maruchin.features.productbrowser.categorylist
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class CategoriesViewModel @Inject constructor(
+internal class CategoryListViewModel @Inject constructor(
     private val categoriesRepository: CategoriesRepository,
 ) : ViewModel() {
 

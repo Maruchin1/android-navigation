@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.maruchin.core.ui.ProductItem
 import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
@@ -29,18 +28,7 @@ import com.maruchin.data.products.Product
 import com.maruchin.data.products.sampleProducts
 
 @Composable
-internal fun CategoryScreen(onBack: () -> Unit, onShowProduct: (Product) -> Unit) {
-    val viewModel: CategoryViewModel = hiltViewModel()
-    CategoryScreen(
-        category = viewModel.category,
-        products = viewModel.products,
-        onBack = onBack,
-        onShowProduct = onShowProduct,
-    )
-}
-
-@Composable
-private fun CategoryScreen(
+internal fun CategoryScreen(
     category: Category?,
     products: List<Product>,
     onBack: () -> Unit,

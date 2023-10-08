@@ -7,7 +7,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maruchin.data.products.ProductsRepository
-import com.maruchin.features.productcard.PRODUCT_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -19,7 +18,7 @@ internal class GalleryViewModel @Inject constructor(
     private val productsRepository: ProductsRepository,
 ) : ViewModel() {
 
-    private val productId: Int = requireNotNull(savedStateHandle[PRODUCT_ID])
+    private val args = GalleryArgs(savedStateHandle)
 
     var images by mutableStateOf<List<URL>>(emptyList())
         private set
@@ -29,7 +28,7 @@ internal class GalleryViewModel @Inject constructor(
     }
 
     private fun loadImages() = viewModelScope.launch {
-        val product = productsRepository.getById(productId)
+        val product = productsRepository.getById(args.productId)
         images = product.images
     }
 }

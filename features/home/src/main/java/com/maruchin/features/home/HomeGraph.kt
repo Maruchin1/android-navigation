@@ -4,18 +4,21 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.maruchin.features.productcard.productCardGraph
-import com.maruchin.features.productcard.toProductCardGraph
+import com.maruchin.features.productcard.navigateToProductCardGraph
 
-const val HOME_GRAPH = "home-graph"
+const val HOME_GRAPH_ROUTE = "home-graph"
 
 fun NavGraphBuilder.homeGraph(navController: NavController) {
-    navigation(startDestination = HOME, route = HOME_GRAPH) {
+    navigation(startDestination = HOME_ROUTE, route = HOME_GRAPH_ROUTE) {
         homeScreen(
             onShowAllFromCategory = {},
             onShowProduct = { product ->
-                navController.toProductCardGraph(parent = HOME_GRAPH, productId = product.id)
+                navController.navigateToProductCardGraph(
+                    parent = HOME_GRAPH_ROUTE,
+                    productId = product.id
+                )
             }
         )
-        productCardGraph(navController, parent = HOME_GRAPH)
+        productCardGraph(navController, parent = HOME_GRAPH_ROUTE)
     }
 }

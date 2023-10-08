@@ -3,24 +3,23 @@ package com.maruchin.features.productbrowser
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
-import com.maruchin.features.productbrowser.categories.CATEGORIES
-import com.maruchin.features.productbrowser.categories.categoriesScreen
+import com.maruchin.features.productbrowser.categorylist.CATEGORY_LIST_ROUTE
+import com.maruchin.features.productbrowser.categorylist.categoryListScreen
 import com.maruchin.features.productbrowser.category.categoryScreen
-import com.maruchin.features.productbrowser.category.toCategory
+import com.maruchin.features.productbrowser.category.navigateToCategory
 import com.maruchin.features.productcard.productCardGraph
-import com.maruchin.features.productcard.toProductCardGraph
+import com.maruchin.features.productcard.navigateToProductCardGraph
 
-const val CATEGORY_NAME = "categoryName"
-const val PRODUCT_BROWSER_GRAPH = "product-browser-graph"
+const val PRODUCT_BROWSER_GRAPH_ROUTE = "product-browser-graph"
 
 fun NavGraphBuilder.productBrowserGraph(navController: NavController) {
     navigation(
-        startDestination = CATEGORIES,
-        route = PRODUCT_BROWSER_GRAPH,
+        startDestination = CATEGORY_LIST_ROUTE,
+        route = PRODUCT_BROWSER_GRAPH_ROUTE,
     ) {
-        categoriesScreen(
+        categoryListScreen(
             onShowCategory = {
-                navController.toCategory(it.name)
+                navController.navigateToCategory(it.name)
             }
         )
         categoryScreen(
@@ -28,12 +27,12 @@ fun NavGraphBuilder.productBrowserGraph(navController: NavController) {
                 navController.navigateUp()
             },
             onShowProduct = { product ->
-                navController.toProductCardGraph(
-                    parent = PRODUCT_BROWSER_GRAPH,
+                navController.navigateToProductCardGraph(
+                    parent = PRODUCT_BROWSER_GRAPH_ROUTE,
                     productId = product.id
                 )
             }
         )
-        productCardGraph(navController, parent = PRODUCT_BROWSER_GRAPH)
+        productCardGraph(navController, parent = PRODUCT_BROWSER_GRAPH_ROUTE)
     }
 }

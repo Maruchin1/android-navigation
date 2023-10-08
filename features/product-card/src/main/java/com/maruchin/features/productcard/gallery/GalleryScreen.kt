@@ -33,22 +33,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.maruchin.data.products.sampleProducts
 import java.net.URL
 
 @Composable
-internal fun GalleryScreen(onBack: () -> Unit) {
-    val viewModel: GalleryViewModel = hiltViewModel()
-    GalleryScreen(
-        images = viewModel.images,
-        onBack = onBack,
-    )
-}
-
-@Composable
-private fun GalleryScreen(images: List<URL>, onBack: () -> Unit) {
+internal fun GalleryScreen(images: List<URL>, onBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(onBack = onBack)
