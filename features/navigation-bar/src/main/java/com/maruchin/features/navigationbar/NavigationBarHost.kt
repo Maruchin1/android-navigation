@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.maruchin.features.home.HOME_ROUTE
-import com.maruchin.features.home.homeScreen
+import com.maruchin.features.home.HOME_GRAPH
+import com.maruchin.features.home.homeGraph
 
 @Composable
 fun NavigationBarHost() {
@@ -18,10 +18,8 @@ fun NavigationBarHost() {
             NavigationBar(navController)
         }
     ) { padding ->
-        NavHost(navController, HOME_ROUTE, modifier = Modifier.padding(padding)) {
-            homeScreen(
-                onShowAllFromCategory = {}
-            )
+        NavHost(navController, HOME_GRAPH, modifier = Modifier.padding(padding)) {
+            homeGraph(navController)
         }
     }
 }

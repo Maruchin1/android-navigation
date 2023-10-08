@@ -9,4 +9,6 @@ interface ProductsRepository {
     suspend fun getRecommendedForCategory(category: Category): List<Product>
 
     suspend fun findByTitle(title: String): List<Product>
+
+    suspend fun getById(id: Int): Product
 }

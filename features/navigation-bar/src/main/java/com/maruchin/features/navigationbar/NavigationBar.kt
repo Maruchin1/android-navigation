@@ -16,18 +16,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.maruchin.features.home.HOME_ROUTE
+import com.maruchin.features.home.HOME_GRAPH
 
 @Composable
 internal fun NavigationBar(navController: NavController) {
     val state = rememberNavigationBarState(navController)
 
     NavigationBar {
-        val isHomeSelected by state.isRouteSelected(HOME_ROUTE).collectAsState(initial = false)
+        val isHomeSelected by state.isRouteSelected(HOME_GRAPH).collectAsState(initial = false)
 
         NavigationBarItem(
             selected = isHomeSelected,
-            onClick = { state.openRoute(HOME_ROUTE) },
+            onClick = { state.openRoute(HOME_GRAPH) },
             icon = {
                 Icon(imageVector = Icons.Default.Home, contentDescription = null)
             }

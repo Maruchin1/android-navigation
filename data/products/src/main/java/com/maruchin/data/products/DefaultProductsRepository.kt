@@ -22,4 +22,8 @@ internal class DefaultProductsRepository @Inject constructor(
     override suspend fun findByTitle(title: String): List<Product> {
         return productsApi.findByTitle(title).map { it.toDomainModel() }
     }
+
+    override suspend fun getById(id: Int): Product {
+        return productsApi.getById(id).toDomainModel()
+    }
 }

@@ -22,4 +22,8 @@ internal class ProductsApi @Inject constructor(private val client: HttpClient) {
             it.title.contains(title, ignoreCase = true)
         }
     }
+
+    suspend fun getById(id: Int): ProductApiModel {
+        return client.get("/products/$id").body()
+    }
 }

@@ -3,11 +3,15 @@ package com.maruchin.features.home
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.maruchin.data.categories.Category
+import com.maruchin.data.products.Product
 
-const val HOME_ROUTE = "home"
+internal const val HOME = "home"
 
-fun NavGraphBuilder.homeScreen(onShowAllFromCategory: (Category) -> Unit) {
-    composable(HOME_ROUTE) {
-        HomeScreen(onShowAllFromCategory = onShowAllFromCategory)
+internal fun NavGraphBuilder.homeScreen(
+    onShowAllFromCategory: (Category) -> Unit,
+    onShowProduct: (Product) -> Unit
+) {
+    composable(HOME) {
+        HomeScreen(onShowAllFromCategory = onShowAllFromCategory, onShowProduct = onShowProduct)
     }
 }

@@ -2,6 +2,7 @@
 
 package com.maruchin.features.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,11 +37,15 @@ import com.maruchin.data.products.sampleProducts
 import java.net.URL
 
 @Composable
-internal fun HomeScreen(onShowAllFromCategory: (Category) -> Unit) {
+internal fun HomeScreen(
+    onShowAllFromCategory: (Category) -> Unit,
+    onShowProduct: (Product) -> Unit
+) {
     val viewModel: HomeViewModel = hiltViewModel()
     HomeScreen(
         products = viewModel.products,
-        onShowAllFromCategory = onShowAllFromCategory
+        onShowAllFromCategory = onShowAllFromCategory,
+        onShowProduct = onShowProduct,
     )
 }
 
@@ -48,6 +53,7 @@ internal fun HomeScreen(onShowAllFromCategory: (Category) -> Unit) {
 private fun HomeScreen(
     products: Map<Category, List<Product>>,
     onShowAllFromCategory: (Category) -> Unit,
+    onShowProduct: (Product) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -58,6 +64,7 @@ private fun HomeScreen(
                 products = products,
                 modifier = Modifier.padding(padding),
                 onShowAllFromCategory = onShowAllFromCategory,
+                onShowProduct = onShowProduct,
             )
         }
     )
@@ -81,6 +88,7 @@ private fun TopAppBar() {
 private fun CategoryProductsList(
     products: Map<Category, List<Product>>,
     onShowAllFromCategory: (Category) -> Unit,
+    onShowProduct: (Product) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -94,7 +102,8 @@ private fun CategoryProductsList(
                 CategoryHeadline(name = category.name)
                 ProductRow(
                     products = products,
-                    onShowAll = { onShowAllFromCategory(category) }
+                    onShowAll = { onShowAllFromCategory(category) },
+                    onShowProduct = onShowProduct,
                 )
             }
         }
@@ -111,7 +120,11 @@ private fun CategoryHeadline(name: String) {
 }
 
 @Composable
-private fun ProductRow(products: List<Product>, onShowAll: () -> Unit) {
+private fun ProductRow(
+    products: List<Product>,
+    onShowAll: () -> Unit,
+    onShowProduct: (Product) -> Unit
+) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -121,7 +134,8 @@ private fun ProductRow(products: List<Product>, onShowAll: () -> Unit) {
             ProductItem(
                 image = product.image,
                 title = product.title,
-                price = product.price
+                price = product.price,
+                onClick = { onShowProduct(product) }
             )
         }
         item {
@@ -131,9 +145,11 @@ private fun ProductRow(products: List<Product>, onShowAll: () -> Unit) {
 }
 
 @Composable
-private fun ProductItem(image: URL, title: String, price: Float) {
+private fun ProductItem(image: URL, title: String, price: Float, onClick: () -> Unit) {
     Column(
-        modifier = Modifier.width(150.dp),
+        modifier = Modifier
+            .width(150.dp)
+            .clickable { onClick() },
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         OutlinedCard {
@@ -185,7 +201,8 @@ private fun HomeScreenPreview() {
     MaterialTheme {
         HomeScreen(
             products = sampleProducts.groupBy { it.category },
-            onShowAllFromCategory = {}
+            onShowAllFromCategory = {},
+            onShowProduct = {},
         )
     }
 }
