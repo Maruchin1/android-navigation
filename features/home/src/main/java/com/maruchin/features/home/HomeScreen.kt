@@ -132,7 +132,7 @@ private fun ProductRow(
     ) {
         items(products) { product ->
             ProductItem(
-                image = product.image,
+                image = product.images.first(),
                 title = product.title,
                 price = product.price,
                 onClick = { onShowProduct(product) }

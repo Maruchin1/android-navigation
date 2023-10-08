@@ -133,7 +133,7 @@ private fun ProductImage(image: URL) {
 private fun GalleryScreenPreview() {
     MaterialTheme {
         GalleryScreen(
-            images = (1..5).map { sampleProducts[0].image },
+            images = sampleProducts[0].images,
             onBack = {},
         )
     }

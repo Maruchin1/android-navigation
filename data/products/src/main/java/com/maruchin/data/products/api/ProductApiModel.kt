@@ -21,7 +21,7 @@ internal fun ProductApiModel.toDomainModel() = Product(
     title = title,
     description = description,
     price = price,
-    image = URL(image),
+    images = (1..5).map { URL(image) },
     category = Category(category),
     rating = rating.toDomainModel(),
 )

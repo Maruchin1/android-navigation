@@ -75,7 +75,7 @@ private fun Content(product: Product, modifier: Modifier, onOpenGallery: () -> U
         item {
             OutlinedCard(onClick = onOpenGallery) {
                 AsyncImage(
-                    model = product.image.toString(),
+                    model = product.images.first().toString(),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()

@@ -30,6 +30,6 @@ internal class GalleryViewModel @Inject constructor(
 
     private fun loadImages() = viewModelScope.launch {
         val product = productsRepository.getById(productId)
-        images = (1..5).map { product.image }
+        images = product.images
     }
 }
