@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.home.homeGraph
+import com.maruchin.features.productbrowser.category.deeplinkToCategory
 import com.maruchin.features.productbrowser.productBrowserGraph
 
 @Composable
@@ -20,7 +21,12 @@ fun NavigationBarHost() {
         }
     ) { padding ->
         NavHost(navController, HOME_GRAPH_ROUTE, modifier = Modifier.padding(padding)) {
-            homeGraph(navController)
+            homeGraph(
+                navController = navController,
+                onShowAllFromCategory = { category ->
+                    navController.deeplinkToCategory(category.name)
+                }
+            )
             productBrowserGraph(navController)
         }
     }
