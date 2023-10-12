@@ -6,5 +6,7 @@ interface CategoriesRepository {
 
     fun getAll(): Flow<List<Category>>
 
+    fun getRecommended(): Flow<List<Category>>
+
     fun getById(id: CategoryId): Flow<Category?>
 }

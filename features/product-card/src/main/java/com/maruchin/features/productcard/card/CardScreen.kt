@@ -110,7 +110,7 @@ private fun Image(image: URL, onOpenGallery: () -> Unit) {
 
 @Composable
 private fun TitleText(product: Product) {
-    Text(text = product.title, style = MaterialTheme.typography.headlineMedium)
+    Text(text = product.name, style = MaterialTheme.typography.headlineMedium)
 }
 
 @Composable

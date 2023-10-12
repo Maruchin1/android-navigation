@@ -16,7 +16,7 @@ data class ProductFilters(
 
         operator fun invoke(products: List<Product>): List<Product> {
             return when (this) {
-                ALPHABETICALLY -> products.sortedBy { it.title }
+                ALPHABETICALLY -> products.sortedBy { it.name }
                 PRICE_FROM_THE_LOWEST -> products.sortedBy { it.price }
                 PRICE_FROM_THE_HIGHEST -> products.sortedByDescending { it.price }
             }

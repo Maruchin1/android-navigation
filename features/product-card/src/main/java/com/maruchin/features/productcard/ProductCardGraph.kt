@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import com.maruchin.data.products.ProductId
 import com.maruchin.features.productcard.card.CARD_ROUTE
 import com.maruchin.features.productcard.card.cardScreen
 import com.maruchin.features.productcard.gallery.galleryScreen
@@ -14,9 +15,9 @@ import com.maruchin.features.productcard.gallery.navigateToGallery
 private const val PRODUCT_ID_ARG = "productId"
 const val PRODUCT_CARD_GRAPH_ROUTE = "product-card-graph/{$PRODUCT_ID_ARG}"
 
-internal data class ProductCardArgs(val productId: Int) {
+internal data class ProductCardArgs(val productId: ProductId) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        productId = requireNotNull(savedStateHandle[PRODUCT_ID_ARG])
+        productId = ProductId(requireNotNull(savedStateHandle[PRODUCT_ID_ARG]))
     )
 }
 
@@ -44,6 +45,6 @@ fun NavGraphBuilder.productCardGraph(navController: NavController) {
     }
 }
 
-fun NavController.navigateToProductCardGraph(productId: Int) {
-    navigate(PRODUCT_CARD_GRAPH_ROUTE.replace("{$PRODUCT_ID_ARG}", productId.toString()))
+fun NavController.navigateToProductCardGraph(productId: ProductId) {
+    navigate(PRODUCT_CARD_GRAPH_ROUTE.replace("{$PRODUCT_ID_ARG}", productId.value))
 }

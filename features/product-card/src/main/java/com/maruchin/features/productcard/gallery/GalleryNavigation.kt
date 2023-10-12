@@ -9,13 +9,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
+import com.maruchin.data.products.ProductId
 
 private const val PRODUCT_ID_ARG = "productId"
 private const val GALLERY_ROUTE = "gallery/{$PRODUCT_ID_ARG}"
 
-internal data class GalleryArgs(val productId: Int) {
+internal data class GalleryArgs(val productId: ProductId) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        productId = requireNotNull(savedStateHandle[PRODUCT_ID_ARG])
+        productId = ProductId(requireNotNull(savedStateHandle[PRODUCT_ID_ARG]))
     )
 }
 
@@ -35,6 +36,6 @@ internal fun NavGraphBuilder.galleryScreen(onBack: () -> Unit) {
     }
 }
 
-internal fun NavController.navigateToGallery(productId: Int) {
-    navigate(GALLERY_ROUTE.replace("{$PRODUCT_ID_ARG}", productId.toString()))
+internal fun NavController.navigateToGallery(productId: ProductId) {
+    navigate(GALLERY_ROUTE.replace("{$PRODUCT_ID_ARG}", productId.value))
 }

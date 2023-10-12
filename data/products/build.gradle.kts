@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:categories"))
+    api(project(":data:categories"))
 
     implementation(libs.bundles.ktor)
     implementation(libs.hilt)

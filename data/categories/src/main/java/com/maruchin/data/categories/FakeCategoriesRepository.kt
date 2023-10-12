@@ -15,20 +15,15 @@ internal class FakeCategoriesRepository @Inject constructor() : CategoriesReposi
         return categories
     }
 
-    override fun getById(id: CategoryId): Flow<Category?> {
-        return categories
-            .map(::flattenCategories)
-            .map { findCategory(it, id) }
-    }
-
-    private fun flattenCategories(categories: List<Category>): List<Category> {
-        return categories.flatMap { category ->
-            val subcategories = category.subcategories
-            listOf(category) + flattenCategories(subcategories)
+    override fun getRecommended(): Flow<List<Category>> {
+        return categories.map { categories ->
+            categories.flatten().filter { it.isFinal }
         }
     }
 
-    private fun findCategory(categories: List<Category>, id: CategoryId): Category? {
-        return categories.find { it.id == id }
+    override fun getById(id: CategoryId): Flow<Category?> {
+        return categories.map { categories ->
+            categories.flatten().find { it.id == id }
+        }
     }
 }

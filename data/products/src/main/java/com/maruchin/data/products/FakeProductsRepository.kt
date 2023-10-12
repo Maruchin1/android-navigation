@@ -12,34 +12,37 @@ private const val RECOMMENDED_LIMIT = 3
 
 @Singleton
 internal class FakeProductsRepository @Inject constructor() : ProductsRepository {
-    private val products = MutableStateFlow<List<Product>>(emptyList())
+
+    private val products = MutableStateFlow(sampleProducts)
 
     override fun getForCategory(
         categoryId: CategoryId,
         filters: ProductFilters?
     ): Flow<List<Product>> {
         return products.map { products ->
-            products.filter { product ->
-                product.category.id == categoryId
-            }
+            products
+                .filter { it.categoryId == categoryId }
+                .let { filters?.invoke(it) }
+                ?: products
         }
     }
 
     override fun getRecommendedForCategory(categoryId: CategoryId): Flow<List<Product>> {
         return getForCategory(categoryId).map { products ->
-            products.take(RECOMMENDED_LIMIT)
+            if (products.size > RECOMMENDED_LIMIT) products.take(RECOMMENDED_LIMIT)
+            else products
         }
     }
 
     override fun findByTitle(title: String): Flow<List<Product>> {
         return products.map { products ->
             products.filter { product ->
-                product.title.contains(title, ignoreCase = true)
+                product.name.contains(title, ignoreCase = true)
             }
         }
     }
 
-    override fun getById(id: Int): Flow<Product> {
+    override fun getById(id: ProductId): Flow<Product> {
         return products.map { products ->
             products.find { product ->
                 product.id == id
@@ -47,7 +50,7 @@ internal class FakeProductsRepository @Inject constructor() : ProductsRepository
         }.filterNotNull()
     }
 
-    override suspend fun updateIsFavorite(id: Int, isFavorite: Boolean) {
+    override suspend fun updateIsFavorite(id: ProductId, isFavorite: Boolean) {
         val updatedProducts = products.value.map { product ->
             if (product.id == id) {
                 product.copy(isFavorite = isFavorite)

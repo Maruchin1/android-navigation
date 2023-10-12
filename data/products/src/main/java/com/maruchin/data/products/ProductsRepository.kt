@@ -11,7 +11,7 @@ interface ProductsRepository {
 
     fun findByTitle(title: String): Flow<List<Product>>
 
-    fun getById(id: Int): Flow<Product>
+    fun getById(id: ProductId): Flow<Product>
 
-    suspend fun updateIsFavorite(id: Int, isFavorite: Boolean)
+    suspend fun updateIsFavorite(id: ProductId, isFavorite: Boolean)
 }
