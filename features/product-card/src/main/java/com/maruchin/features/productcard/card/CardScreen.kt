@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.Rating
-import com.maruchin.data.products.sampleProducts
 import java.net.URL
 
 @Composable
@@ -153,6 +152,6 @@ private fun Description(description: String) {
 @Composable
 private fun CardScreenPreview() {
     MaterialTheme {
-        CardScreen(product = sampleProducts[0], onBack = {}, onOpenGallery = {})
+        CardScreen(product = null, onBack = {}, onOpenGallery = {})
     }
 }

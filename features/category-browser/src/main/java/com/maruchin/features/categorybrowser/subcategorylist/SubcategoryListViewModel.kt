@@ -1,23 +1,22 @@
-package com.maruchin.features.productcard.card
+package com.maruchin.features.categorybrowser.subcategorylist
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.data.products.ProductsRepository
-import com.maruchin.features.productcard.ProductCardArgs
+import com.maruchin.data.categories.CategoriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-internal class CardViewModel @Inject constructor(
+internal class SubcategoryListViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val productsRepository: ProductsRepository,
+    private val categoriesRepository: CategoriesRepository,
 ) : ViewModel() {
 
-    private val args = ProductCardArgs(savedStateHandle)
+    private val args = SubcategoryListArgs(savedStateHandle)
 
-    val product = productsRepository.getById(args.productId)
+    val category = categoriesRepository.getById(args.categoryId)
         .stateIn(viewModelScope, SharingStarted.Lazily, null)
 }

@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 internal interface DataProductsModule {
 
     @Binds
-    fun productsRepository(impl: DefaultProductsRepository): ProductsRepository
+    fun productsRepository(impl: FakeProductsRepository): ProductsRepository
 
     @Binds
     fun productFiltersRepository(impl: DefaultProductFiltersRepository): ProductFiltersRepository

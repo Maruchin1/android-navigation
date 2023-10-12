@@ -16,7 +16,7 @@ internal fun NavGraphBuilder.productListScreen(
     composable(route = PRODUCT_LIST_ROUTE) {
         val viewModel: ProductListViewModel = hiltViewModel()
         ProductListScreen(
-            category = viewModel.category,
+            category = viewModel.category.collectAsState().value,
             products = viewModel.products.collectAsState().value,
             onBack = onBack,
             onShowProduct = onShowProduct,

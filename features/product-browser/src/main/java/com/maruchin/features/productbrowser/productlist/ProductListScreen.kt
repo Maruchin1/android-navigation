@@ -20,7 +20,6 @@ import com.maruchin.core.ui.ProductGrid
 import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.data.products.Product
-import com.maruchin.data.products.sampleProducts
 
 @Composable
 internal fun ProductListScreen(
@@ -68,7 +67,7 @@ private fun ProductListScreenPreview() {
     MaterialTheme {
         ProductListScreen(
             category = sampleCategories.first(),
-            products = sampleProducts,
+            products = emptyList(),
             onBack = {},
             onShowProduct = {},
             onShowFilters = {},

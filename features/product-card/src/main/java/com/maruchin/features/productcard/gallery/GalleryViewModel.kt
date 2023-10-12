@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.maruchin.data.products.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -19,7 +18,7 @@ internal class GalleryViewModel @Inject constructor(
 
     private val args = GalleryArgs(savedStateHandle)
 
-    val images = flow { emit(productsRepository.getById(args.productId)) }
+    val images = productsRepository.getById(args.productId)
         .map { it.images }
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 }

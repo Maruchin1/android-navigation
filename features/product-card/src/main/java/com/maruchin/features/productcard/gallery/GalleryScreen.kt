@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.maruchin.data.products.sampleProducts
 import java.net.URL
 
 @Composable
@@ -123,7 +122,7 @@ private fun ProductImage(image: URL) {
 private fun GalleryScreenPreview() {
     MaterialTheme {
         GalleryScreen(
-            images = sampleProducts[0].images,
+            images = emptyList(),
             onBack = {},
         )
     }

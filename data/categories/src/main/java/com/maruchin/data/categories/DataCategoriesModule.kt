@@ -10,5 +10,5 @@ import dagger.hilt.components.SingletonComponent
 internal interface DataCategoriesModule {
 
     @Binds
-    fun categoriesRepository(impl: DefaultCategoriesRepository): CategoriesRepository
+    fun categoriesRepository(impl: FakeCategoriesRepository): CategoriesRepository
 }

@@ -28,7 +28,6 @@ import com.maruchin.core.ui.AllProductsButton
 import com.maruchin.core.ui.ProductItem
 import com.maruchin.data.categories.Category
 import com.maruchin.data.products.Product
-import com.maruchin.data.products.sampleProducts
 
 @Composable
 internal fun HomeScreen(
@@ -135,7 +134,7 @@ private fun ProductRow(
 private fun HomeScreenPreview() {
     MaterialTheme {
         HomeScreen(
-            products = sampleProducts.groupBy { it.category },
+            products = emptyMap(),
             onShowProductsFromCategory = {},
             onShowProduct = {},
         )

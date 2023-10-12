@@ -1,14 +1,17 @@
 package com.maruchin.data.products
 
-import com.maruchin.data.categories.Category
+import com.maruchin.data.categories.CategoryId
+import kotlinx.coroutines.flow.Flow
 
 interface ProductsRepository {
 
-    suspend fun getForCategory(category: Category, filters: ProductFilters? = null): List<Product>
+    fun getForCategory(categoryId: CategoryId, filters: ProductFilters? = null): Flow<List<Product>>
 
-    suspend fun getRecommendedForCategory(category: Category): List<Product>
+    fun getRecommendedForCategory(categoryId: CategoryId): Flow<List<Product>>
 
-    suspend fun findByTitle(title: String): List<Product>
+    fun findByTitle(title: String): Flow<List<Product>>
 
-    suspend fun getById(id: Int): Product
+    fun getById(id: Int): Flow<Product>
+
+    suspend fun updateIsFavorite(id: Int, isFavorite: Boolean)
 }

@@ -1,6 +1,10 @@
 package com.maruchin.data.categories
 
+import kotlinx.coroutines.flow.Flow
+
 interface CategoriesRepository {
 
-    suspend fun getAll(): List<Category>
+    fun getAll(): Flow<List<Category>>
+
+    fun getById(id: CategoryId): Flow<Category?>
 }

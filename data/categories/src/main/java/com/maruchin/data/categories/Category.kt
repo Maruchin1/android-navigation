@@ -1,11 +1,16 @@
 package com.maruchin.data.categories
 
-@JvmInline
-value class Category(val name: String)
+data class Category(
+    val id: CategoryId,
+    val name: String,
+    val subcategories: List<Category>,
+) {
 
-val sampleCategories = listOf(
-    Category(name = "Electronics"),
-    Category(name = "Jewelry"),
-    Category(name = "Men's Clothing"),
-    Category(name = "Women's Clothing"),
-)
+    val isFinal: Boolean
+        get() = subcategories.isEmpty()
+}
+
+@JvmInline
+value class CategoryId(val value: String)
+
+
