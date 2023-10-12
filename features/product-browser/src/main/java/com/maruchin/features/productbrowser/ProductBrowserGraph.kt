@@ -11,7 +11,7 @@ import com.maruchin.features.productbrowser.filters.navigateToFilters
 import com.maruchin.features.productbrowser.productlist.PRODUCT_LIST_ROUTE
 import com.maruchin.features.productbrowser.productlist.productListScreen
 
-private const val CATEGORY_ID = "categoryName"
+private const val CATEGORY_ID = "categoryId"
 const val PRODUCT_BROWSER_GRAPH_ROUTE = "product-browser-graph/{$CATEGORY_ID}"
 
 internal data class ProductBrowserArgs(val categoryId: CategoryId) {
@@ -42,7 +42,7 @@ fun NavGraphBuilder.productBrowserGraph(
     }
 }
 
-fun NavController.navigateToProductBrowserGraph(categoryName: String) {
-    val route = PRODUCT_BROWSER_GRAPH_ROUTE.replace("{$CATEGORY_ID}", categoryName)
+fun NavController.navigateToProductBrowserGraph(categoryId: CategoryId) {
+    val route = PRODUCT_BROWSER_GRAPH_ROUTE.replace("{$CATEGORY_ID}", categoryId.value)
     navigate(route)
 }

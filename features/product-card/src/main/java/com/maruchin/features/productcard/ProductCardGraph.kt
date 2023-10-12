@@ -3,9 +3,7 @@ package com.maruchin.features.productcard
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.navigation
-import androidx.navigation.navArgument
 import com.maruchin.data.products.ProductId
 import com.maruchin.features.productcard.card.CARD_ROUTE
 import com.maruchin.features.productcard.card.cardScreen
@@ -22,13 +20,7 @@ internal data class ProductCardArgs(val productId: ProductId) {
 }
 
 fun NavGraphBuilder.productCardGraph(navController: NavController) {
-    navigation(
-        startDestination = CARD_ROUTE,
-        route = PRODUCT_CARD_GRAPH_ROUTE,
-        arguments = listOf(
-            navArgument(PRODUCT_ID_ARG) { type = NavType.IntType }
-        )
-    ) {
+    navigation(startDestination = CARD_ROUTE, route = PRODUCT_CARD_GRAPH_ROUTE) {
         cardScreen(
             onBack = {
                 navController.navigateUp()

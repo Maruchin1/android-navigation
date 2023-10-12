@@ -6,9 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.dialog
-import androidx.navigation.navArgument
 import com.maruchin.data.products.ProductId
 
 private const val PRODUCT_ID_ARG = "productId"
@@ -23,9 +21,6 @@ internal data class GalleryArgs(val productId: ProductId) {
 internal fun NavGraphBuilder.galleryScreen(onBack: () -> Unit) {
     dialog(
         route = GALLERY_ROUTE,
-        arguments = listOf(
-            navArgument(PRODUCT_ID_ARG) { type = NavType.IntType }
-        ),
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: GalleryViewModel = hiltViewModel()

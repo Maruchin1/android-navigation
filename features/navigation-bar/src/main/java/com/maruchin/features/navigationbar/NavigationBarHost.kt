@@ -27,7 +27,7 @@ fun NavigationBarHost() {
             homeGraph(
                 navController = navController,
                 onShowProductsFromCategory = { category ->
-                    navController.navigateToProductBrowserGraph(category.name)
+                    navController.navigateToProductBrowserGraph(category.id)
                 },
                 onShowProduct = { product ->
                     navController.navigateToProductCardGraph(product.id)
@@ -36,7 +36,7 @@ fun NavigationBarHost() {
             categoryBrowserGraph(
                 navController = navController,
                 onShowCategory = { category ->
-                    navController.navigateToProductBrowserGraph(category.name)
+                    navController.navigateToProductBrowserGraph(category.id)
                 }
             )
             productBrowserGraph(
