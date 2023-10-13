@@ -54,16 +54,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:categories"))
-    implementation(project(":data:products"))
-
     implementation(project(":features:home"))
-    implementation(project(":features:navigation-bar"))
+    implementation(project(":features:category-browser"))
+    implementation(project(":features:product-browser"))
+    implementation(project(":features:product-card"))
+    implementation(project(":features:login"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)
     implementation(libs.bundles.ui)
-    implementation(libs.bundles.ktor)
+    implementation(libs.bundles.navigation)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     testImplementation(libs.bundles.test.unit)

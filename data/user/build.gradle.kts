@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maruchin.features.navigationbar"
+    namespace = "com.maruchin.data.user"
     compileSdk = 34
 
     defaultConfig {
@@ -26,28 +26,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 }
 
 dependencies {
-    implementation(project(":features:home"))
-    implementation(project(":features:category-browser"))
-    implementation(project(":features:product-browser"))
-    implementation(project(":features:product-card"))
-
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.ui)
-    implementation(libs.bundles.navigation)
     implementation(libs.hilt)
-
     kapt(libs.hilt.compiler)
-
-    debugImplementation(libs.compose.ui.tooling)
 }

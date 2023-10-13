@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maruchin.features.home"
+    namespace = "com.maruchin.features.login"
     compileSdk = 34
 
     defaultConfig {
@@ -37,8 +37,7 @@ android {
 }
 
 dependencies {
-    api(project(":domain:products"))
-    api(project(":data:user"))
+    implementation(project(":data:user"))
     implementation(project(":core:ui"))
 
     implementation(platform(libs.compose.bom))

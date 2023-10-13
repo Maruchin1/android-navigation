@@ -11,12 +11,14 @@ const val HOME_GRAPH_ROUTE = "home-graph"
 fun NavGraphBuilder.homeGraph(
     navController: NavController,
     onShowProductsFromCategory: (Category) -> Unit,
-    onShowProduct: (Product) -> Unit
+    onShowProduct: (Product) -> Unit,
+    onLogin: () -> Unit,
 ) {
     navigation(startDestination = HOME_ROUTE, route = HOME_GRAPH_ROUTE) {
         homeScreen(
             onShowProductsFromCategory = onShowProductsFromCategory,
             onShowProduct = onShowProduct,
+            onLogin = onLogin,
         )
     }
 }

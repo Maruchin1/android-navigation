@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.ktor)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 }

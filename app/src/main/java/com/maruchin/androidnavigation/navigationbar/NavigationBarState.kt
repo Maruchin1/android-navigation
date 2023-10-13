@@ -1,4 +1,4 @@
-package com.maruchin.features.navigationbar
+package com.maruchin.androidnavigation.navigationbar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable

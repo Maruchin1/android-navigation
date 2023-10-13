@@ -11,14 +11,17 @@ internal const val HOME_ROUTE = "home"
 
 internal fun NavGraphBuilder.homeScreen(
     onShowProductsFromCategory: (Category) -> Unit,
-    onShowProduct: (Product) -> Unit
+    onShowProduct: (Product) -> Unit,
+    onLogin: () -> Unit,
 ) {
     composable(HOME_ROUTE) {
         val viewModel: HomeViewModel = hiltViewModel()
         HomeScreen(
             products = viewModel.products.collectAsState().value,
+            canLogin = viewModel.canLogin.collectAsState().value,
             onShowProductsFromCategory = onShowProductsFromCategory,
             onShowProduct = onShowProduct,
+            onLogin = onLogin,
         )
     }
 }

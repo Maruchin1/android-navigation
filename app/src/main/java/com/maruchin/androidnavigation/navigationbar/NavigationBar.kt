@@ -1,4 +1,4 @@
-package com.maruchin.features.navigationbar
+package com.maruchin.androidnavigation.navigationbar
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite

@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.serialization)
     kotlin("kapt")
 }
 
@@ -31,8 +30,6 @@ android {
 
 dependencies {
     api(project(":data:categories"))
-
-    implementation(libs.bundles.ktor)
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 }

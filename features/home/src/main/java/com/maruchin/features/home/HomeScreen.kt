@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.maruchin.features.home
 
 import androidx.compose.foundation.layout.Arrangement
@@ -29,17 +27,20 @@ import com.maruchin.core.ui.ProductItem
 import com.maruchin.data.categories.Category
 import com.maruchin.data.products.Product
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
     products: Map<Category, List<Product>>,
+    canLogin: Boolean,
     onShowProductsFromCategory: (Category) -> Unit,
     onShowProduct: (Product) -> Unit,
+    onLogin: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
         topBar = {
-            TopAppBar(scrollBehavior = scrollBehavior)
+            TopAppBar(canLogin = canLogin, scrollBehavior = scrollBehavior, onLogin = onLogin)
         },
         content = { padding ->
             CategoryProductsList(
@@ -54,15 +55,22 @@ internal fun HomeScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior) {
+private fun TopAppBar(
+    canLogin: Boolean,
+    scrollBehavior: TopAppBarScrollBehavior,
+    onLogin: () -> Unit
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(text = "Home")
         },
         actions = {
-            TextButton(onClick = { /*TODO*/ }) {
-                Text(text = "Login")
+            if (canLogin) {
+                TextButton(onClick = onLogin) {
+                    Text(text = "Login")
+                }
             }
         },
         scrollBehavior = scrollBehavior,
@@ -135,8 +143,10 @@ private fun HomeScreenPreview() {
     MaterialTheme {
         HomeScreen(
             products = emptyMap(),
+            canLogin = true,
             onShowProductsFromCategory = {},
             onShowProduct = {},
+            onLogin = {}
         )
     }
 }
