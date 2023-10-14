@@ -28,6 +28,7 @@ fun PasswordField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    label: String = "Password",
     error: String? = null
 ) {
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -39,7 +40,7 @@ fun PasswordField(
             .fillMaxWidth()
             .then(modifier),
         label = {
-            Text(text = "Password")
+            Text(text = label)
         },
         leadingIcon = {
             Icon(imageVector = Icons.Default.Password, contentDescription = null)

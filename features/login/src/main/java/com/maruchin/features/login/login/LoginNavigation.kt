@@ -7,7 +7,11 @@ import androidx.navigation.compose.composable
 
 internal const val LOGIN_ROUTE = "login"
 
-internal fun NavGraphBuilder.loginScreen(onBack: () -> Unit, onRegister: () -> Unit) {
+internal fun NavGraphBuilder.loginScreen(
+    onBack: () -> Unit,
+    onRegister: () -> Unit,
+    onForgotPassword: () -> Unit
+) {
     composable(LOGIN_ROUTE) {
         val viewModel: LoginViewModel = hiltViewModel()
 
@@ -23,6 +27,7 @@ internal fun NavGraphBuilder.loginScreen(onBack: () -> Unit, onRegister: () -> U
             onBack = onBack,
             onLogin = viewModel::login,
             onRegister = onRegister,
+            onForgotPassword = onForgotPassword,
         )
     }
 }

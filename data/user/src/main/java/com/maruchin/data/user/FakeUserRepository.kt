@@ -24,4 +24,8 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         delay(1_000)
         user.emit(User.LoggedOut)
     }
+
+    override suspend fun changePassword(newPassword: Password, token: Token) {
+        delay(1_000)
+    }
 }

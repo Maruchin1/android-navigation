@@ -3,6 +3,9 @@ package com.maruchin.features.login
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
+import com.maruchin.features.login.changepassword.changePasswordScreen
+import com.maruchin.features.login.forgotpassword.forgotPasswordScreen
+import com.maruchin.features.login.forgotpassword.navigateToForgotPassword
 import com.maruchin.features.login.login.LOGIN_ROUTE
 import com.maruchin.features.login.login.loginScreen
 
@@ -16,6 +19,22 @@ fun NavGraphBuilder.loginGraph(navController: NavController) {
             },
             onRegister = {
 
+            },
+            onForgotPassword = {
+                navController.navigateToForgotPassword()
+            }
+        )
+        forgotPasswordScreen(
+            onBack = {
+                navController.navigateUp()
+            },
+        )
+        changePasswordScreen(
+            onClose = {
+                navController.navigateUp()
+            },
+            onLoggedIn = {
+                navController.popBackStack(route = LOGIN_GRAPH_ROUTE, inclusive = true)
             }
         )
     }

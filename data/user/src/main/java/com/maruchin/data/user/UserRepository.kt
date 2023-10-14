@@ -9,4 +9,6 @@ interface UserRepository {
     suspend fun login(email: Email, password: Password)
 
     suspend fun logout()
+
+    suspend fun changePassword(newPassword: Password, token: Token)
 }

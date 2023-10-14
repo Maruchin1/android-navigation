@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +34,8 @@ internal fun LoginScreen(
     isLoading: Boolean,
     onBack: () -> Unit,
     onLogin: () -> Unit,
-    onRegister: () -> Unit
+    onRegister: () -> Unit,
+    onForgotPassword: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -65,6 +67,14 @@ internal fun LoginScreen(
                         state = loginFormState,
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
+                    TextButton(
+                        onClick = onForgotPassword,
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .padding(end = 16.dp, top = 8.dp)
+                    ) {
+                        Text(text = "Forgot password?")
+                    }
                     Spacer(modifier = Modifier.height(48.dp))
                     Button(
                         onClick = onLogin,
@@ -96,10 +106,11 @@ private fun LoginScreenPreview() {
     MaterialTheme {
         LoginScreen(
             loginFormState = rememberLoginFormState(),
-            isLoading = true,
+            isLoading = false,
             onBack = {},
             onLogin = {},
-            onRegister = {}
+            onRegister = {},
+            onForgotPassword = {},
         )
     }
 }

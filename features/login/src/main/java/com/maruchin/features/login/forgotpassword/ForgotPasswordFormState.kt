@@ -1,4 +1,4 @@
-package com.maruchin.features.login.login
+package com.maruchin.features.login.forgotpassword
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -8,10 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.maruchin.data.user.Email
-import com.maruchin.data.user.Password
 
 @Stable
-internal class LoginFormState {
+internal class ForgotPasswordFormState {
 
     var email by mutableStateOf("")
         private set
@@ -19,37 +18,23 @@ internal class LoginFormState {
     var emailError by mutableStateOf<String?>(null)
         private set
 
-    var password by mutableStateOf("")
-        private set
-
-    var passwordError by mutableStateOf<String?>(null)
-        private set
-
     val isValid by derivedStateOf {
-        Email.isValid(email) && Password.isValid(password)
+        Email.isValid(email)
     }
 
     fun enterEmail(email: String) {
         this.email = email
-        emailError = when (Email.validate(email)) {
+        this.emailError = when (Email.validate(email)) {
             Email.ValidationResult.VALID -> null
             Email.ValidationResult.EMPTY -> "Email cannot be empty"
             Email.ValidationResult.INVALID_FORMAT -> "Invalid email format"
         }
     }
-
-    fun enterPassword(password: String) {
-        this.password = password
-        passwordError = when (Password.validate(password)) {
-            Password.ValidationResult.VALID -> null
-            Password.ValidationResult.EMPTY -> "Password cannot be empty"
-        }
-    }
 }
 
 @Composable
-internal fun rememberLoginFormState(): LoginFormState {
+internal fun rememberForgotPasswordFormState(): ForgotPasswordFormState {
     return remember {
-        LoginFormState()
+        ForgotPasswordFormState()
     }
 }

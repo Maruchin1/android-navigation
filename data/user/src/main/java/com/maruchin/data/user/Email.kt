@@ -13,6 +13,10 @@ value class Email(val value: String) {
                 else -> ValidationResult.VALID
             }
         }
+
+        fun isValid(value: String): Boolean {
+            return validate(value) == ValidationResult.VALID
+        }
     }
 
     enum class ValidationResult {
