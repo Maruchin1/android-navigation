@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":features:product-browser"))
     implementation(project(":features:product-card"))
     implementation(project(":features:login"))
+    implementation(project(":features:profile"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)

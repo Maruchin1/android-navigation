@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 internal class FakeUserRepository @Inject constructor() : UserRepository {
 
-    private val user = MutableStateFlow<User>(User.LoggedOut)
+    private val user = MutableStateFlow<User>(sampleLoggedUser)
 
     override fun get(): Flow<User> {
         return user
@@ -17,7 +17,7 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
 
     override suspend fun login(email: Email, password: Password) {
         delay(1_000)
-        user.emit(User.LoggedIn)
+        user.emit(sampleLoggedUser)
     }
 
     override suspend fun logout() {

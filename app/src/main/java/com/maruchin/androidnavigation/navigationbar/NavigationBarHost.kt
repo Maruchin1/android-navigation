@@ -19,6 +19,7 @@ import com.maruchin.features.productbrowser.navigateToProductBrowserGraph
 import com.maruchin.features.productbrowser.productBrowserGraph
 import com.maruchin.features.productcard.navigateToProductCardGraph
 import com.maruchin.features.productcard.productCardGraph
+import com.maruchin.features.profile.profileGraph
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
@@ -61,6 +62,7 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                         navController.navigateToProductBrowserGraph(category.id)
                     }
                 )
+                profileGraph(navController = navController)
                 productBrowserGraph(
                     navController = navController,
                     onShowProduct = { product ->

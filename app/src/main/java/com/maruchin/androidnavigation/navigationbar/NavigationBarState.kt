@@ -7,12 +7,17 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.maruchin.features.categorybrowser.CATEGORY_BROWSER_GRAPH_ROUTE
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
+import com.maruchin.features.profile.PROFILE_GRAPH_ROUTE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @Stable
 internal class NavigationBarState(private val navController: NavController) {
-    private val navigationBarRoutes = listOf(HOME_GRAPH_ROUTE, CATEGORY_BROWSER_GRAPH_ROUTE)
+    private val navigationBarRoutes = listOf(
+        HOME_GRAPH_ROUTE,
+        CATEGORY_BROWSER_GRAPH_ROUTE,
+        PROFILE_GRAPH_ROUTE,
+    )
 
     fun isRouteSelected(route: String): Flow<Boolean> {
         return navController.currentBackStack.map { backStack ->
