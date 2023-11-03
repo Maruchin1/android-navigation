@@ -4,5 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PromotionsRepository {
 
-    fun getAvailablePromotions(): Flow<List<Promotion>>
+    fun getAvailable(): Flow<List<Promotion>>
+
+    fun getById(id: PromotionId): Flow<Promotion>
 }

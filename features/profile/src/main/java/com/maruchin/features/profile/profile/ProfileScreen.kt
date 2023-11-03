@@ -18,7 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.maruchin.data.promotions.PromotionId
 import com.maruchin.features.profile.club.ClubPage
+import com.maruchin.features.profile.promotions.PromotionsPage
 
 private const val FIRST = 0
 private const val SECOND = 1
@@ -31,6 +33,7 @@ internal fun ProfileScreen(
     onOpenSettings: () -> Unit,
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit,
+    onOpenPromotion: (PromotionId) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -65,6 +68,10 @@ internal fun ProfileScreen(
                     FIRST -> ClubPage(
                         onOpenPurchaseHistory = onOpenPurchaseHistory,
                         onOpenFindOutMore = onOpenFindOutMore
+                    )
+
+                    SECOND -> PromotionsPage(
+                        onOpenPromotion = onOpenPromotion
                     )
                 }
             }
@@ -127,6 +134,7 @@ internal fun ProfileScreenPreview() {
         isLoggedIn = true,
         onOpenSettings = {},
         onOpenPurchaseHistory = {},
-        onOpenFindOutMore = {}
+        onOpenFindOutMore = {},
+        onOpenPromotion = {},
     )
 }

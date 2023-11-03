@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation(project(":data:user"))
+    implementation(project(":data:promotions"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

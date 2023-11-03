@@ -51,7 +51,7 @@ internal fun ClubPage(onOpenPurchaseHistory: () -> Unit, onOpenFindOutMore: () -
 }
 
 @Composable
-internal fun ClubPage(
+private fun ClubPage(
     user: User.LoggedIn,
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit

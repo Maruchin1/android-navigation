@@ -7,6 +7,8 @@ import com.maruchin.features.profile.findoutmore.findOutMoreScreen
 import com.maruchin.features.profile.findoutmore.navigateToFindOutMore
 import com.maruchin.features.profile.profile.PROFILE_ROUTE
 import com.maruchin.features.profile.profile.profileScreen
+import com.maruchin.features.profile.promotion.navigateToPromotion
+import com.maruchin.features.profile.promotion.promotionScreen
 import com.maruchin.features.profile.purchasehistory.navigateToPurchaseHistory
 import com.maruchin.features.profile.purchasehistory.purchaseHistoryScreen
 
@@ -22,6 +24,9 @@ fun NavGraphBuilder.profileGraph(navController: NavController) {
             onOpenFindOutMore = {
                 navController.navigateToFindOutMore()
             },
+            onOpenPromotion = { promotionId ->
+                navController.navigateToPromotion(promotionId)
+            }
         )
         purchaseHistoryScreen(
             onClose = {
@@ -30,6 +35,11 @@ fun NavGraphBuilder.profileGraph(navController: NavController) {
         )
         findOutMoreScreen(
             onClose = {
+                navController.navigateUp()
+            }
+        )
+        promotionScreen(
+            onBack = {
                 navController.navigateUp()
             }
         )
