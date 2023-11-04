@@ -11,6 +11,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.maruchin.core.ui.screenFadeIn
+import com.maruchin.core.ui.screenFadeOut
+import com.maruchin.core.ui.screenSlideIn
+import com.maruchin.core.ui.screenSlideOut
 import com.maruchin.features.categorybrowser.categoryBrowserGraph
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.home.homeGraph
@@ -45,7 +49,15 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                 SnackbarHost(snackbarHostState)
             }
         ) { padding ->
-            NavHost(navController, HOME_GRAPH_ROUTE, modifier = Modifier.padding(padding)) {
+            NavHost(
+                navController = navController,
+                startDestination = HOME_GRAPH_ROUTE,
+                modifier = Modifier.padding(padding),
+                enterTransition = { screenSlideIn() },
+                exitTransition = { screenFadeOut() },
+                popEnterTransition = { screenFadeIn() },
+                popExitTransition = { screenSlideOut() },
+            ) {
                 homeGraph(
                     navController = navController,
                     onShowProductsFromCategory = { category ->

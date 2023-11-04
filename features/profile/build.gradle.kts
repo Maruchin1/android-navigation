@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
     implementation(project(":data:user"))
     implementation(project(":data:promotions"))
 

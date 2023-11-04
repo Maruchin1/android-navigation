@@ -5,6 +5,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.androidnavigation.navigationbar.NAVIGATION_BAR_HOST_ROUTE
 import com.maruchin.androidnavigation.navigationbar.navigationBarHost
+import com.maruchin.core.ui.screenFadeIn
+import com.maruchin.core.ui.screenFadeOut
+import com.maruchin.core.ui.screenSlideIn
+import com.maruchin.core.ui.screenSlideOut
 import com.maruchin.features.login.loginGraph
 import com.maruchin.features.login.navigateToLoginGraph
 
@@ -12,7 +16,14 @@ import com.maruchin.features.login.navigateToLoginGraph
 internal fun RootHost() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NAVIGATION_BAR_HOST_ROUTE) {
+    NavHost(
+        navController = navController,
+        startDestination = NAVIGATION_BAR_HOST_ROUTE,
+        enterTransition = { screenSlideIn() },
+        exitTransition = { screenFadeOut() },
+        popEnterTransition = { screenFadeIn() },
+        popExitTransition = { screenSlideOut() },
+    ) {
         navigationBarHost(
             onLogin = {
                 navController.navigateToLoginGraph()

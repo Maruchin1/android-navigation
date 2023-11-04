@@ -39,6 +39,7 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)
+    implementation(libs.bundles.navigation)
 
     debugImplementation(libs.compose.ui.tooling)
 }
