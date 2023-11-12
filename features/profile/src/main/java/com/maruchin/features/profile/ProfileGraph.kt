@@ -24,14 +24,12 @@ const val PROFILE_GRAPH_ROUTE = "profile-graph"
 fun NavGraphBuilder.profileGraph(
     navController: NavController,
     context: Context,
-    onNavigateToSettings: () -> Unit,
     onNavigateToMyData: () -> Unit,
     onNavigateToLogin: () -> Unit,
     onNavigateToJoinClub: () -> Unit,
 ) {
     navigation(startDestination = PROFILE_ROUTE, route = PROFILE_GRAPH_ROUTE) {
         profileScreen(
-            onOpenSettings = onNavigateToSettings,
             onOpenPurchaseHistory = {
                 navController.navigateToPurchaseHistory()
             },

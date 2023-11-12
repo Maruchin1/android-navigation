@@ -37,6 +37,7 @@ internal fun MyDataScreen(
     onMyAddressesClick: () -> Unit,
     onChangePasswordClick: () -> Unit,
     onDeleteAccountClick: () -> Unit,
+    onLogoutClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -82,6 +83,7 @@ internal fun MyDataScreen(
             MyDataItem(text = "My addresses", onClick = onMyAddressesClick)
             MyDataItem(text = "Change password", onClick = onChangePasswordClick)
             MyDataItem(text = "Delete account", onClick = onDeleteAccountClick)
+            MyDataItem(text = "Logout", onClick = onLogoutClick)
         }
     }
 }
@@ -115,5 +117,6 @@ private fun MyDataScreenPreview() {
         onMyAddressesClick = {},
         onChangePasswordClick = {},
         onDeleteAccountClick = {},
+        onLogoutClick = {},
     )
 }

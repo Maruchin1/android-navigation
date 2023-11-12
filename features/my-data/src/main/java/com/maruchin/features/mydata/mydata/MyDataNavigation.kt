@@ -1,5 +1,6 @@
 package com.maruchin.features.mydata.mydata
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -14,10 +15,17 @@ internal fun NavGraphBuilder.myDataScreen(
     onNavigateToMyAddresses: () -> Unit,
     onNavigateToChangePassword: () -> Unit,
     onNavigateToDeleteAccount: () -> Unit,
+    onNavigateToProfile: () -> Unit,
 ) {
     composable(MY_DATA_ROUTE) {
         val viewModel: MyDataViewModel = hiltViewModel()
         val state by viewModel.uiState.collectAsState()
+
+        if (state.isLoggedOut) {
+            LaunchedEffect(Unit) {
+                onNavigateToProfile()
+            }
+        }
 
         MyDataScreen(
             state = state,
@@ -26,6 +34,7 @@ internal fun NavGraphBuilder.myDataScreen(
             onMyAddressesClick = onNavigateToMyAddresses,
             onChangePasswordClick = onNavigateToChangePassword,
             onDeleteAccountClick = onNavigateToDeleteAccount,
+            onLogoutClick = viewModel::logout,
         )
     }
 }

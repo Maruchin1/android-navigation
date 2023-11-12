@@ -85,8 +85,6 @@ internal fun NavGraphBuilder.navigationBarHost(
                 profileGraph(
                     navController = navController,
                     context = context,
-                    onNavigateToSettings = {
-                    },
                     onNavigateToMyData = {
                         navController.navigateToMyDataGraph()
                     },

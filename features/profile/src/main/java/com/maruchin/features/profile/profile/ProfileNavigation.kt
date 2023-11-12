@@ -12,7 +12,6 @@ import com.maruchin.data.promotions.PromotionId
 internal const val PROFILE_ROUTE = "profile"
 
 internal fun NavGraphBuilder.profileScreen(
-    onOpenSettings: () -> Unit,
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit,
     onOpenPromotion: (PromotionId) -> Unit,
@@ -34,7 +33,6 @@ internal fun NavGraphBuilder.profileScreen(
 
         ProfileScreen(
             state = state,
-            onOpenSettings = onOpenSettings,
             onOpenPurchaseHistory = onOpenPurchaseHistory,
             onOpenFindOutMore = onOpenFindOutMore,
             onOpenPromotion = onOpenPromotion,

@@ -7,6 +7,7 @@ internal data class MyDataUiState(
     val fullName: String = "",
     val email: String = "",
     val phoneNumber: String = "",
+    val isLoggedOut: Boolean = false,
 ) {
 
     constructor(user: User.LoggedIn) : this(

@@ -37,7 +37,8 @@ fun NavGraphBuilder.myDataGraph(navController: NavController, onNavigateToProfil
             },
             onNavigateToDeleteAccount = {
                 navController.navigateToDeleteAccount()
-            }
+            },
+            onNavigateToProfile = onNavigateToProfile
         )
         editMyDataScreen(
             onClose = {
