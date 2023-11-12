@@ -1,5 +1,8 @@
 package com.maruchin.features.profile.profile
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.maruchin.core.ui.screenFadeIn
@@ -16,6 +19,8 @@ internal fun NavGraphBuilder.profileScreen(
     onOpenMyData: () -> Unit,
     onOpenMyOrders: () -> Unit,
     onOpenReturns: () -> Unit,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToJoinClub: () -> Unit
 ) {
     composable(
         route = PROFILE_ROUTE,
@@ -24,8 +29,11 @@ internal fun NavGraphBuilder.profileScreen(
         popEnterTransition = { screenFadeIn() },
         popExitTransition = { screenFadeOut() },
     ) {
+        val viewModel: ProfileViewModel = hiltViewModel()
+        val state by viewModel.uiState.collectAsState()
+
         ProfileScreen(
-            isLoggedIn = true,
+            state = state,
             onOpenSettings = onOpenSettings,
             onOpenPurchaseHistory = onOpenPurchaseHistory,
             onOpenFindOutMore = onOpenFindOutMore,
@@ -33,6 +41,8 @@ internal fun NavGraphBuilder.profileScreen(
             onOpenMyData = onOpenMyData,
             onOpenMyOrders = onOpenMyOrders,
             onOpenReturns = onOpenReturns,
+            onNavigateToLogin = onNavigateToLogin,
+            onNavigateToJoinClub = onNavigateToJoinClub,
         )
     }
 }

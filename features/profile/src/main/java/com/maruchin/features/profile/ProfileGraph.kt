@@ -25,7 +25,9 @@ fun NavGraphBuilder.profileGraph(
     navController: NavController,
     context: Context,
     onNavigateToSettings: () -> Unit,
-    onNavigateToMyData: () -> Unit
+    onNavigateToMyData: () -> Unit,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToJoinClub: () -> Unit,
 ) {
     navigation(startDestination = PROFILE_ROUTE, route = PROFILE_GRAPH_ROUTE) {
         profileScreen(
@@ -46,6 +48,8 @@ fun NavGraphBuilder.profileGraph(
             onOpenReturns = {
                 navController.navigateToReturns()
             },
+            onNavigateToLogin = onNavigateToLogin,
+            onNavigateToJoinClub = onNavigateToJoinClub,
         )
         purchaseHistoryScreen(
             onClose = {

@@ -25,8 +25,11 @@ internal fun RootHost() {
         popExitTransition = { screenSlideOut() },
     ) {
         navigationBarHost(
-            onLogin = {
+            onNavigateToLogin = {
                 navController.navigateToLoginGraph()
+            },
+            onNavigateToJoinClub = {
+
             }
         )
         loginGraph(navController)

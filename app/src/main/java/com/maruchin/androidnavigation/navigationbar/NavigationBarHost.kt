@@ -33,7 +33,10 @@ import kotlinx.coroutines.flow.map
 
 internal const val NAVIGATION_BAR_HOST_ROUTE = "navigation_bar_host"
 
-internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
+internal fun NavGraphBuilder.navigationBarHost(
+    onNavigateToLogin: () -> Unit,
+    onNavigateToJoinClub: () -> Unit
+) {
     composable(NAVIGATION_BAR_HOST_ROUTE) { entry ->
         val navController = rememberNavController()
         val context = LocalContext.current
@@ -71,7 +74,7 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                     onShowProduct = { product ->
                         navController.navigateToProductCardGraph(product.id)
                     },
-                    onLogin = onLogin
+                    onLogin = onNavigateToLogin
                 )
                 categoryBrowserGraph(
                     navController = navController,
@@ -86,7 +89,9 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                     },
                     onNavigateToMyData = {
                         navController.navigateToMyDataGraph()
-                    }
+                    },
+                    onNavigateToLogin = onNavigateToLogin,
+                    onNavigateToJoinClub = onNavigateToJoinClub,
                 )
                 productBrowserGraph(
                     navController = navController,

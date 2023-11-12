@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.maruchin.data.promotions.PromotionId
 import com.maruchin.features.profile.club.ClubPage
+import com.maruchin.features.profile.clubauth.ClubAuthPage
 import com.maruchin.features.profile.mydata.MyDataPage
 import com.maruchin.features.profile.promotions.PromotionsPage
 
@@ -30,7 +31,7 @@ private const val THIRD = 2
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ProfileScreen(
-    isLoggedIn: Boolean,
+    state: ProfileUiState,
     onOpenSettings: () -> Unit,
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit,
@@ -38,6 +39,8 @@ internal fun ProfileScreen(
     onOpenMyData: () -> Unit,
     onOpenMyOrders: () -> Unit,
     onOpenReturns: () -> Unit,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToJoinClub: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -49,7 +52,7 @@ internal fun ProfileScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            val tabsState = rememberProfileTabsState(numOfPages = if (isLoggedIn) 3 else 2)
+            val tabsState = rememberProfileTabsState(numOfPages = if (state.isLoggedIn) 3 else 2)
 
             TabRow(selectedTabIndex = tabsState.selectedTab) {
                 ClubTab(
@@ -60,7 +63,7 @@ internal fun ProfileScreen(
                     isSelected = tabsState.isSelected(SECOND),
                     onClick = { tabsState.select(SECOND) }
                 )
-                if (isLoggedIn) {
+                if (state.isLoggedIn) {
                     MyDataTab(
                         isSelected = tabsState.isSelected(THIRD),
                         onClick = { tabsState.select(THIRD) }
@@ -69,10 +72,18 @@ internal fun ProfileScreen(
             }
             HorizontalPager(state = tabsState.pagerState) { page ->
                 when (page) {
-                    FIRST -> ClubPage(
-                        onOpenPurchaseHistory = onOpenPurchaseHistory,
-                        onOpenFindOutMore = onOpenFindOutMore
-                    )
+                    FIRST -> if (state.isLoggedIn) {
+                        ClubPage(
+                            onOpenPurchaseHistory = onOpenPurchaseHistory,
+                            onOpenFindOutMore = onOpenFindOutMore
+                        )
+                    } else {
+                        ClubAuthPage(
+                            onLearnMoreClick = onOpenFindOutMore,
+                            onLoginClick = onNavigateToLogin,
+                            onJoinClubClick = onNavigateToJoinClub,
+                        )
+                    }
 
                     SECOND -> PromotionsPage(
                         onOpenPromotion = onOpenPromotion
@@ -141,7 +152,7 @@ private fun MyDataTab(isSelected: Boolean, onClick: () -> Unit) {
 @Composable
 internal fun ProfileScreenPreview() {
     ProfileScreen(
-        isLoggedIn = true,
+        state = ProfileUiState(isLoggedIn = true),
         onOpenSettings = {},
         onOpenPurchaseHistory = {},
         onOpenFindOutMore = {},
@@ -149,5 +160,7 @@ internal fun ProfileScreenPreview() {
         onOpenMyData = {},
         onOpenMyOrders = {},
         onOpenReturns = {},
+        onNavigateToLogin = {},
+        onNavigateToJoinClub = {},
     )
 }
