@@ -7,6 +7,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,6 +33,7 @@ internal const val NAVIGATION_BAR_HOST_ROUTE = "navigation_bar_host"
 internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
     composable(NAVIGATION_BAR_HOST_ROUTE) { entry ->
         val navController = rememberNavController()
+        val context = LocalContext.current
         val snackbarHostState = remember { SnackbarHostState() }
 
         LaunchedEffect(entry) {
@@ -74,7 +76,7 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                         navController.navigateToProductBrowserGraph(category.id)
                     }
                 )
-                profileGraph(navController = navController)
+                profileGraph(navController = navController, context = context)
                 productBrowserGraph(
                     navController = navController,
                     onShowProduct = { product ->

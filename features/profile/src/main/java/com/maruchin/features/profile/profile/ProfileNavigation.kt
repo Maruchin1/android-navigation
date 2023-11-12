@@ -12,7 +12,10 @@ internal fun NavGraphBuilder.profileScreen(
     onOpenSettings: () -> Unit,
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit,
-    onOpenPromotion: (PromotionId) -> Unit
+    onOpenPromotion: (PromotionId) -> Unit,
+    onOpenMyData: () -> Unit,
+    onOpenMyOrders: () -> Unit,
+    onOpenReturns: () -> Unit,
 ) {
     composable(
         route = PROFILE_ROUTE,
@@ -27,6 +30,9 @@ internal fun NavGraphBuilder.profileScreen(
             onOpenPurchaseHistory = onOpenPurchaseHistory,
             onOpenFindOutMore = onOpenFindOutMore,
             onOpenPromotion = onOpenPromotion,
+            onOpenMyData = onOpenMyData,
+            onOpenMyOrders = onOpenMyOrders,
+            onOpenReturns = onOpenReturns,
         )
     }
 }

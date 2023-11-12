@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.bundles.ui)
     implementation(libs.bundles.navigation)
     implementation(libs.hilt)
+    implementation(libs.androidx.browser)
 
     kapt(libs.hilt.compiler)
 

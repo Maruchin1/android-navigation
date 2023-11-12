@@ -1,8 +1,8 @@
-package com.maruchin.features.profile.purchasehistory
+package com.maruchin.features.profile.myorders
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,16 +17,16 @@ import com.maruchin.core.ui.ScreenContentPlaceholder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PurchaseHistoryScreen(onClose: () -> Unit) {
+internal fun MyOrdersScreen(onBack: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Purchase history")
+                    Text(text = "My orders")
                 },
-                actions = {
-                    IconButton(onClick = onClose) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
                     }
                 }
             )
@@ -34,7 +34,7 @@ internal fun PurchaseHistoryScreen(onClose: () -> Unit) {
     ) { padding ->
         ScreenContentPlaceholder(
             icon = Icons.Default.Folder,
-            text = "We haven't recorded any transactions yet, but everything is ahead of you.",
+            text = "There are no orders in your account yet",
             modifier = Modifier.padding(padding)
         )
     }
@@ -42,6 +42,6 @@ internal fun PurchaseHistoryScreen(onClose: () -> Unit) {
 
 @Preview
 @Composable
-private fun PurchaseHistoryScreenPreview() {
-    PurchaseHistoryScreen(onClose = {})
+private fun MyOrdersScreenPreview() {
+    MyOrdersScreen(onBack = {})
 }
