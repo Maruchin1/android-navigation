@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":features:login"))
     implementation(project(":features:profile"))
     implementation(project(":features:my-data"))
+    implementation(project(":features:registration"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)

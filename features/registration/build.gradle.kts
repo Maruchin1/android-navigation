@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maruchin.features.profile"
+    namespace = "com.maruchin.features.registration"
     compileSdk = 34
 
     defaultConfig {
@@ -26,21 +26,18 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
     buildFeatures {
         compose = true
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
 
 dependencies {
+    implementation(project(":data:user"))
     implementation(project(":core:ui"))
     implementation(project(":core:intent"))
-    implementation(project(":data:user"))
-    implementation(project(":data:promotions"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

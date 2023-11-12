@@ -14,15 +14,13 @@ import kotlinx.coroutines.flow.StateFlow
 internal const val LOGIN_GRAPH_ROUTE = "login_graph"
 private const val LOGIN_SUCCESS = "login_success"
 
-fun NavGraphBuilder.loginGraph(navController: NavController) {
+fun NavGraphBuilder.loginGraph(navController: NavController, onNavigateToRegistration: () -> Unit) {
     navigation(startDestination = LOGIN_ROUTE, route = LOGIN_GRAPH_ROUTE) {
         loginScreen(
             onBack = {
                 navController.navigateUp()
             },
-            onRegister = {
-
-            },
+            onRegister = onNavigateToRegistration,
             onForgotPassword = {
                 navController.navigateToForgotPassword()
             },

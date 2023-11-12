@@ -11,6 +11,8 @@ import com.maruchin.core.ui.screenSlideIn
 import com.maruchin.core.ui.screenSlideOut
 import com.maruchin.features.login.loginGraph
 import com.maruchin.features.login.navigateToLoginGraph
+import com.maruchin.features.registration.navigateToRegistrationGraph
+import com.maruchin.features.registration.registrationGraph
 
 @Composable
 internal fun RootHost() {
@@ -29,9 +31,15 @@ internal fun RootHost() {
                 navController.navigateToLoginGraph()
             },
             onNavigateToJoinClub = {
-
+                navController.navigateToRegistrationGraph()
             }
         )
-        loginGraph(navController)
+        loginGraph(
+            navController = navController,
+            onNavigateToRegistration = {
+                navController.navigateToRegistrationGraph()
+            }
+        )
+        registrationGraph(navController = navController)
     }
 }

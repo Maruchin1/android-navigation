@@ -20,6 +20,16 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         user.emit(sampleLoggedUser)
     }
 
+    override suspend fun register(
+        firstName: String,
+        lastName: String,
+        email: Email,
+        phoneNumber: PhoneNumber,
+        password: Password
+    ) {
+        user.emit(sampleLoggedUser)
+    }
+
     override suspend fun logout() {
         delay(1_000)
         user.emit(User.LoggedOut)

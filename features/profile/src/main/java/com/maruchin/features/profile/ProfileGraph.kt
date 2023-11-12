@@ -1,11 +1,11 @@
 package com.maruchin.features.profile
 
 import android.content.Context
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
+import com.maruchin.core.intent.openWebsite
 import com.maruchin.features.profile.findoutmore.findOutMoreScreen
 import com.maruchin.features.profile.findoutmore.navigateToFindOutMore
 import com.maruchin.features.profile.myorders.myOrdersScreen
@@ -76,7 +76,8 @@ fun NavGraphBuilder.profileGraph(
                 navController.navigateUp()
             },
             onNavigateToReturnsForm = {
-                context.navigateToReturnsForm()
+                val url = "https://developers.android.com"
+                context.openWebsite(url.toUri())
             }
         )
     }
@@ -88,10 +89,4 @@ fun NavController.navigateToProfileGraph() {
             inclusive = true
         }
     }
-}
-
-private fun Context.navigateToReturnsForm() {
-    val url = "https://developers.android.com"
-    val intent = CustomTabsIntent.Builder().build()
-    intent.launchUrl(this, url.toUri())
 }
