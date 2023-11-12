@@ -11,4 +11,15 @@ interface UserRepository {
     suspend fun logout()
 
     suspend fun changePassword(newPassword: Password, token: Token)
+
+    suspend fun changePassword(currentPassword: Password, newPassword: Password)
+
+    suspend fun deleteAccount()
+
+    suspend fun updatePersonalData(
+        firstName: String,
+        lastName: String,
+        email: Email,
+        phoneNumber: PhoneNumber,
+    )
 }

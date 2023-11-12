@@ -21,10 +21,15 @@ import com.maruchin.features.profile.returns.returnsScreen
 
 const val PROFILE_GRAPH_ROUTE = "profile-graph"
 
-fun NavGraphBuilder.profileGraph(navController: NavController, context: Context) {
+fun NavGraphBuilder.profileGraph(
+    navController: NavController,
+    context: Context,
+    onNavigateToSettings: () -> Unit,
+    onNavigateToMyData: () -> Unit
+) {
     navigation(startDestination = PROFILE_ROUTE, route = PROFILE_GRAPH_ROUTE) {
         profileScreen(
-            onOpenSettings = {},
+            onOpenSettings = onNavigateToSettings,
             onOpenPurchaseHistory = {
                 navController.navigateToPurchaseHistory()
             },
@@ -34,7 +39,7 @@ fun NavGraphBuilder.profileGraph(navController: NavController, context: Context)
             onOpenPromotion = { promotionId ->
                 navController.navigateToPromotion(promotionId)
             },
-            onOpenMyData = {},
+            onOpenMyData = onNavigateToMyData,
             onOpenMyOrders = {
                 navController.navigateToMyOrders()
             },
@@ -70,6 +75,14 @@ fun NavGraphBuilder.profileGraph(navController: NavController, context: Context)
                 context.navigateToReturnsForm()
             }
         )
+    }
+}
+
+fun NavController.navigateToProfileGraph() {
+    navigate(PROFILE_GRAPH_ROUTE) {
+        popUpTo(PROFILE_GRAPH_ROUTE) {
+            inclusive = true
+        }
     }
 }
 

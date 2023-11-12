@@ -28,4 +28,28 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
     override suspend fun changePassword(newPassword: Password, token: Token) {
         delay(1_000)
     }
+
+    override suspend fun changePassword(currentPassword: Password, newPassword: Password) {
+        delay(1_000)
+    }
+
+    override suspend fun deleteAccount() {
+        delay(1_000)
+        user.emit(User.LoggedOut)
+    }
+
+    override suspend fun updatePersonalData(
+        firstName: String,
+        lastName: String,
+        email: Email,
+        phoneNumber: PhoneNumber
+    ) {
+        val loggedUser = user.value as? User.LoggedIn ?: return
+        user.value = loggedUser.copy(
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            phoneNumber = phoneNumber
+        )
+    }
 }

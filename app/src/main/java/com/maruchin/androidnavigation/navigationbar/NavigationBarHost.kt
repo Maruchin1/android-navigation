@@ -20,10 +20,13 @@ import com.maruchin.features.categorybrowser.categoryBrowserGraph
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.home.homeGraph
 import com.maruchin.features.login.getLoginSuccess
+import com.maruchin.features.mydata.myDataGraph
+import com.maruchin.features.mydata.navigateToMyDataGraph
 import com.maruchin.features.productbrowser.navigateToProductBrowserGraph
 import com.maruchin.features.productbrowser.productBrowserGraph
 import com.maruchin.features.productcard.navigateToProductCardGraph
 import com.maruchin.features.productcard.productCardGraph
+import com.maruchin.features.profile.navigateToProfileGraph
 import com.maruchin.features.profile.profileGraph
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
@@ -76,7 +79,15 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                         navController.navigateToProductBrowserGraph(category.id)
                     }
                 )
-                profileGraph(navController = navController, context = context)
+                profileGraph(
+                    navController = navController,
+                    context = context,
+                    onNavigateToSettings = {
+                    },
+                    onNavigateToMyData = {
+                        navController.navigateToMyDataGraph()
+                    }
+                )
                 productBrowserGraph(
                     navController = navController,
                     onShowProduct = { product ->
@@ -84,6 +95,12 @@ internal fun NavGraphBuilder.navigationBarHost(onLogin: () -> Unit) {
                     }
                 )
                 productCardGraph(navController = navController)
+                myDataGraph(
+                    navController = navController,
+                    onNavigateToProfile = {
+                        navController.navigateToProfileGraph()
+                    }
+                )
             }
         }
     }
