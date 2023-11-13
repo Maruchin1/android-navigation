@@ -1,6 +1,7 @@
 package com.maruchin.features.productcard.card
 
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -14,12 +15,15 @@ internal fun NavGraphBuilder.cardScreen(
 ) {
     composable(CARD_ROUTE) {
         val viewModel: CardViewModel = hiltViewModel()
+        val state by viewModel.uiState.collectAsState()
+
         CardScreen(
-            product = viewModel.product.collectAsState().value,
+            state = state,
             onBack = onBack,
             onOpenGallery = {
-                viewModel.product.value?.let(onOpenGallery)
+                state.product?.let(onOpenGallery)
             },
+            onAddToCart = viewModel::addToCart,
         )
     }
 }

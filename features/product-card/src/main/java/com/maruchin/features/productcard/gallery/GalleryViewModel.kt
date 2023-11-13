@@ -18,7 +18,8 @@ internal class GalleryViewModel @Inject constructor(
 
     private val args = GalleryArgs(savedStateHandle)
 
-    val images = productsRepository.getById(args.productId)
+    val uiState = productsRepository.getById(args.productId)
         .map { it.images }
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+        .map(::GalleryUiState)
+        .stateIn(viewModelScope, SharingStarted.Lazily, GalleryUiState())
 }

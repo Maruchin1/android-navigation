@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maruchin.features.productcard"
+    namespace = "com.maruchin.features.cart"
     compileSdk = 34
 
     defaultConfig {
@@ -26,19 +26,17 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
     buildFeatures {
         compose = true
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
 
 dependencies {
-    implementation(project(":data:products"))
-    implementation(project(":data:cart"))
+    api(project(":core:ui"))
+    api(project(":data:cart"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

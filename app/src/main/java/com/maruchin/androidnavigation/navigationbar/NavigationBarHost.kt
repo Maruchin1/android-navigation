@@ -16,6 +16,7 @@ import com.maruchin.core.ui.screenFadeIn
 import com.maruchin.core.ui.screenFadeOut
 import com.maruchin.core.ui.screenSlideIn
 import com.maruchin.core.ui.screenSlideOut
+import com.maruchin.features.cart.cartGraph
 import com.maruchin.features.categorybrowser.categoryBrowserGraph
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.home.homeGraph
@@ -80,6 +81,13 @@ internal fun NavGraphBuilder.navigationBarHost(
                     navController = navController,
                     onShowCategory = { category ->
                         navController.navigateToProductBrowserGraph(category.id)
+                    }
+                )
+                cartGraph(
+                    onNavigateToOrder = {
+                    },
+                    onNavigateToProduct = { productId ->
+                        navController.navigateToProductCardGraph(productId)
                     }
                 )
                 profileGraph(

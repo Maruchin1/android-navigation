@@ -5,6 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.maruchin.features.cart.CART_GRAPH_ROUTE
 import com.maruchin.features.categorybrowser.CATEGORY_BROWSER_GRAPH_ROUTE
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.profile.PROFILE_GRAPH_ROUTE
@@ -16,6 +17,7 @@ internal class NavigationBarState(private val navController: NavController) {
     private val navigationBarRoutes = listOf(
         HOME_GRAPH_ROUTE,
         CATEGORY_BROWSER_GRAPH_ROUTE,
+        CART_GRAPH_ROUTE,
         PROFILE_GRAPH_ROUTE,
     )
 

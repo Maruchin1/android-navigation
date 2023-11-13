@@ -16,13 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AllProductsButton(onClick: () -> Unit) {
     OutlinedCard(modifier = Modifier.width(150.dp), onClick = onClick) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(3f / 4f),
+                .aspectRatio(1f / 1f),
             contentAlignment = Alignment.Center,
         ) {
             Text(

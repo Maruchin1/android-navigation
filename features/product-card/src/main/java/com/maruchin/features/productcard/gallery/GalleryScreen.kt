@@ -3,12 +3,12 @@
 package com.maruchin.features.productcard.gallery
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,26 +31,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import java.net.URL
+import com.maruchin.data.products.sampleProducts
 
 @Composable
-internal fun GalleryScreen(images: List<URL>, onBack: () -> Unit) {
+internal fun GalleryScreen(state: GalleryUiState, onBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(onBack = onBack)
         }
     ) { padding ->
-        val pagerState = rememberPagerState { images.size }
+        val pagerState = rememberPagerState { state.images.size }
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            Pager(images = images, pagerState = pagerState)
-            PagerIndicator(pageCount = images.size, currentPage = pagerState.currentPage)
+            Pager(images = state.images, pagerState = pagerState)
+            PagerIndicator(pageCount = state.images.size, currentPage = pagerState.currentPage)
         }
     }
 }
@@ -68,7 +69,7 @@ private fun TopAppBar(onBack: () -> Unit) {
 }
 
 @Composable
-private fun BoxScope.Pager(images: List<URL>, pagerState: PagerState) {
+private fun BoxScope.Pager(images: List<Int>, pagerState: PagerState) {
     OutlinedCard(
         modifier = Modifier
             .padding(12.dp)
@@ -106,14 +107,12 @@ private fun PageIndicator(isCurrent: Boolean) {
 }
 
 @Composable
-private fun ProductImage(image: URL) {
-    AsyncImage(
-        model = image.toString(),
+private fun ProductImage(image: Int) {
+    Image(
+        painter = painterResource(image),
         contentDescription = null,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .aspectRatio(3f / 4f)
+        modifier = Modifier.fillMaxWidth(),
+        contentScale = ContentScale.Crop
     )
 }
 
@@ -122,7 +121,9 @@ private fun ProductImage(image: URL) {
 private fun GalleryScreenPreview() {
     MaterialTheme {
         GalleryScreen(
-            images = emptyList(),
+            state = GalleryUiState(
+                images = sampleProducts.first().images,
+            ),
             onBack = {},
         )
     }

@@ -1,6 +1,7 @@
 package com.maruchin.features.productcard.gallery
 
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
@@ -24,10 +25,9 @@ internal fun NavGraphBuilder.galleryScreen(onBack: () -> Unit) {
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: GalleryViewModel = hiltViewModel()
-        GalleryScreen(
-            images = viewModel.images.collectAsState().value,
-            onBack = onBack
-        )
+        val state by viewModel.uiState.collectAsState()
+
+        GalleryScreen(state = state, onBack = onBack)
     }
 }
 

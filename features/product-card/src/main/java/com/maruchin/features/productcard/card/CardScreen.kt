@@ -1,7 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.maruchin.features.productcard.card
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,34 +29,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.Rating
-import java.net.URL
+import com.maruchin.data.products.sampleProducts
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun CardScreen(product: Product?, onBack: () -> Unit, onOpenGallery: () -> Unit) {
+internal fun CardScreen(
+    state: CardUiState,
+    onBack: () -> Unit,
+    onOpenGallery: () -> Unit,
+    onAddToCart: () -> Unit
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         topBar = {
             TopAppBar(scrollBehavior = scrollBehavior, onBack = onBack)
         }
     ) { padding ->
-        if (product != null) {
-            Content(
-                product = product,
-                modifier = Modifier
-                    .padding(padding)
-                    .nestedScroll(scrollBehavior.nestedScrollConnection),
-                onOpenGallery = onOpenGallery
-            )
-        }
+        if (state.product == null) return@Scaffold
+        Content(
+            product = state.product,
+            modifier = Modifier
+                .padding(padding)
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
+            onOpenGallery = onOpenGallery,
+            onAddToCart = onAddToCart,
+        )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, onBack: () -> Unit) {
     TopAppBar(
@@ -70,23 +78,33 @@ private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, onBack: () -> Uni
 }
 
 @Composable
-private fun Content(product: Product, modifier: Modifier, onOpenGallery: () -> Unit) {
+private fun Content(
+    product: Product,
+    modifier: Modifier,
+    onOpenGallery: () -> Unit,
+    onAddToCart: () -> Unit
+) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
-            Image(image = product.images.first(), onOpenGallery = onOpenGallery)
+            ProductImage(image = product.images.first(), onOpenGallery = onOpenGallery)
         }
         item {
-            TitleText(product)
+            TitleText(text = product.name)
         }
         item {
-            PriceText(product)
+            PriceText(price = product.price)
         }
         item {
             RatingStars(stars = product.rating.stars, ratingCount = product.rating.count)
+        }
+        item {
+            OutlinedButton(onClick = onAddToCart, modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Add to cart")
+            }
         }
         item {
             Description(description = product.description)
@@ -94,28 +112,28 @@ private fun Content(product: Product, modifier: Modifier, onOpenGallery: () -> U
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Image(image: URL, onOpenGallery: () -> Unit) {
+private fun ProductImage(@DrawableRes image: Int, onOpenGallery: () -> Unit) {
     OutlinedCard(onClick = onOpenGallery) {
-        AsyncImage(
-            model = image.toString(),
+        Image(
+            painter = painterResource(image),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(3f / 4f)
-                .padding(24.dp)
+                .aspectRatio(1f / 1f)
         )
     }
 }
 
 @Composable
-private fun TitleText(product: Product) {
-    Text(text = product.name, style = MaterialTheme.typography.headlineMedium)
+private fun TitleText(text: String) {
+    Text(text = text, style = MaterialTheme.typography.headlineMedium)
 }
 
 @Composable
-private fun PriceText(product: Product) {
-    Text(text = product.price.toString(), style = MaterialTheme.typography.titleLarge)
+private fun PriceText(price: Float) {
+    Text(text = price.toString(), style = MaterialTheme.typography.titleLarge)
 }
 
 @Composable
@@ -152,6 +170,11 @@ private fun Description(description: String) {
 @Composable
 private fun CardScreenPreview() {
     MaterialTheme {
-        CardScreen(product = null, onBack = {}, onOpenGallery = {})
+        CardScreen(
+            state = CardUiState(product = sampleProducts.first()),
+            onBack = {},
+            onOpenGallery = {},
+            onAddToCart = {}
+        )
     }
 }
