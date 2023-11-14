@@ -29,7 +29,7 @@ import com.maruchin.data.products.R
 fun ProductItem(
     image: Int,
     title: String,
-    price: Float,
+    price: Double,
     isFavorite: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
@@ -85,7 +85,7 @@ private fun ProductItemPreview() {
     ProductItem(
         image = R.drawable.product_image,
         title = "Product title",
-        price = 10f,
+        price = 10.0,
         isFavorite = true,
         onClick = {}
     )

@@ -11,40 +11,62 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.maruchin.core.ui.ProductItem
-import com.maruchin.data.products.Product
+import com.maruchin.data.products.ProductId
 import com.maruchin.data.products.sampleFavoriteProducts
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun FavoritesScreen(state: FavoritesUiState, onProductClick: (Product) -> Unit) {
+internal fun FavoritesScreen(
+    state: FavoritesUiState,
+    onProductClick: (ProductId) -> Unit
+) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Favorites")
-                }
-            )
+            TopBar()
         }
     ) { padding ->
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-        ) {
-            items(state.products) { product ->
-                ProductItem(
-                    image = product.images.first(),
-                    title = product.name,
-                    price = product.price,
-                    isFavorite = product.isFavorite,
-                    onClick = {
-                        onProductClick(product)
-                    }
-                )
-            }
+        ProductGrid(
+            products = state.products,
+            modifier = Modifier.padding(padding),
+            onProductClick = onProductClick,
+        )
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar() {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.favorites))
+        }
+    )
+}
+
+@Composable
+private fun ProductGrid(
+    products: List<ProductUiState>,
+    modifier: Modifier = Modifier,
+    onProductClick: (ProductId) -> Unit
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxSize()
+            .then(modifier),
+    ) {
+        items(products) { product ->
+            ProductItem(
+                image = product.image,
+                title = product.name,
+                price = product.price,
+                isFavorite = product.isFavorite,
+                onClick = {
+                    onProductClick(product.id)
+                }
+            )
         }
     }
 }
@@ -53,9 +75,7 @@ internal fun FavoritesScreen(state: FavoritesUiState, onProductClick: (Product) 
 @Composable
 private fun FavoritesScreenPreview() {
     FavoritesScreen(
-        state = FavoritesUiState(
-            products = sampleFavoriteProducts
-        ),
+        state = createFavoritesUiState(sampleFavoriteProducts),
         onProductClick = {},
     )
 }

@@ -1,9 +1,28 @@
 package com.maruchin.features.favorites
 
-import androidx.compose.runtime.Immutable
 import com.maruchin.data.products.Product
+import com.maruchin.data.products.ProductId
 
-@Immutable
-data class FavoritesUiState(
-    val products: List<Product> = emptyList()
+internal data class FavoritesUiState(
+    val products: List<ProductUiState> = emptyList()
+)
+
+internal data class ProductUiState(
+    val id: ProductId,
+    val image: Int,
+    val name: String,
+    val price: Double,
+    val isFavorite: Boolean,
+)
+
+internal fun createFavoritesUiState(products: List<Product>) = FavoritesUiState(
+    products = products.map(::createProductUiState)
+)
+
+internal fun createProductUiState(product: Product) = ProductUiState(
+    id = product.id,
+    image = product.images.first(),
+    name = product.name,
+    price = product.price.toDouble(),
+    isFavorite = product.isFavorite,
 )

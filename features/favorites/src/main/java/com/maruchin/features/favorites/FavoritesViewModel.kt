@@ -15,6 +15,6 @@ internal class FavoritesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState = productsRepository.getFavorites()
-        .map(::FavoritesUiState)
+        .map(::createFavoritesUiState)
         .stateIn(viewModelScope, SharingStarted.Lazily, FavoritesUiState())
 }

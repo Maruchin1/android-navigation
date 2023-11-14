@@ -122,7 +122,7 @@ private fun ProductRow(
             ProductItem(
                 image = product.images.first(),
                 title = product.name,
-                price = product.price,
+                price = product.price.toDouble(),
                 isFavorite = product.isFavorite,
                 onClick = { onShowProduct(product) }
             )

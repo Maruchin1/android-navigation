@@ -9,12 +9,12 @@ import androidx.navigation.navDeepLink
 import com.maruchin.core.ui.ROOT_DEEPLINK
 import com.maruchin.core.ui.screenFadeIn
 import com.maruchin.core.ui.screenFadeOut
-import com.maruchin.data.products.Product
+import com.maruchin.data.products.ProductId
 
 internal const val FAVORITES_ROUTE = "favorites"
 private const val FAVORITES_DEEPLINK = "$ROOT_DEEPLINK/favorites"
 
-internal fun NavGraphBuilder.favoritesScreen(onNavigateToProductCard: (Product) -> Unit) {
+internal fun NavGraphBuilder.favoritesScreen(onNavigateToProductCard: (ProductId) -> Unit) {
     composable(
         route = FAVORITES_ROUTE,
         deepLinks = listOf(

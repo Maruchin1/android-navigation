@@ -86,8 +86,8 @@ internal fun NavGraphBuilder.navigationBarHost(
                     }
                 )
                 favoritesGraph(
-                    onNavigateToProductCard = { product ->
-                        navController.navigateToProductCardGraph(product.id)
+                    onNavigateToProductCard = { productId ->
+                        navController.navigateToProductCardGraph(productId)
                     }
                 )
                 cartGraph(
