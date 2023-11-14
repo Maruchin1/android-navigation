@@ -1,5 +1,7 @@
-package com.maruchin.data.products
+package com.maruchin.data.products.internal
 
+import com.maruchin.data.products.ProductFiltersRepository
+import com.maruchin.data.products.ProductsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +15,5 @@ internal interface DataProductsModule {
     fun productsRepository(impl: FakeProductsRepository): ProductsRepository
 
     @Binds
-    fun productFiltersRepository(impl: DefaultProductFiltersRepository): ProductFiltersRepository
+    fun productFiltersRepository(impl: FakeProductFiltersRepository): ProductFiltersRepository
 }

@@ -28,6 +28,7 @@ fun ProductGrid(
                 image = product.images.first(),
                 title = product.name,
                 price = product.price,
+                isFavorite = product.isFavorite,
                 onClick = { onShowProduct(product) }
             )
         }

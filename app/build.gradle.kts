@@ -64,6 +64,7 @@ dependencies {
     implementation(project(":features:registration"))
     implementation(project(":features:cart"))
     implementation(project(":features:order"))
+    implementation(project(":features:favorites"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)

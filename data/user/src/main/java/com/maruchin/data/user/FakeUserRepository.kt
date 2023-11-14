@@ -8,7 +8,7 @@ import javax.inject.Singleton
 @Singleton
 internal class FakeUserRepository @Inject constructor() : UserRepository {
 
-    private val user = MutableStateFlow<User>(sampleLoggedUser)
+    private val user = MutableStateFlow<User>(User.LoggedOut)
 
     override fun get(): Flow<User> {
         return user

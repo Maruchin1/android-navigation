@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.features.cart.CART_GRAPH_ROUTE
 import com.maruchin.features.categorybrowser.CATEGORY_BROWSER_GRAPH_ROUTE
+import com.maruchin.features.favorites.FAVORITES_GRAPH_ROUTE
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.profile.PROFILE_GRAPH_ROUTE
 
@@ -48,8 +49,12 @@ internal fun NavigationBar(navController: NavController) {
             }
         )
         NavigationBarItem(
-            selected = false,
-            onClick = {},
+            selected = state.isRouteSelected(FAVORITES_GRAPH_ROUTE)
+                .collectAsState(initial = false)
+                .value,
+            onClick = {
+                state.openRoute(FAVORITES_GRAPH_ROUTE)
+            },
             icon = {
                 Icon(imageVector = Icons.Default.Favorite, contentDescription = null)
             }

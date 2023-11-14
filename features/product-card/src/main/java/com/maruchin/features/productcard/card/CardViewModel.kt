@@ -40,4 +40,12 @@ internal class CardViewModel @Inject constructor(
         val product = product.first()
         cartRepository.addProduct(product)
     }
+
+    fun toggleIsFavorite() = viewModelScope.launch {
+        val product = product.first()
+        productsRepository.updateIsFavorite(
+            id = product.id,
+            isFavorite = !product.isFavorite,
+        )
+    }
 }

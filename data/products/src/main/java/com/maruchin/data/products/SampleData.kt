@@ -19,5 +19,4 @@ val sampleProducts = (0..1_000).map { index ->
     )
 }
 
-
-
+val sampleFavoriteProducts = sampleProducts.filter { it.isFavorite }

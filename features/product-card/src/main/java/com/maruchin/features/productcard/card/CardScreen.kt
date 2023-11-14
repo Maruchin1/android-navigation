@@ -5,12 +5,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarHalf
 import androidx.compose.material.icons.filled.StarOutline
@@ -43,7 +47,8 @@ internal fun CardScreen(
     state: CardUiState,
     onBack: () -> Unit,
     onOpenGallery: () -> Unit,
-    onAddToCart: () -> Unit
+    onAddToCart: () -> Unit,
+    onToggleIsFavorite: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
@@ -59,6 +64,7 @@ internal fun CardScreen(
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             onOpenGallery = onOpenGallery,
             onAddToCart = onAddToCart,
+            onToggleIsFavorite = onToggleIsFavorite
         )
     }
 }
@@ -82,7 +88,8 @@ private fun Content(
     product: Product,
     modifier: Modifier,
     onOpenGallery: () -> Unit,
-    onAddToCart: () -> Unit
+    onAddToCart: () -> Unit,
+    onToggleIsFavorite: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -102,8 +109,21 @@ private fun Content(
             RatingStars(stars = product.rating.stars, ratingCount = product.rating.count)
         }
         item {
-            OutlinedButton(onClick = onAddToCart, modifier = Modifier.fillMaxWidth()) {
-                Text(text = "Add to cart")
+            Row {
+                OutlinedButton(onClick = onAddToCart, modifier = Modifier.weight(1f)) {
+                    Text(text = "Add to cart")
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                OutlinedButton(onClick = onToggleIsFavorite) {
+                    Icon(
+                        imageVector = if (product.isFavorite) {
+                            Icons.Default.Favorite
+                        } else {
+                            Icons.Default.FavoriteBorder
+                        },
+                        contentDescription = null
+                    )
+                }
             }
         }
         item {
@@ -174,7 +194,8 @@ private fun CardScreenPreview() {
             state = CardUiState(product = sampleProducts.first()),
             onBack = {},
             onOpenGallery = {},
-            onAddToCart = {}
+            onAddToCart = {},
+            onToggleIsFavorite = {},
         )
     }
 }

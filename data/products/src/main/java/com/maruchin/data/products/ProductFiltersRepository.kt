@@ -8,5 +8,5 @@ interface ProductFiltersRepository {
 
     suspend fun updateSorting(sorting: ProductFilters.Sorting)
 
-    suspend fun updatePrice(sorting: ProductFilters.Price)
+    suspend fun updatePrice(price: ProductFilters.Price)
 }

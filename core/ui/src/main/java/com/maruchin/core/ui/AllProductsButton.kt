@@ -5,6 +5,7 @@ package com.maruchin.core.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -19,7 +20,12 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AllProductsButton(onClick: () -> Unit) {
-    OutlinedCard(modifier = Modifier.width(150.dp), onClick = onClick) {
+    OutlinedCard(
+        modifier = Modifier
+            .width(150.dp)
+            .padding(8.dp),
+        onClick = onClick
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()

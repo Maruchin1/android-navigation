@@ -2,7 +2,6 @@ package com.maruchin.features.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -118,16 +117,13 @@ private fun ProductRow(
     onShowAll: () -> Unit,
     onShowProduct: (Product) -> Unit
 ) {
-    LazyRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(12.dp)
-    ) {
+    LazyRow(modifier = Modifier.fillMaxWidth()) {
         items(products) { product ->
             ProductItem(
                 image = product.images.first(),
                 title = product.name,
                 price = product.price,
+                isFavorite = product.isFavorite,
                 onClick = { onShowProduct(product) }
             )
         }

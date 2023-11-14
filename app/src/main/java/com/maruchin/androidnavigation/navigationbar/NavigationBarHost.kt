@@ -8,7 +8,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,6 +18,7 @@ import com.maruchin.core.ui.screenSlideIn
 import com.maruchin.core.ui.screenSlideOut
 import com.maruchin.features.cart.cartGraph
 import com.maruchin.features.categorybrowser.categoryBrowserGraph
+import com.maruchin.features.favorites.favoritesGraph
 import com.maruchin.features.home.HOME_GRAPH_ROUTE
 import com.maruchin.features.home.homeGraph
 import com.maruchin.features.login.getLoginSuccess
@@ -83,6 +83,11 @@ internal fun NavGraphBuilder.navigationBarHost(
                     navController = navController,
                     onShowCategory = { category ->
                         navController.navigateToProductBrowserGraph(category.id)
+                    }
+                )
+                favoritesGraph(
+                    onNavigateToProductCard = { product ->
+                        navController.navigateToProductCardGraph(product.id)
                     }
                 )
                 cartGraph(

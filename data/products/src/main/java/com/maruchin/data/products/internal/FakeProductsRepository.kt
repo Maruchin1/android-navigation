@@ -1,6 +1,11 @@
-package com.maruchin.data.products
+package com.maruchin.data.products.internal
 
 import com.maruchin.data.categories.CategoryId
+import com.maruchin.data.products.Product
+import com.maruchin.data.products.ProductFilters
+import com.maruchin.data.products.ProductId
+import com.maruchin.data.products.ProductsRepository
+import com.maruchin.data.products.sampleProducts
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -31,6 +36,14 @@ internal class FakeProductsRepository @Inject constructor() : ProductsRepository
         return getForCategory(categoryId).map { products ->
             if (products.size > RECOMMENDED_LIMIT) products.take(RECOMMENDED_LIMIT)
             else products
+        }
+    }
+
+    override fun getFavorites(): Flow<List<Product>> {
+        return products.map { products ->
+            products.filter { product ->
+                product.isFavorite
+            }
         }
     }
 

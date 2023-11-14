@@ -24,6 +24,7 @@ internal fun NavGraphBuilder.cardScreen(
                 state.product?.let(onOpenGallery)
             },
             onAddToCart = viewModel::addToCart,
+            onToggleIsFavorite = viewModel::toggleIsFavorite,
         )
     }
 }

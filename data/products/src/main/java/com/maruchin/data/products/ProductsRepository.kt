@@ -9,6 +9,8 @@ interface ProductsRepository {
 
     fun getRecommendedForCategory(categoryId: CategoryId): Flow<List<Product>>
 
+    fun getFavorites(): Flow<List<Product>>
+
     fun findByTitle(title: String): Flow<List<Product>>
 
     fun getById(id: ProductId): Flow<Product>

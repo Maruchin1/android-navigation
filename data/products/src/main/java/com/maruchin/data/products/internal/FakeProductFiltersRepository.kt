@@ -1,12 +1,14 @@
-package com.maruchin.data.products
+package com.maruchin.data.products.internal
 
+import com.maruchin.data.products.ProductFilters
+import com.maruchin.data.products.ProductFiltersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class DefaultProductFiltersRepository @Inject constructor() : ProductFiltersRepository {
+internal class FakeProductFiltersRepository @Inject constructor() : ProductFiltersRepository {
 
     private val productFilters = MutableStateFlow(ProductFilters())
 
