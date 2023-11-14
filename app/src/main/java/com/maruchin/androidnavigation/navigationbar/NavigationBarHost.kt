@@ -81,8 +81,8 @@ internal fun NavGraphBuilder.navigationBarHost(
                 )
                 categoryBrowserGraph(
                     navController = navController,
-                    onShowCategory = { category ->
-                        navController.navigateToProductBrowserGraph(category.id)
+                    onNavigateToProductBrowser = { categoryId ->
+                        navController.navigateToProductBrowserGraph(categoryId)
                     }
                 )
                 favoritesGraph(

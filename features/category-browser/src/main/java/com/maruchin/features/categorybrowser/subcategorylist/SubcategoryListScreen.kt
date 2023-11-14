@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.maruchin.features.categorybrowser.subcategorylist
 
 import androidx.compose.foundation.layout.padding
@@ -14,37 +12,38 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.data.categories.Category
+import com.maruchin.data.categories.CategoryId
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.features.categorybrowser.categorylist.CategoryList
 
 @Composable
 internal fun SubcategoryListScreen(
-    category: Category?,
-    onBack: () -> Unit,
-    onShowCategory: (Category) -> Unit
+    state: SubcategoryListUiState,
+    onBackClick: () -> Unit,
+    onCategoryClick: (CategoryId, Boolean) -> Unit
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(categoryName = category?.name ?: "", onBack = onBack)
+            TopBar(categoryName = state.name, onBackClick = onBackClick)
         }
     ) { padding ->
         CategoryList(
             modifier = Modifier.padding(padding),
-            categories = category?.subcategories ?: emptyList(),
-            onShowCategory = onShowCategory,
+            categories = state.subcategories,
+            onCategoryClick = onCategoryClick,
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopAppBar(categoryName: String, onBack: () -> Unit) {
+private fun TopBar(categoryName: String, onBackClick: () -> Unit) {
     CenterAlignedTopAppBar(
         title = {
             Text(text = categoryName)
         },
         navigationIcon = {
-            IconButton(onClick = onBack) {
+            IconButton(onClick = onBackClick) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
             }
         }
@@ -54,5 +53,9 @@ private fun TopAppBar(categoryName: String, onBack: () -> Unit) {
 @Preview
 @Composable
 private fun SubcategoryListScreenPreview() {
-    SubcategoryListScreen(category = sampleCategories[1], onBack = {}, onShowCategory = {})
+    SubcategoryListScreen(
+        state = createSubcategoryListUiState(sampleCategories[1]),
+        onBackClick = {},
+        onCategoryClick = { _, _ -> }
+    )
 }

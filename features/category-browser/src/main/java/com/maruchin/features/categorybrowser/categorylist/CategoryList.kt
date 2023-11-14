@@ -17,17 +17,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.maruchin.data.categories.Category
+import com.maruchin.data.categories.CategoryId
 
 @Composable
 internal fun CategoryList(
     modifier: Modifier = Modifier,
-    categories: List<Category>,
-    onShowCategory: (Category) -> Unit
+    categories: List<CategoryUiState>,
+    onCategoryClick: (CategoryId, Boolean) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         items(categories) { category ->
-            CategoryItem(name = category.name, onClick = { onShowCategory(category) })
+            CategoryItem(
+                name = category.name,
+                onClick = { onCategoryClick(category.id, category.isFinal) }
+            )
             Divider()
         }
     }
@@ -44,7 +47,7 @@ private fun CategoryItem(name: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = name.replaceFirstChar { it.titlecase() },
+            text = name,
             style = MaterialTheme.typography.bodyLarge
         )
         Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null)

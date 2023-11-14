@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.maruchin.features.categorybrowser.categorylist
 
 import androidx.compose.foundation.layout.padding
@@ -10,33 +8,36 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.data.categories.Category
+import com.maruchin.data.categories.CategoryId
 import com.maruchin.data.categories.sampleCategories
+import com.maruchin.features.categorybrowser.R
 
 @Composable
 internal fun CategoryListScreen(
-    categories: List<Category>,
-    onShowCategory: (Category) -> Unit,
+    state: CategoryListUiState,
+    onCategoryClick: (CategoryId, Boolean) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar()
+            TopBar()
         }
     ) { padding ->
         CategoryList(
-            categories = categories,
+            categories = state.categories,
             modifier = Modifier.padding(padding),
-            onShowCategory = onShowCategory
+            onCategoryClick = onCategoryClick,
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopAppBar() {
+private fun TopBar() {
     CenterAlignedTopAppBar(
         title = {
-            Text(text = "Categories")
+            Text(text = stringResource(R.string.categories))
         },
     )
 }
@@ -45,6 +46,9 @@ private fun TopAppBar() {
 @Composable
 private fun CategoriesScreenPreview() {
     MaterialTheme {
-        CategoryListScreen(categories = sampleCategories, onShowCategory = {})
+        CategoryListScreen(
+            state = createCategoryListUiState(sampleCategories),
+            onCategoryClick = { _, _ -> },
+        )
     }
 }
