@@ -35,16 +35,10 @@ android {
 }
 
 dependencies {
-    api(project(":core:ui"))
+    implementation(project(":core:ui"))
     api(project(":data:cart"))
     api(project(":data:order"))
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.ui)
-    implementation(libs.bundles.navigation)
     implementation(libs.hilt)
-
     kapt(libs.hilt.compiler)
-
-    debugImplementation(libs.compose.ui.tooling)
 }

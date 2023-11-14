@@ -39,9 +39,9 @@ dependencies {
     implementation(project(":data:deliveries"))
     implementation(project(":data:payments"))
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.ui)
-    implementation(libs.bundles.navigation)
+    api(platform(libs.compose.bom))
+    api(libs.bundles.ui)
+    api(libs.bundles.navigation)
 
-    debugImplementation(libs.compose.ui.tooling)
+    debugApi(libs.compose.ui.tooling)
 }

@@ -1,4 +1,4 @@
-package com.maruchin.features.cart.cart
+package com.maruchin.features.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,12 +19,11 @@ internal class CartViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState = cartRepository.get()
-        .map(::CartUiState)
+        .map(::createCartUiState)
         .stateIn(viewModelScope, SharingStarted.Lazily, CartUiState())
 
     fun createNewOrder() = viewModelScope.launch {
         val cart = cartRepository.get().first()
-        val cartProducts = cart.products
-        orderRepository.createNew(cartProducts)
+        orderRepository.createNew(cart.products)
     }
 }

@@ -1,4 +1,4 @@
-package com.maruchin.features.cart.cart
+package com.maruchin.features.cart
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,7 +16,7 @@ private const val CART_DEEPLINK = "$ROOT_DEEPLINK/cart"
 
 internal fun NavGraphBuilder.cartScreen(
     onNavigateToOrder: () -> Unit,
-    onNavigateToProduct: (ProductId) -> Unit,
+    onNavigateToProductCard: (ProductId) -> Unit,
 ) {
     composable(
         route = CART_ROUTE,
@@ -37,7 +37,7 @@ internal fun NavGraphBuilder.cartScreen(
                 viewModel.createNewOrder()
                 onNavigateToOrder()
             },
-            onProductClick = onNavigateToProduct,
+            onProductClick = onNavigateToProductCard,
         )
     }
 }

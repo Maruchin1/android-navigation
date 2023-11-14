@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 fun OrderProductItem(
     @DrawableRes image: Int,
     name: String,
-    price: Float,
+    price: Double,
     quantity: Int,
     onClick: () -> Unit,
     onQuantityClick: (() -> Unit)? = null,

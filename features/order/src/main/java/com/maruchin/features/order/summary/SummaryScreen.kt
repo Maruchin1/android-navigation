@@ -86,7 +86,7 @@ internal fun SummaryScreen(
                 OrderProductItem(
                     image = product.product.images.first(),
                     name = product.product.name,
-                    price = product.product.price,
+                    price = product.product.price.toDouble(),
                     quantity = product.quantity,
                     onClick = { onProductClick(product.product) },
                 )

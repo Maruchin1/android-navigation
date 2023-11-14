@@ -21,7 +21,7 @@ import com.maruchin.data.categories.Category
 
 @Composable
 internal fun CategoryList(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     categories: List<Category>,
     onShowCategory: (Category) -> Unit
 ) {

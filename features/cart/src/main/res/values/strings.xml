@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cart">Cart</string>
+    <string name="total_to_be_paid">Total to be paid</string>
+    <string name="add_promo_code">Add promo code</string>
+    <string name="next">Next</string>
+</resources>

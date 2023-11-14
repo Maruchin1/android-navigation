@@ -5,6 +5,7 @@ androidx-core = "1.12.0"
 androidx-lifecycle = "2.6.2"
 androidx-activity = "1.8.0"
 androidx-browser = "1.5.0"
+kotlinx-immutable-collections = "0.3.6"
 junit = "4.13.2"
 hilt = "2.48.1"
 hilt-navigation-compose = "1.0.0"
@@ -22,6 +23,7 @@ androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-cor
 androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
+kotlinx-immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable-collections" }
 compose-bom = "androidx.compose:compose-bom:2023.10.00"
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-graphics = { module = "androidx.compose.ui:ui-graphics" }
@@ -52,7 +54,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
-ui = ["androidx-lifecycle", "androidx-activity", "compose-ui", "compose-graphics", "compose-preview", "compose-material", "coil-compose", "compose-icons"]
+ui = ["androidx-lifecycle", "androidx-activity", "compose-ui", "compose-graphics", "compose-preview", "compose-material", "coil-compose", "compose-icons", "kotlinx-immutable-collections"]
 navigation = ["hilt-navigation-compose", "compose-navigation"]
 ktor = ["ktor-core", "ktor-cio", "ktor-content", "ktor-serialization"]
 test-unit = ["junit"]
