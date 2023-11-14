@@ -5,12 +5,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import com.maruchin.core.intent.openEmailApp
+import com.maruchin.core.ui.ROOT_DEEPLINK
 
 internal const val FORGOT_PASSWORD_ROUTE = "forgot_password"
+private const val FORGOT_PASSWORD_DEEPLINK = "$ROOT_DEEPLINK/forgot-password"
 
 internal fun NavGraphBuilder.forgotPasswordScreen(onBack: () -> Unit) {
-    composable(FORGOT_PASSWORD_ROUTE) {
+    composable(
+        route = FORGOT_PASSWORD_ROUTE,
+        deepLinks = listOf(
+            navDeepLink { uriPattern = FORGOT_PASSWORD_DEEPLINK }
+        )
+    ) {
         val viewModel: ForgotPasswordViewModel = hiltViewModel()
         val context = LocalContext.current
         ForgotPasswordScreen(
