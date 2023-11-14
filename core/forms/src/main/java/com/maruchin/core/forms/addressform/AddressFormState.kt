@@ -1,4 +1,4 @@
-package com.maruchin.features.mydata.addressform
+package com.maruchin.core.forms.addressform
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -8,9 +8,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import com.maruchin.data.addresses.Address
+import com.maruchin.data.addresses.AddressId
 
 @Stable
-internal class AddressFormState {
+class AddressFormState {
 
     var firstName: String by mutableStateOf("")
 
@@ -34,6 +36,27 @@ internal class AddressFormState {
                 postalCode.isNotBlank() &&
                 city.isNotBlank()
     }
+
+    var address: Address
+        get() = Address(
+            id = AddressId(""),
+            firstName = firstName,
+            lastName = lastName,
+            street = street,
+            house = house,
+            apartment = apartment,
+            postalCode = postalCode,
+            city = city
+        )
+        set(value) {
+            firstName = value.firstName
+            lastName = value.lastName
+            street = value.street
+            house = value.house
+            apartment = value.apartment ?: ""
+            postalCode = value.postalCode
+            city = value.city
+        }
 }
 
 private val addressFormSaver = listSaver(
@@ -62,7 +85,7 @@ private val addressFormSaver = listSaver(
 )
 
 @Composable
-internal fun rememberAddressFormState(): AddressFormState {
+fun rememberAddressFormState(): AddressFormState {
     return rememberSaveable(saver = addressFormSaver) {
         AddressFormState()
     }

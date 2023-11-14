@@ -27,7 +27,10 @@ internal fun NavGraphBuilder.cartScreen(
 
         CartScreen(
             state = state,
-            onNextClick = onNavigateToOrder,
+            onNextClick = {
+                viewModel.createNewOrder()
+                onNavigateToOrder()
+            },
             onProductClick = onNavigateToProduct,
         )
     }

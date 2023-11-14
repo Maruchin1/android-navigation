@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
+    implementation(project(":core:forms"))
     implementation(project(":data:user"))
     implementation(project(":data:addresses"))
 

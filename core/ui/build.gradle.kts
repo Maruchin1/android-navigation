@@ -36,6 +36,8 @@ android {
 
 dependencies {
     implementation(project(":data:products"))
+    implementation(project(":data:deliveries"))
+    implementation(project(":data:payments"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

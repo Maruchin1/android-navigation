@@ -11,15 +11,20 @@ import com.maruchin.core.ui.screenSlideIn
 import com.maruchin.core.ui.screenSlideOut
 import com.maruchin.features.login.loginGraph
 import com.maruchin.features.login.navigateToLoginGraph
+import com.maruchin.features.order.ORDER_GRAPH_ROUTE
+import com.maruchin.features.order.navigateToOrderGraph
+import com.maruchin.features.order.orderGraph
+import com.maruchin.features.productcard.navigateToProductCardGraph
 import com.maruchin.features.registration.navigateToRegistrationGraph
 import com.maruchin.features.registration.registrationGraph
 
 @Composable
 internal fun RootHost() {
-    val navController = rememberNavController()
+    val rootController = rememberNavController()
+    val navigationBarController = rememberNavController()
 
     NavHost(
-        navController = navController,
+        navController = rootController,
         startDestination = NAVIGATION_BAR_HOST_ROUTE,
         enterTransition = { screenSlideIn() },
         exitTransition = { screenFadeOut() },
@@ -27,19 +32,30 @@ internal fun RootHost() {
         popExitTransition = { screenSlideOut() },
     ) {
         navigationBarHost(
+            navController = navigationBarController,
             onNavigateToLogin = {
-                navController.navigateToLoginGraph()
+                rootController.navigateToLoginGraph()
             },
             onNavigateToJoinClub = {
-                navController.navigateToRegistrationGraph()
+                rootController.navigateToRegistrationGraph()
+            },
+            onNavigateToOrder = {
+                rootController.navigateToOrderGraph()
             }
         )
         loginGraph(
-            navController = navController,
+            navController = rootController,
             onNavigateToRegistration = {
-                navController.navigateToRegistrationGraph()
+                rootController.navigateToRegistrationGraph()
             }
         )
-        registrationGraph(navController = navController)
+        registrationGraph(navController = rootController)
+        orderGraph(
+            navController = rootController,
+            onNavigateToProductCard = { product ->
+                rootController.popBackStack(ORDER_GRAPH_ROUTE, inclusive = true)
+                navigationBarController.navigateToProductCardGraph(product.id)
+            }
+        )
     }
 }

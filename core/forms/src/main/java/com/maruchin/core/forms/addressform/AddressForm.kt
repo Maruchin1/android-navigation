@@ -1,4 +1,4 @@
-package com.maruchin.features.mydata.addressform
+package com.maruchin.core.forms.addressform
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,8 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun AddressForm(state: AddressFormState = rememberAddressFormState()) {
-    Column {
+fun AddressForm(
+    modifier: Modifier = Modifier,
+    state: AddressFormState = rememberAddressFormState()
+) {
+    Column(modifier = modifier) {
         OutlinedTextField(
             value = state.firstName,
             onValueChange = { state.firstName = it },

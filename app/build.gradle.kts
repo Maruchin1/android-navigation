@@ -63,6 +63,7 @@ dependencies {
     implementation(project(":features:my-data"))
     implementation(project(":features:registration"))
     implementation(project(":features:cart"))
+    implementation(project(":features:order"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.core)

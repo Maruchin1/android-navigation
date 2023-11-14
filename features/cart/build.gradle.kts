@@ -37,6 +37,7 @@ android {
 dependencies {
     api(project(":core:ui"))
     api(project(":data:cart"))
+    api(project(":data:order"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

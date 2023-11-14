@@ -8,10 +8,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.maruchin.core.ui.screenFadeIn
 import com.maruchin.core.ui.screenFadeOut
 import com.maruchin.core.ui.screenSlideIn
@@ -35,11 +36,12 @@ import kotlinx.coroutines.flow.map
 internal const val NAVIGATION_BAR_HOST_ROUTE = "navigation_bar_host"
 
 internal fun NavGraphBuilder.navigationBarHost(
+    navController: NavHostController,
     onNavigateToLogin: () -> Unit,
-    onNavigateToJoinClub: () -> Unit
+    onNavigateToJoinClub: () -> Unit,
+    onNavigateToOrder: () -> Unit,
 ) {
     composable(NAVIGATION_BAR_HOST_ROUTE) { entry ->
-        val navController = rememberNavController()
         val context = LocalContext.current
         val snackbarHostState = remember { SnackbarHostState() }
 
@@ -84,8 +86,7 @@ internal fun NavGraphBuilder.navigationBarHost(
                     }
                 )
                 cartGraph(
-                    onNavigateToOrder = {
-                    },
+                    onNavigateToOrder = onNavigateToOrder,
                     onNavigateToProduct = { productId ->
                         navController.navigateToProductCardGraph(productId)
                     }

@@ -21,8 +21,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.features.mydata.addressform.AddressForm
-import com.maruchin.features.mydata.addressform.rememberAddressFormState
+import com.maruchin.core.forms.addressform.AddressForm
+import com.maruchin.core.forms.addressform.rememberAddressFormState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
