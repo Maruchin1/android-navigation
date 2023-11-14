@@ -70,14 +70,13 @@ internal fun NavGraphBuilder.navigationBarHost(
                 popExitTransition = { screenSlideOut() },
             ) {
                 homeGraph(
-                    navController = navController,
-                    onShowProductsFromCategory = { category ->
-                        navController.navigateToProductBrowserGraph(category.id)
+                    onNavigateToCategoryBrowser = { categoryId ->
+                        navController.navigateToProductBrowserGraph(categoryId)
                     },
-                    onShowProduct = { product ->
-                        navController.navigateToProductCardGraph(product.id)
+                    onNavigateToProductCard = { productId ->
+                        navController.navigateToProductCardGraph(productId)
                     },
-                    onLogin = onNavigateToLogin
+                    onNavigateToLogin = onNavigateToLogin
                 )
                 categoryBrowserGraph(
                     navController = navController,

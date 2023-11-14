@@ -7,6 +7,7 @@ import com.maruchin.data.user.UserRepository
 import com.maruchin.domain.products.GroupRecommendedProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -17,10 +18,9 @@ internal class HomeViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val products = groupRecommendedProductsUseCase()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyMap())
+    private val products = groupRecommendedProductsUseCase()
+    private val canLogin = userRepository.get().map { it is User.LoggedOut }
 
-    val canLogin = userRepository.get()
-        .map { it is User.LoggedOut }
-        .stateIn(viewModelScope, SharingStarted.Lazily, false)
+    val uiState = combine(products, canLogin, ::createHomeUiState)
+        .stateIn(viewModelScope, SharingStarted.Lazily, HomeUiState())
 }
