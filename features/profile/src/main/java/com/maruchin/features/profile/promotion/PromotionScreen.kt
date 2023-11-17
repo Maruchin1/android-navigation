@@ -85,7 +85,7 @@ internal fun PromotionScreen(promotion: Promotion, onBack: () -> Unit) {
                         style = MaterialTheme.typography.labelLarge
                     )
                     Text(
-                        text = promotion.promoCode.value,
+                        text = promotion.promoCode,
                         style = MaterialTheme.typography.displayMedium
                     )
                     TextButton(onClick = { }) {

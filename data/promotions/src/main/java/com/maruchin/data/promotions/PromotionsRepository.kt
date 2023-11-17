@@ -6,5 +6,5 @@ interface PromotionsRepository {
 
     fun getAvailable(): Flow<List<Promotion>>
 
-    fun getById(id: PromotionId): Flow<Promotion>
+    fun getById(id: String): Flow<Promotion>
 }

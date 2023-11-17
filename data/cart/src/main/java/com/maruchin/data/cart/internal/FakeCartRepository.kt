@@ -5,7 +5,6 @@ import com.maruchin.data.cart.CartProduct
 import com.maruchin.data.cart.CartRepository
 import com.maruchin.data.cart.sampleCart
 import com.maruchin.data.products.Product
-import com.maruchin.data.products.ProductId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -16,6 +15,7 @@ import javax.inject.Singleton
 internal class FakeCartRepository @Inject constructor() : CartRepository {
 
     private val cart = MutableStateFlow(sampleCart)
+
     override fun get(): Flow<Cart> {
         return cart
     }
@@ -27,13 +27,13 @@ internal class FakeCartRepository @Inject constructor() : CartRepository {
         }
     }
 
-    override suspend fun removeProduct(productId: ProductId) {
+    override suspend fun removeProduct(productId: String) {
         cart.update { cart ->
             cart.copy(products = cart.products.filter { it.product.id != productId })
         }
     }
 
-    override suspend fun increaseProductQuantity(productId: ProductId) {
+    override suspend fun increaseProductQuantity(productId: String) {
         cart.update { cart ->
             cart.copy(
                 products = cart.products.map { cartProduct ->
@@ -47,7 +47,7 @@ internal class FakeCartRepository @Inject constructor() : CartRepository {
         }
     }
 
-    override suspend fun decreaseProductQuantity(productId: ProductId) {
+    override suspend fun decreaseProductQuantity(productId: String) {
         cart.update { cart ->
             cart.copy(
                 products = cart.products.map { cartProduct ->

@@ -1,7 +1,7 @@
 package com.maruchin.data.addresses
 
 val sampleAddress = Address(
-    id = AddressId("1"),
+    id = "1",
     firstName = "John",
     lastName = "Doe",
     street = "Main Street",

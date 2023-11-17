@@ -1,5 +1,8 @@
-package com.maruchin.data.user
+package com.maruchin.data.user.internal
 
+import com.maruchin.data.user.User
+import com.maruchin.data.user.UserRepository
+import com.maruchin.data.user.sampleLoggedUser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -14,16 +17,16 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         return user
     }
 
-    override suspend fun login(email: Email, password: Password) {
+    override suspend fun login(email: String, password: String) {
         user.emit(sampleLoggedUser)
     }
 
     override suspend fun register(
         firstName: String,
         lastName: String,
-        email: Email,
-        phoneNumber: PhoneNumber,
-        password: Password
+        email: String,
+        phoneNumber: String,
+        password: String
     ) {
         user.emit(sampleLoggedUser)
     }
@@ -32,9 +35,9 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         user.emit(User.LoggedOut)
     }
 
-    override suspend fun changePassword(newPassword: Password, token: Token) = Unit
+    override suspend fun changePasswordWithToken(newPassword: String, token: String) = Unit
 
-    override suspend fun changePassword(currentPassword: Password, newPassword: Password) = Unit
+    override suspend fun changePassword(currentPassword: String, newPassword: String) = Unit
 
     override suspend fun deleteAccount() {
         user.emit(User.LoggedOut)
@@ -43,8 +46,8 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
     override suspend fun updatePersonalData(
         firstName: String,
         lastName: String,
-        email: Email,
-        phoneNumber: PhoneNumber
+        email: String,
+        phoneNumber: String
     ) {
         val loggedUser = user.value as? User.LoggedIn ?: return
         user.value = loggedUser.copy(

@@ -7,8 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.maruchin.data.user.Email
-import com.maruchin.data.user.Password
+import com.maruchin.data.user.EmailValidationResult
+import com.maruchin.data.user.PasswordValidationResult
+import com.maruchin.data.user.isEmailValid
+import com.maruchin.data.user.isPasswordValid
+import com.maruchin.data.user.validateEmail
+import com.maruchin.data.user.validatePassword
 
 @Stable
 internal class LoginFormState {
@@ -26,23 +30,23 @@ internal class LoginFormState {
         private set
 
     val isValid by derivedStateOf {
-        Email.isValid(email) && Password.isValid(password)
+        isEmailValid(email) && isPasswordValid(password)
     }
 
     fun enterEmail(email: String) {
         this.email = email
-        emailError = when (Email.validate(email)) {
-            Email.ValidationResult.VALID -> null
-            Email.ValidationResult.EMPTY -> "Email cannot be empty"
-            Email.ValidationResult.INVALID_FORMAT -> "Invalid email format"
+        emailError = when (validateEmail(email)) {
+            EmailValidationResult.VALID -> null
+            EmailValidationResult.EMPTY -> "Email cannot be empty"
+            EmailValidationResult.INVALID_FORMAT -> "Invalid email format"
         }
     }
 
     fun enterPassword(password: String) {
         this.password = password
-        passwordError = when (Password.validate(password)) {
-            Password.ValidationResult.VALID -> null
-            Password.ValidationResult.EMPTY -> "Password cannot be empty"
+        passwordError = when (validatePassword(password)) {
+            PasswordValidationResult.VALID -> null
+            PasswordValidationResult.EMPTY -> "Password cannot be empty"
         }
     }
 }

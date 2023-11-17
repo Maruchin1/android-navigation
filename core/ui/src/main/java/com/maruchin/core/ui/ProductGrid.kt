@@ -11,7 +11,7 @@ import com.maruchin.data.products.Product
 fun ProductGrid(
     modifier: Modifier,
     products: List<Product>,
-    onShowProduct: (Product) -> Unit
+    onShowProduct: (productId: String) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -21,9 +21,9 @@ fun ProductGrid(
             ProductItem(
                 image = product.images.first(),
                 title = product.name,
-                price = product.price.toDouble(),
+                price = product.price,
                 isFavorite = product.isFavorite,
-                onClick = { onShowProduct(product) }
+                onClick = { onShowProduct(product.id) }
             )
         }
     }

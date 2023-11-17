@@ -9,7 +9,6 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.maruchin.data.addresses.Address
-import com.maruchin.data.addresses.AddressId
 
 @Stable
 class AddressFormState {
@@ -39,7 +38,7 @@ class AddressFormState {
 
     var address: Address
         get() = Address(
-            id = AddressId(""),
+            id = "",
             firstName = firstName,
             lastName = lastName,
             street = street,

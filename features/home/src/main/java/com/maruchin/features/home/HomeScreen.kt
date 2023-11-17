@@ -24,15 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maruchin.core.ui.AllProductsButton
 import com.maruchin.core.ui.ProductItem
-import com.maruchin.data.categories.CategoryId
-import com.maruchin.data.products.ProductId
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
     state: HomeUiState,
-    onCategoryClick: (CategoryId) -> Unit,
-    onProductClick: (ProductId) -> Unit,
+    onCategoryClick: (categoryId: String) -> Unit,
+    onProductClick: (productId: String) -> Unit,
     onLoginClick: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -84,8 +82,8 @@ private fun TopBar(
 private fun CategoryProductsList(
     categories: List<CategoryUiState>,
     modifier: Modifier = Modifier,
-    onCategoryClick: (CategoryId) -> Unit,
-    onProductClick: (ProductId) -> Unit,
+    onCategoryClick: (categoryId: String) -> Unit,
+    onProductClick: (productId: String) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -119,7 +117,7 @@ private fun CategoryHeadline(name: String) {
 private fun ProductRow(
     products: List<ProductUiState>,
     onShowAllClick: () -> Unit,
-    onProductClick: (ProductId) -> Unit
+    onProductClick: (productId: String) -> Unit
 ) {
     LazyRow(modifier = Modifier.fillMaxWidth()) {
         items(products) { product ->

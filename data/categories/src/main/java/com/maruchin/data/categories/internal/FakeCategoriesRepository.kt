@@ -1,5 +1,9 @@
-package com.maruchin.data.categories
+package com.maruchin.data.categories.internal
 
+import com.maruchin.data.categories.CategoriesRepository
+import com.maruchin.data.categories.Category
+import com.maruchin.data.categories.flatten
+import com.maruchin.data.categories.sampleCategories
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -21,7 +25,7 @@ internal class FakeCategoriesRepository @Inject constructor() : CategoriesReposi
         }
     }
 
-    override fun getById(id: CategoryId): Flow<Category?> {
+    override fun getById(id: String): Flow<Category?> {
         return categories.map { categories ->
             categories.flatten().find { it.id == id }
         }

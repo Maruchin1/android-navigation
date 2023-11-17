@@ -7,8 +7,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.maruchin.data.user.Email
-import com.maruchin.data.user.Token
 import kotlinx.coroutines.flow.filterIsInstance
 
 private const val EMAIL = "email"
@@ -17,10 +15,10 @@ internal const val CHANGE_PASSWORD_ROUTE = "change_password"
 internal const val CHANGE_PASSWORD_LINK =
     "app://com.maruchin.androidnavigation/change-password/{$EMAIL}/{$TOKEN}"
 
-internal data class ChangePasswordArgs(val email: Email, val token: Token) {
+internal data class ChangePasswordArgs(val email: String, val token: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        email = Email(requireNotNull(savedStateHandle[EMAIL])),
-        token = Token(requireNotNull(savedStateHandle[TOKEN])),
+        email = checkNotNull(savedStateHandle[EMAIL]),
+        token = checkNotNull(savedStateHandle[TOKEN]),
     )
 }
 

@@ -9,14 +9,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.dialog
-import com.maruchin.data.addresses.AddressId
 
 private const val ADDRESS_ID = "addressId"
 internal const val EDIT_ADDRESS_ROUTE = "edit-address/{$ADDRESS_ID}"
 
-internal data class EditAddressArgs(val addressId: AddressId) {
+internal data class EditAddressArgs(val addressId: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        addressId = AddressId(savedStateHandle[ADDRESS_ID]!!)
+        addressId = checkNotNull(savedStateHandle[ADDRESS_ID])
     )
 }
 
@@ -42,6 +41,6 @@ internal fun NavGraphBuilder.editAddressScreen(onClose: () -> Unit) {
     }
 }
 
-internal fun NavController.navigateToEditAddress(addressId: AddressId) {
-    navigate(EDIT_ADDRESS_ROUTE.replace("{$ADDRESS_ID}", addressId.value))
+internal fun NavController.navigateToEditAddress(addressId: String) {
+    navigate(EDIT_ADDRESS_ROUTE.replace("{$ADDRESS_ID}", addressId))
 }

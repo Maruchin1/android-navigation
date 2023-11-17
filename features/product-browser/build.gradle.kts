@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    api(project(":domain:products"))
+    implementation(project(":data:products"))
     implementation(project(":core:ui"))
 
     implementation(platform(libs.compose.bom))

@@ -14,13 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.maruchin.core.ui.ProductItem
-import com.maruchin.data.products.ProductId
 import com.maruchin.data.products.sampleFavoriteProducts
 
 @Composable
 internal fun FavoritesScreen(
     state: FavoritesUiState,
-    onProductClick: (ProductId) -> Unit
+    onProductClick: (productId: String) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -49,7 +48,7 @@ private fun TopBar() {
 private fun ProductGrid(
     products: List<ProductUiState>,
     modifier: Modifier = Modifier,
-    onProductClick: (ProductId) -> Unit
+    onProductClick: (productId: String) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),

@@ -7,7 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.maruchin.data.user.Email
+import com.maruchin.data.user.EmailValidationResult
+import com.maruchin.data.user.isEmailValid
+import com.maruchin.data.user.validateEmail
 
 @Stable
 internal class ForgotPasswordFormState {
@@ -19,15 +21,15 @@ internal class ForgotPasswordFormState {
         private set
 
     val isValid by derivedStateOf {
-        Email.isValid(email)
+        isEmailValid(email)
     }
 
     fun enterEmail(email: String) {
         this.email = email
-        this.emailError = when (Email.validate(email)) {
-            Email.ValidationResult.VALID -> null
-            Email.ValidationResult.EMPTY -> "Email cannot be empty"
-            Email.ValidationResult.INVALID_FORMAT -> "Invalid email format"
+        this.emailError = when (validateEmail(email)) {
+            EmailValidationResult.VALID -> null
+            EmailValidationResult.EMPTY -> "Email cannot be empty"
+            EmailValidationResult.INVALID_FORMAT -> "Invalid email format"
         }
     }
 }

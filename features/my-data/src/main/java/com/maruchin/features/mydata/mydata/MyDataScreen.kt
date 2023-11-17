@@ -73,7 +73,10 @@ internal fun MyDataScreen(
                         contentDescription = null,
                         modifier = Modifier.size(64.dp)
                     )
-                    Text(text = state.fullName, style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        text = "${state.firstName} ${state.lastName}",
+                        style = MaterialTheme.typography.titleLarge
+                    )
                     Text(text = state.email, style = MaterialTheme.typography.bodyMedium)
                     Text(text = state.phoneNumber, style = MaterialTheme.typography.bodyMedium)
                 }
@@ -108,7 +111,8 @@ private fun MyDataItem(text: String, onClick: () -> Unit) {
 private fun MyDataScreenPreview() {
     MyDataScreen(
         state = MyDataUiState(
-            fullName = "John Doe",
+            firstName = "John",
+            lastName = "Doe",
             email = "john.doe@gmail.com",
             phoneNumber = "+48 123 456 789",
         ),

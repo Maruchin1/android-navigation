@@ -26,7 +26,7 @@ internal fun ProductListScreen(
     category: Category?,
     products: List<Product>,
     onBack: () -> Unit,
-    onShowProduct: (Product) -> Unit,
+    onShowProduct: (productId: String) -> Unit,
     onShowFilters: () -> Unit,
 ) {
     Scaffold(

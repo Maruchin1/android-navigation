@@ -7,14 +7,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.maruchin.core.ui.screenFadeIn
 import com.maruchin.core.ui.screenFadeOut
-import com.maruchin.data.promotions.PromotionId
 
 internal const val PROFILE_ROUTE = "profile"
 
 internal fun NavGraphBuilder.profileScreen(
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit,
-    onOpenPromotion: (PromotionId) -> Unit,
+    onOpenPromotion: (promotionId: String) -> Unit,
     onOpenMyData: () -> Unit,
     onOpenMyOrders: () -> Unit,
     onOpenReturns: () -> Unit,

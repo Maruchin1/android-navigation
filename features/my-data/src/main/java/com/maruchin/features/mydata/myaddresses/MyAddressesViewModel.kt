@@ -15,6 +15,6 @@ internal class MyAddressesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState = addressesRepository.getAll()
-        .map(MyAddressesUiState::fromDomain)
+        .map(::MyAddressesUiState)
         .stateIn(viewModelScope, SharingStarted.Lazily, MyAddressesUiState())
 }

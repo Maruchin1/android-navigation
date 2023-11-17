@@ -18,12 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.maruchin.data.promotions.Promotion
-import com.maruchin.data.promotions.PromotionId
 import com.maruchin.data.promotions.samplePromotions
 import java.net.URL
 
 @Composable
-internal fun PromotionsPage(onOpenPromotion: (PromotionId) -> Unit) {
+internal fun PromotionsPage(onOpenPromotion: (promotionId: String) -> Unit) {
     val viewModel: PromotionsViewModel = hiltViewModel()
     val promotions by viewModel.promotions.collectAsState()
 
@@ -31,7 +30,10 @@ internal fun PromotionsPage(onOpenPromotion: (PromotionId) -> Unit) {
 }
 
 @Composable
-private fun PromotionsPage(promotions: List<Promotion>, onOpenPromotion: (PromotionId) -> Unit) {
+private fun PromotionsPage(
+    promotions: List<Promotion>,
+    onOpenPromotion: (promotionId: String) -> Unit
+) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)

@@ -6,6 +6,7 @@ androidx-lifecycle = "2.6.2"
 androidx-activity = "1.8.0"
 androidx-browser = "1.5.0"
 kotlinx-immutable-collections = "0.3.6"
+kotlinx-coroutines-test = "1.7.3"
 junit = "4.13.2"
 hilt = "2.48.1"
 hilt-navigation-compose = "1.0.0"
@@ -17,6 +18,7 @@ androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
 material = "1.10.0"
+turbine = "1.0.0"
 
 [libraries]
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -24,6 +26,7 @@ androidx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", vers
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 kotlinx-immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-immutable-collections" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 compose-bom = "androidx.compose:compose-bom:2023.10.00"
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-graphics = { module = "androidx.compose.ui:ui-graphics" }
@@ -45,6 +48,7 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle" }
@@ -57,4 +61,4 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 ui = ["androidx-lifecycle", "androidx-activity", "compose-ui", "compose-graphics", "compose-preview", "compose-material", "coil-compose", "compose-icons", "kotlinx-immutable-collections"]
 navigation = ["hilt-navigation-compose", "compose-navigation"]
 ktor = ["ktor-core", "ktor-cio", "ktor-content", "ktor-serialization"]
-test-unit = ["junit"]
+test-unit = ["junit", "kotlinx-coroutines-test", "turbine"]

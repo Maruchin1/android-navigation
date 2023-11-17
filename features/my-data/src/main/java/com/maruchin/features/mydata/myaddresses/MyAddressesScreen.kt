@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.maruchin.core.ui.AddressItem
-import com.maruchin.data.addresses.AddressId
 import com.maruchin.data.addresses.sampleAddress
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +26,7 @@ internal fun MyAddressesScreen(
     state: MyAddressesUiState,
     onBack: () -> Unit,
     onAddAddressClick: () -> Unit,
-    onEditAddress: (AddressId) -> Unit,
+    onEditAddress: (addressId: String) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -56,9 +55,13 @@ internal fun MyAddressesScreen(
         ) {
             state.addresses.forEach { address ->
                 AddressItem(
-                    fullName = address.fullName,
-                    firstLine = address.firstLine,
-                    secondLine = address.secondLine,
+                    firstName = address.firstName,
+                    lastName = address.lastName,
+                    street = address.street,
+                    house = address.house,
+                    apartment = address.apartment,
+                    postalCode = address.postalCode,
+                    city = address.postalCode,
                     onEditClick = { onEditAddress(address.id) }
                 )
             }
@@ -70,9 +73,7 @@ internal fun MyAddressesScreen(
 @Composable
 private fun MyAddressesScreenPreview() {
     MyAddressesScreen(
-        state = MyAddressesUiState(
-            addresses = listOf(AddressUiState(sampleAddress))
-        ),
+        state = MyAddressesUiState(addresses = listOf(sampleAddress)),
         onBack = {},
         onAddAddressClick = {},
         onEditAddress = {},

@@ -6,14 +6,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.data.addresses.AddressId
 
 internal const val MY_ADDRESSES_ROUTE = "my-addresses"
 
 internal fun NavGraphBuilder.myAddresses(
     onBack: () -> Unit,
     onNavigateToAddAddress: () -> Unit,
-    onNavigateToEditAddress: (AddressId) -> Unit
+    onNavigateToEditAddress: (addressId: String) -> Unit
 ) {
     composable(MY_ADDRESSES_ROUTE) {
         val viewModel: MyAddressesViewModel = hiltViewModel()

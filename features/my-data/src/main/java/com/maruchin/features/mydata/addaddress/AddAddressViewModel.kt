@@ -3,7 +3,6 @@ package com.maruchin.features.mydata.addaddress
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maruchin.data.addresses.Address
-import com.maruchin.data.addresses.AddressId
 import com.maruchin.data.addresses.AddressesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +30,7 @@ internal class AddAddressViewModel @Inject constructor(
         city: String
     ) = viewModelScope.launch {
         val address = Address(
-            id = AddressId(Random.nextInt().toString()),
+            id = Random.nextInt().toString(),
             firstName = firstName,
             lastName = lastName,
             street = street,

@@ -6,28 +6,28 @@ interface UserRepository {
 
     fun get(): Flow<User>
 
-    suspend fun login(email: Email, password: Password)
+    suspend fun login(email: String, password: String)
 
     suspend fun register(
         firstName: String,
         lastName: String,
-        email: Email,
-        phoneNumber: PhoneNumber,
-        password: Password
+        email: String,
+        phoneNumber: String,
+        password: String
     )
 
     suspend fun logout()
 
-    suspend fun changePassword(newPassword: Password, token: Token)
+    suspend fun changePasswordWithToken(newPassword: String, token: String)
 
-    suspend fun changePassword(currentPassword: Password, newPassword: Password)
+    suspend fun changePassword(currentPassword: String, newPassword: String)
 
     suspend fun deleteAccount()
 
     suspend fun updatePersonalData(
         firstName: String,
         lastName: String,
-        email: Email,
-        phoneNumber: PhoneNumber,
+        email: String,
+        phoneNumber: String,
     )
 }

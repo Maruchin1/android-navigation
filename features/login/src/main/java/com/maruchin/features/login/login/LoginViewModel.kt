@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.data.user.Email
-import com.maruchin.data.user.Password
 import com.maruchin.data.user.User
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,8 +31,8 @@ internal class LoginViewModel @Inject constructor(
     fun login() = viewModelScope.launch {
         if (!loginFormState.isValid) return@launch
         isLoading = true
-        val email = Email(loginFormState.email)
-        val password = Password(loginFormState.password)
+        val email = loginFormState.email
+        val password = loginFormState.password
         userRepository.login(email, password)
         isLoading = false
     }

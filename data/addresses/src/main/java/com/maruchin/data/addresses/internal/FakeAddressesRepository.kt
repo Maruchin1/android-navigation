@@ -1,7 +1,6 @@
 package com.maruchin.data.addresses.internal
 
 import com.maruchin.data.addresses.Address
-import com.maruchin.data.addresses.AddressId
 import com.maruchin.data.addresses.AddressesRepository
 import com.maruchin.data.addresses.sampleAddress
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +19,7 @@ internal class FakeAddressesRepository @Inject constructor() : AddressesReposito
         return addresses
     }
 
-    override fun getById(id: AddressId): Flow<Address?> {
+    override fun getById(id: String): Flow<Address?> {
         return addresses.map { list ->
             list.find { it.id == id }
         }

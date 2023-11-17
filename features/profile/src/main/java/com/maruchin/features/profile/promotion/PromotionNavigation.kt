@@ -7,14 +7,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.data.promotions.PromotionId
 
 private const val PROMOTION_ID = "promotionId"
 internal const val PROMOTION_ROUTE = "promotion/{$PROMOTION_ID}"
 
-internal data class PromotionArgs(val promotionId: PromotionId) {
+internal data class PromotionArgs(val promotionId: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        promotionId = PromotionId(savedStateHandle[PROMOTION_ID]!!)
+        promotionId = checkNotNull(savedStateHandle[PROMOTION_ID])
     )
 }
 
@@ -29,6 +28,6 @@ internal fun NavGraphBuilder.promotionScreen(onBack: () -> Unit) {
     }
 }
 
-internal fun NavController.navigateToPromotion(promotionId: PromotionId) {
-    navigate(PROMOTION_ROUTE.replace("{$PROMOTION_ID}", promotionId.value))
+internal fun NavController.navigateToPromotion(promotionId: String) {
+    navigate(PROMOTION_ROUTE.replace("{$PROMOTION_ID}", promotionId))
 }

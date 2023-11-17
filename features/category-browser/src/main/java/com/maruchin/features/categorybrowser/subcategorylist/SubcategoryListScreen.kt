@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.data.categories.CategoryId
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.features.categorybrowser.categorylist.CategoryList
 
@@ -20,7 +19,7 @@ import com.maruchin.features.categorybrowser.categorylist.CategoryList
 internal fun SubcategoryListScreen(
     state: SubcategoryListUiState,
     onBackClick: () -> Unit,
-    onCategoryClick: (CategoryId, Boolean) -> Unit
+    onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit
 ) {
     Scaffold(
         topBar = {

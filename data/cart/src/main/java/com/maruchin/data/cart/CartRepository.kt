@@ -1,7 +1,6 @@
 package com.maruchin.data.cart
 
 import com.maruchin.data.products.Product
-import com.maruchin.data.products.ProductId
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
@@ -10,9 +9,9 @@ interface CartRepository {
 
     suspend fun addProduct(product: Product)
 
-    suspend fun removeProduct(productId: ProductId)
+    suspend fun removeProduct(productId: String)
 
-    suspend fun increaseProductQuantity(productId: ProductId)
+    suspend fun increaseProductQuantity(productId: String)
 
-    suspend fun decreaseProductQuantity(productId: ProductId)
+    suspend fun decreaseProductQuantity(productId: String)
 }

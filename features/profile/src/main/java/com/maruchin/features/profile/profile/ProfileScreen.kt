@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.data.promotions.PromotionId
 import com.maruchin.features.profile.club.ClubPage
 import com.maruchin.features.profile.clubauth.ClubAuthPage
 import com.maruchin.features.profile.mydata.MyDataPage
@@ -30,7 +29,7 @@ internal fun ProfileScreen(
     state: ProfileUiState,
     onOpenPurchaseHistory: () -> Unit,
     onOpenFindOutMore: () -> Unit,
-    onOpenPromotion: (PromotionId) -> Unit,
+    onOpenPromotion: (promotionId: String) -> Unit,
     onOpenMyData: () -> Unit,
     onOpenMyOrders: () -> Unit,
     onOpenReturns: () -> Unit,

@@ -2,7 +2,6 @@ package com.maruchin.features.mydata.changepassword
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.data.user.Password
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +20,8 @@ internal class ChangePasswordViewModel @Inject constructor(
 
     fun changePassword(currentPassword: String, newPassword: String) = viewModelScope.launch {
         userRepository.changePassword(
-            currentPassword = Password(currentPassword),
-            newPassword = Password(newPassword),
+            currentPassword = currentPassword,
+            newPassword = newPassword,
         )
         _uiState.update {
             it.copy(isSaved = true)

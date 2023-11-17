@@ -3,7 +3,6 @@ package com.maruchin.features.order.delivery
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maruchin.data.deliveries.DeliveriesRepository
-import com.maruchin.data.deliveries.DeliveryId
 import com.maruchin.data.order.OrderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,7 +22,7 @@ internal class DeliveryViewModel @Inject constructor(
         .map(::DeliveryUiState)
         .stateIn(viewModelScope, SharingStarted.Lazily, DeliveryUiState())
 
-    fun selectDelivery(deliveryId: DeliveryId) = viewModelScope.launch {
+    fun selectDelivery(deliveryId: String) = viewModelScope.launch {
         val delivery = deliveriesRepository.getById(deliveryId).first()
         orderRepository.selectDelivery(delivery)
     }

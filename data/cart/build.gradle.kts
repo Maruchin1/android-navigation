@@ -33,4 +33,6 @@ dependencies {
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+
+    testImplementation(libs.bundles.test.unit)
 }

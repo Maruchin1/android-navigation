@@ -152,7 +152,7 @@ private fun TitleText(text: String) {
 }
 
 @Composable
-private fun PriceText(price: Float) {
+private fun PriceText(price: Double) {
     Text(text = price.toString(), style = MaterialTheme.typography.titleLarge)
 }
 

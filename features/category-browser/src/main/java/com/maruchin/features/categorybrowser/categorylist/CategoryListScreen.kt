@@ -10,14 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.data.categories.CategoryId
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.features.categorybrowser.R
 
 @Composable
 internal fun CategoryListScreen(
     state: CategoryListUiState,
-    onCategoryClick: (CategoryId, Boolean) -> Unit,
+    onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit,
 ) {
     Scaffold(
         topBar = {

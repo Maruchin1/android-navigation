@@ -2,107 +2,107 @@ package com.maruchin.data.categories
 
 val sampleCategories = listOf(
     Category(
-        id = CategoryId("shoes"),
+        id = "shoes",
         name = "Shoes",
         subcategories = listOf(
             Category(
-                id = CategoryId("shoes-all"),
+                id = "shoes-all",
                 name = "See all",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("shoes-categories"),
+                id = "shoes-categories",
                 name = "Categories",
                 subcategories = listOf(
                     Category(
-                        id = CategoryId("shoes-categories-sneakers"),
+                        id = "shoes-categories-sneakers",
                         name = "Sneakers",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-categories-boots"),
+                        id = "shoes-categories-boots",
                         name = "Boots",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-categories-sandals"),
+                        id = "shoes-categories-sandals",
                         name = "Sandals",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-categories-loafers"),
+                        id = "shoes-categories-loafers",
                         name = "Loafers",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-categories-oxfords"),
+                        id = "shoes-categories-oxfords",
                         name = "Oxfords",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-categories-flip-flops"),
+                        id = "shoes-categories-flip-flops",
                         name = "Flip Flops",
                         subcategories = emptyList(),
                     ),
                 ),
             ),
             Category(
-                id = CategoryId("shoes-recommended"),
+                id = "shoes-recommended",
                 name = "Recommended",
                 subcategories = listOf(
                     Category(
-                        id = CategoryId("shoes-recommended-summer"),
+                        id = "shoes-recommended-summer",
                         name = "Summer",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-recommended-winter"),
+                        id = "shoes-recommended-winter",
                         name = "Winter",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-recommended-autumn"),
+                        id = "shoes-recommended-autumn",
                         name = "Autumn",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-recommended-spring"),
+                        id = "shoes-recommended-spring",
                         name = "Spring",
                         subcategories = emptyList(),
                     ),
                 ),
             ),
             Category(
-                id = CategoryId("shoes-brands"),
+                id = "shoes-brands",
                 name = "Brands",
                 subcategories = listOf(
                     Category(
-                        id = CategoryId("shoes-brands-nike"),
+                        id = "shoes-brands-nike",
                         name = "Nike",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-brands-adidas"),
+                        id = "shoes-brands-adidas",
                         name = "Adidas",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-brands-puma"),
+                        id = "shoes-brands-puma",
                         name = "Puma",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-brands-new-balance"),
+                        id = "shoes-brands-new-balance",
                         name = "New Balance",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-brands-reebok"),
+                        id = "shoes-brands-reebok",
                         name = "Reebok",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("shoes-brands-asics"),
+                        id = "shoes-brands-asics",
                         name = "Asics",
                         subcategories = emptyList(),
                     ),
@@ -111,77 +111,77 @@ val sampleCategories = listOf(
         )
     ),
     Category(
-        id = CategoryId("bags-and-suitcases"),
+        id = "bags-and-suitcases",
         name = "Bags & Suitcases",
         subcategories = listOf(
             Category(
-                id = CategoryId("bags-and-suitcases-all"),
+                id = "bags-and-suitcases-all",
                 name = "See all",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("bags-and-suitcases-mens-bags"),
+                id = "bags-and-suitcases-mens-bags",
                 name = "Men's bags",
                 subcategories = listOf()
             ),
             Category(
-                id = CategoryId("bags-and-suitcases-suitcases"),
+                id = "bags-and-suitcases-suitcases",
                 name = "Suitcases",
                 subcategories = listOf()
             ),
             Category(
-                id = CategoryId("bags-and-suitcases-backpacks"),
+                id = "bags-and-suitcases-backpacks",
                 name = "Backpacks",
                 subcategories = listOf()
             ),
         )
     ),
     Category(
-        id = CategoryId("accessories-and-clothes"),
+        id = "accessories-and-clothes",
         name = "Accessories & Clothes",
         subcategories = listOf(
             Category(
-                id = CategoryId("accessories-and-clothes-all"),
+                id = "accessories-and-clothes-all",
                 name = "See all",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("accessories-and-clothes-for-shoes"),
+                id = "accessories-and-clothes-for-shoes",
                 name = "For shoes",
                 subcategories = listOf(
                     Category(
-                        id = CategoryId("accessories-and-clothes-for-shoes-shoe-laces"),
+                        id = "accessories-and-clothes-for-shoes-shoe-laces",
                         name = "Shoe laces",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("accessories-and-clothes-for-shoes-insoles"),
+                        id = "accessories-and-clothes-for-shoes-insoles",
                         name = "Insoles",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("accessories-and-clothes-for-shoes-shoe-care"),
+                        id = "accessories-and-clothes-for-shoes-shoe-care",
                         name = "Shoe care",
                         subcategories = emptyList(),
                     ),
                 ),
             ),
             Category(
-                id = CategoryId("accessories-and-clothes-accessories"),
+                id = "accessories-and-clothes-accessories",
                 name = "Accessories",
                 subcategories = listOf(
                     Category(
-                        id = CategoryId("accessories-and-clothes-accessories-belts"),
+                        id = "accessories-and-clothes-accessories-belts",
                         name = "Belts",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("accessories-and-clothes-accessories-wallets"),
+                        id = "accessories-and-clothes-accessories-wallets",
                         name = "Wallets",
                         subcategories = emptyList(),
                     ),
                     Category(
-                        id = CategoryId("accessories-and-clothes-accessories-socks"),
+                        id = "accessories-and-clothes-accessories-socks",
                         name = "Socks",
                         subcategories = emptyList(),
                     ),
@@ -190,41 +190,41 @@ val sampleCategories = listOf(
         )
     ),
     Category(
-        id = CategoryId("brands"),
+        id = "brands",
         name = "Brands",
         subcategories = listOf(
             Category(
-                id = CategoryId("brands-all"),
+                id = "brands-all",
                 name = "See all",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("brands-nike"),
+                id = "brands-nike",
                 name = "Nike",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("brands-adidas"),
+                id = "brands-adidas",
                 name = "Adidas",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("brands-puma"),
+                id = "brands-puma",
                 name = "Puma",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("brands-new-balance"),
+                id = "brands-new-balance",
                 name = "New Balance",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("brands-reebok"),
+                id = "brands-reebok",
                 name = "Reebok",
                 subcategories = emptyList(),
             ),
             Category(
-                id = CategoryId("brands-asics"),
+                id = "brands-asics",
                 name = "Asics",
                 subcategories = emptyList(),
             ),

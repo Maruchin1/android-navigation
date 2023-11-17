@@ -27,13 +27,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maruchin.core.ui.OrderProductItem
 import com.maruchin.data.cart.sampleCart
-import com.maruchin.data.products.ProductId
 
 @Composable
 internal fun CartScreen(
     state: CartUiState,
     onNextClick: () -> Unit,
-    onProductClick: (ProductId) -> Unit,
+    onProductClick: (productId: String) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -131,7 +130,7 @@ private fun NextButton(onClick: () -> Unit) {
 private fun ProductList(
     products: List<CartProductUiState>,
     modifier: Modifier = Modifier,
-    onProductClick: (ProductId) -> Unit
+    onProductClick: (productId: String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier

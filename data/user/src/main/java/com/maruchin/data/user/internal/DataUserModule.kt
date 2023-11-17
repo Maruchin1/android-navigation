@@ -1,5 +1,6 @@
-package com.maruchin.data.user
+package com.maruchin.data.user.internal
 
+import com.maruchin.data.user.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

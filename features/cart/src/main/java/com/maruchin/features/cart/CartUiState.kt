@@ -2,7 +2,6 @@ package com.maruchin.features.cart
 
 import com.maruchin.data.cart.Cart
 import com.maruchin.data.cart.CartProduct
-import com.maruchin.data.products.ProductId
 
 internal data class CartUiState(
     val products: List<CartProductUiState> = emptyList(),
@@ -10,7 +9,7 @@ internal data class CartUiState(
 )
 
 internal data class CartProductUiState(
-    val id: ProductId,
+    val id: String,
     val image: Int,
     val name: String,
     val price: Double,
@@ -19,13 +18,13 @@ internal data class CartProductUiState(
 
 internal fun createCartUiState(cart: Cart) = CartUiState(
     products = cart.products.map(::createCartProductUiState),
-    totalPrice = cart.totalPrice.toDouble(),
+    totalPrice = cart.totalPrice,
 )
 
 internal fun createCartProductUiState(cartProduct: CartProduct) = CartProductUiState(
     id = cartProduct.product.id,
     image = cartProduct.product.images.first(),
     name = cartProduct.product.name,
-    price = cartProduct.product.price.toDouble(),
+    price = cartProduct.product.price,
     quantity = cartProduct.quantity,
 )

@@ -9,15 +9,13 @@ import androidx.navigation.navDeepLink
 import com.maruchin.core.ui.ROOT_DEEPLINK
 import com.maruchin.core.ui.screenFadeIn
 import com.maruchin.core.ui.screenFadeOut
-import com.maruchin.data.categories.CategoryId
-import com.maruchin.data.products.ProductId
 
 internal const val HOME_ROUTE = "home"
 private const val HOME_DEEPLINK = "$ROOT_DEEPLINK/home"
 
 internal fun NavGraphBuilder.homeScreen(
-    onNavigateToProductBrowser: (CategoryId) -> Unit,
-    onNavigateToProductCard: (ProductId) -> Unit,
+    onNavigateToProductBrowser: (categoryId: String) -> Unit,
+    onNavigateToProductCard: (productId: String) -> Unit,
     onNavigateToLogin: () -> Unit,
 ) {
     composable(

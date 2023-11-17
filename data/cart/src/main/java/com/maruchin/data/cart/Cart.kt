@@ -4,6 +4,6 @@ data class Cart(
     val products: List<CartProduct> = emptyList()
 ) {
 
-    val totalPrice: Float
-        get() = products.sumOf { it.product.price.toDouble() }.toFloat()
+    val totalPrice: Double
+        get() = products.sumOf { it.product.price.toDouble() }
 }

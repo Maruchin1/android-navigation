@@ -7,25 +7,24 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.data.categories.CategoryId
 
 private const val CATEGORY_ID = "categoryId"
 internal const val SUBCATEGORY_LIST_ROUTE = "subcategory-list/{$CATEGORY_ID}"
 
-internal data class SubcategoryListArgs(val categoryId: CategoryId) {
+internal data class SubcategoryListArgs(val categoryId: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        categoryId = CategoryId(requireNotNull(savedStateHandle[CATEGORY_ID]))
+        categoryId = checkNotNull(savedStateHandle[CATEGORY_ID])
     )
 }
 
-internal fun NavController.navigateToSubcategoryList(categoryId: CategoryId) {
-    navigate(SUBCATEGORY_LIST_ROUTE.replace("{$CATEGORY_ID}", categoryId.value))
+internal fun NavController.navigateToSubcategoryList(categoryId: String) {
+    navigate(SUBCATEGORY_LIST_ROUTE.replace("{$CATEGORY_ID}", categoryId))
 }
 
 internal fun NavGraphBuilder.subcategoryListScreen(
     onNavigateBack: () -> Unit,
-    onNavigateToSubcategoryList: (CategoryId) -> Unit,
-    onNavigateToProductBrowser: (CategoryId) -> Unit,
+    onNavigateToSubcategoryList: (categoryId: String) -> Unit,
+    onNavigateToProductBrowser: (categoryId: String) -> Unit,
 ) {
     composable(SUBCATEGORY_LIST_ROUTE) {
         val viewModel: SubcategoryListViewModel = hiltViewModel()

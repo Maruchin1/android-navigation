@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.data.user.Password
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -27,7 +26,7 @@ internal class ChangePasswordViewModel @Inject constructor(
 
     fun changePassword() = viewModelScope.launch {
         passwordChangeState = PasswordChangeState.Processing
-        val newPassword = Password(changePasswordFormState.newPassword)
+        val newPassword = changePasswordFormState.newPassword
         userRepository.changePassword(newPassword, args.token)
         userRepository.login(args.email, newPassword)
         passwordChangeState = PasswordChangeState.LoggedIn

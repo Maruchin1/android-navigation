@@ -1,14 +1,13 @@
 package com.maruchin.features.categorybrowser.categorylist
 
 import com.maruchin.data.categories.Category
-import com.maruchin.data.categories.CategoryId
 
 internal data class CategoryListUiState(
     val categories: List<CategoryUiState> = emptyList(),
 )
 
 internal data class CategoryUiState(
-    val id: CategoryId,
+    val id: String,
     val name: String,
     val isFinal: Boolean,
 )

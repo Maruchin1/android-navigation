@@ -31,11 +31,7 @@ import com.maruchin.core.ui.AddressItem
 import com.maruchin.core.ui.DeliveryItem
 import com.maruchin.core.ui.OrderProductItem
 import com.maruchin.core.ui.PaymentItem
-import com.maruchin.data.addresses.firstLine
-import com.maruchin.data.addresses.fullName
-import com.maruchin.data.addresses.secondLine
 import com.maruchin.data.order.Order
-import com.maruchin.data.order.calculateTotalPrice
 import com.maruchin.data.order.sampleInProgressOrder
 import com.maruchin.data.products.Product
 
@@ -86,7 +82,7 @@ internal fun SummaryScreen(
                 OrderProductItem(
                     image = product.product.images.first(),
                     name = product.product.name,
-                    price = product.product.price.toDouble(),
+                    price = product.product.price,
                     quantity = product.quantity,
                     onClick = { onProductClick(product.product) },
                 )
@@ -115,9 +111,13 @@ internal fun SummaryScreen(
             )
             state.order.address?.let { address ->
                 AddressItem(
-                    fullName = address.fullName(),
-                    firstLine = address.firstLine(),
-                    secondLine = address.secondLine(),
+                    firstName = address.firstName,
+                    lastName = address.lastName,
+                    street = address.street,
+                    house = address.house,
+                    apartment = address.apartment,
+                    postalCode = address.postalCode,
+                    city = address.city,
                 )
             }
             Text(
@@ -140,7 +140,7 @@ internal fun SummaryScreen(
                     )
                 }
                 Text(
-                    text = "$ ${state.order.calculateTotalPrice()}",
+                    text = "$ ${state.order.totalPrice}",
                     style = MaterialTheme.typography.displaySmall,
                     modifier = Modifier
                         .padding(16.dp)

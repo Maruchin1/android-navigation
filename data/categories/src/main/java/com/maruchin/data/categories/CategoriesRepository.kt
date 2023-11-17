@@ -8,5 +8,5 @@ interface CategoriesRepository {
 
     fun getRecommended(): Flow<List<Category>>
 
-    fun getById(id: CategoryId): Flow<Category?>
+    fun getById(id: String): Flow<Category?>
 }

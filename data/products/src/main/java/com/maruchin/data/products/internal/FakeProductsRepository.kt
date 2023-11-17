@@ -1,9 +1,7 @@
 package com.maruchin.data.products.internal
 
-import com.maruchin.data.categories.CategoryId
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.ProductFilters
-import com.maruchin.data.products.ProductId
 import com.maruchin.data.products.ProductsRepository
 import com.maruchin.data.products.sampleProducts
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +19,7 @@ internal class FakeProductsRepository @Inject constructor() : ProductsRepository
     private val products = MutableStateFlow(sampleProducts)
 
     override fun getForCategory(
-        categoryId: CategoryId,
+        categoryId: String,
         filters: ProductFilters?
     ): Flow<List<Product>> {
         return products.map { products ->
@@ -32,7 +30,7 @@ internal class FakeProductsRepository @Inject constructor() : ProductsRepository
         }
     }
 
-    override fun getRecommendedForCategory(categoryId: CategoryId): Flow<List<Product>> {
+    override fun getRecommendedForCategory(categoryId: String): Flow<List<Product>> {
         return getForCategory(categoryId).map { products ->
             if (products.size > RECOMMENDED_LIMIT) products.take(RECOMMENDED_LIMIT)
             else products
@@ -55,7 +53,7 @@ internal class FakeProductsRepository @Inject constructor() : ProductsRepository
         }
     }
 
-    override fun getById(id: ProductId): Flow<Product> {
+    override fun getById(id: String): Flow<Product> {
         return products.map { products ->
             products.find { product ->
                 product.id == id
@@ -63,7 +61,7 @@ internal class FakeProductsRepository @Inject constructor() : ProductsRepository
         }.filterNotNull()
     }
 
-    override suspend fun updateIsFavorite(id: ProductId, isFavorite: Boolean) {
+    override suspend fun updateIsFavorite(id: String, isFavorite: Boolean) {
         val updatedProducts = products.value.map { product ->
             if (product.id == id) {
                 product.copy(isFavorite = isFavorite)

@@ -19,9 +19,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AddressItem(
-    fullName: String,
-    firstLine: String,
-    secondLine: String,
+    firstName: String,
+    lastName: String,
+    street: String,
+    house: String,
+    apartment: String?,
+    postalCode: String,
+    city: String,
     onEditClick: (() -> Unit)? = null
 ) {
     Row(
@@ -31,9 +35,18 @@ fun AddressItem(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(text = fullName, style = MaterialTheme.typography.titleMedium)
-            Text(text = firstLine, style = MaterialTheme.typography.bodyMedium)
-            Text(text = secondLine, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = "$firstName $lastName",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = "$street $house${apartment?.let { "/$it" } ?: ""}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = "$postalCode $city",
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
         if (onEditClick != null) {
             IconButton(onClick = onEditClick) {
@@ -48,9 +61,13 @@ fun AddressItem(
 @Composable
 private fun AddressItemPreview() {
     AddressItem(
-        fullName = "John Doe",
-        firstLine = "Street 1",
-        secondLine = "City, Country",
+        firstName = "John",
+        lastName = "Doe",
+        street = "Street",
+        house = "1",
+        apartment = null,
+        postalCode = "00-000",
+        city = "City",
         onEditClick = {}
     )
 }

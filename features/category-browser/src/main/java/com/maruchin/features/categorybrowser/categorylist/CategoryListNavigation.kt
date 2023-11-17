@@ -7,13 +7,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.maruchin.core.ui.screenFadeIn
 import com.maruchin.core.ui.screenFadeOut
-import com.maruchin.data.categories.CategoryId
 
 internal const val CATEGORY_LIST_ROUTE = "category-list"
 
 internal fun NavGraphBuilder.categoryListScreen(
-    onNavigateToSubcategoryList: (CategoryId) -> Unit,
-    onNavigateToProductBrowser: (CategoryId) -> Unit,
+    onNavigateToSubcategoryList: (categoryId: String) -> Unit,
+    onNavigateToProductBrowser: (categoryId: String) -> Unit,
 ) {
     composable(
         route = CATEGORY_LIST_ROUTE,

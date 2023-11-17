@@ -7,6 +7,6 @@ val sampleLoggedUser = User.LoggedIn(
     clubLevel = ClubLevel.STANDARD,
     firstName = "John",
     lastName = "Doe",
-    email = Email("john.doe@gmail.com"),
-    phoneNumber = PhoneNumber("111222333"),
+    email = "john.doe@gmail.com",
+    phoneNumber = "111222333",
 )

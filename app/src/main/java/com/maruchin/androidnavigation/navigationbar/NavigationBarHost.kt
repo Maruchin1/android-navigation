@@ -106,8 +106,8 @@ internal fun NavGraphBuilder.navigationBarHost(
                 )
                 productBrowserGraph(
                     navController = navController,
-                    onShowProduct = { product ->
-                        navController.navigateToProductCardGraph(product.id)
+                    onShowProduct = { productId ->
+                        navController.navigateToProductCardGraph(productId)
                     }
                 )
                 productCardGraph(navController = navController)

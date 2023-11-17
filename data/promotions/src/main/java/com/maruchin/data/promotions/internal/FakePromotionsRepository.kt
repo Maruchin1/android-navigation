@@ -1,7 +1,6 @@
 package com.maruchin.data.promotions.internal
 
 import com.maruchin.data.promotions.Promotion
-import com.maruchin.data.promotions.PromotionId
 import com.maruchin.data.promotions.PromotionsRepository
 import com.maruchin.data.promotions.samplePromotions
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +18,7 @@ internal class FakePromotionsRepository @Inject constructor() : PromotionsReposi
         return promotions
     }
 
-    override fun getById(id: PromotionId): Flow<Promotion> {
+    override fun getById(id: String): Flow<Promotion> {
         return promotions.map { promotions ->
             promotions.first { it.id == id }
         }

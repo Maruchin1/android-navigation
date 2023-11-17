@@ -4,13 +4,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.data.products.Product
 
 internal const val PRODUCT_LIST_ROUTE = "product-list"
 
 internal fun NavGraphBuilder.productListScreen(
     onBack: () -> Unit,
-    onShowProduct: (Product) -> Unit,
+    onShowProduct: (productId: String) -> Unit,
     onShowFilters: () -> Unit,
 ) {
     composable(route = PRODUCT_LIST_ROUTE) {

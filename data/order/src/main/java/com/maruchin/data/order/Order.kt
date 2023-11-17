@@ -13,13 +13,15 @@ sealed interface Order {
         val delivery: Delivery? = null,
         val address: Address? = null,
         val payment: Payment? = null,
-    ) : Order
+    ) : Order {
+
+        val totalPrice: Double
+            get() {
+                val productsPrice = products.sumOf { it.product.price.toDouble() * it.quantity }
+                val deliveryPrice = delivery?.price ?: 0f
+                return productsPrice + deliveryPrice
+            }
+    }
 
     data class Submitted(val orderNumber: String) : Order
-}
-
-fun Order.InProgress.calculateTotalPrice(): Float {
-    val productsPrice = products.sumOf { it.product.price.toDouble() * it.quantity }
-    val deliveryPrice = delivery?.price ?: 0f
-    return (productsPrice + deliveryPrice).toFloat()
 }

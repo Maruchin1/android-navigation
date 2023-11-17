@@ -2,9 +2,6 @@ package com.maruchin.features.registration.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.data.user.Email
-import com.maruchin.data.user.Password
-import com.maruchin.data.user.PhoneNumber
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,9 +28,9 @@ internal class RegistrationViewModel @Inject constructor(
         userRepository.register(
             firstName = firstName,
             lastName = lastName,
-            email = Email(email),
-            phoneNumber = PhoneNumber(phoneNumber),
-            password = Password(password),
+            email = email,
+            phoneNumber = phoneNumber,
+            password = password,
         )
         _uiState.update {
             it.copy(isRegistered = true)

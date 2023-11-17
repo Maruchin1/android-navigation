@@ -2,8 +2,6 @@ package com.maruchin.features.mydata.editmydata
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maruchin.data.user.Email
-import com.maruchin.data.user.PhoneNumber
 import com.maruchin.data.user.User
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,8 +33,8 @@ internal class EditMyDataViewModel @Inject constructor(
         userRepository.updatePersonalData(
             firstName = firstName,
             lastName = lastName,
-            email = Email(email),
-            phoneNumber = PhoneNumber(phoneNumber),
+            email = email,
+            phoneNumber = phoneNumber,
         )
         _uiState.update {
             it.copy(isSaved = true)
@@ -49,8 +47,8 @@ internal class EditMyDataViewModel @Inject constructor(
             it.copy(
                 firstName = loggedUser.firstName,
                 lastName = loggedUser.lastName,
-                email = loggedUser.email.value,
-                phoneNumber = loggedUser.phoneNumber.value,
+                email = loggedUser.email,
+                phoneNumber = loggedUser.phoneNumber,
             )
         }
     }

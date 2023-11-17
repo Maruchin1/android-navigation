@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.maruchin.core.ui.DeliveryItem
-import com.maruchin.data.deliveries.DeliveryId
 import com.maruchin.data.deliveries.sampleDeliveries
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +28,7 @@ internal fun DeliveryScreen(
     state: DeliveryUiState,
     onBackClick: () -> Unit,
     onCancelClick: () -> Unit,
-    onSelectDelivery: (DeliveryId) -> Unit
+    onSelectDelivery: (deliveryId: String) -> Unit
 ) {
     Scaffold(
         topBar = {

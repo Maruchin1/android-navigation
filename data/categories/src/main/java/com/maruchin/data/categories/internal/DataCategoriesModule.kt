@@ -1,5 +1,6 @@
-package com.maruchin.data.categories
+package com.maruchin.data.categories.internal
 
+import com.maruchin.data.categories.CategoriesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -5,7 +5,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.maruchin.data.user.Password
+import com.maruchin.data.user.PasswordValidationResult
+import com.maruchin.data.user.arePasswordsValid
+import com.maruchin.data.user.validatePassword
 
 @Stable
 internal class ChangePasswordFormState {
@@ -23,27 +25,25 @@ internal class ChangePasswordFormState {
         private set
 
     val isValid by derivedStateOf {
-        Password.isValid(newPassword) &&
-                Password.isValid(newPasswordRepeat) &&
-                newPassword == newPasswordRepeat
+        arePasswordsValid(newPassword, newPasswordRepeat)
     }
 
     fun enterNewPassword(password: String) {
         newPassword = password
-        newPasswordError = when (Password.validate(password)) {
-            Password.ValidationResult.VALID -> null
-            Password.ValidationResult.EMPTY -> "Password cannot be empty"
+        newPasswordError = when (validatePassword(password)) {
+            PasswordValidationResult.VALID -> null
+            PasswordValidationResult.EMPTY -> "Password cannot be empty"
         }
     }
 
     fun enterNewPasswordRepeat(password: String) {
         newPasswordRepeat = password
-        newPasswordRepeatError = when (Password.validate(password)) {
-            Password.ValidationResult.VALID -> when {
+        newPasswordRepeatError = when (validatePassword(password)) {
+            PasswordValidationResult.VALID -> when {
                 password != newPassword -> "Passwords are not the same"
                 else -> null
             }
-            Password.ValidationResult.EMPTY -> "Password cannot be empty"
+            PasswordValidationResult.EMPTY -> "Password cannot be empty"
         }
     }
 }

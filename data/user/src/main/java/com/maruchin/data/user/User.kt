@@ -11,9 +11,7 @@ sealed interface User {
         val clubLevel: ClubLevel,
         val firstName: String,
         val lastName: String,
-        val email: Email,
-        val phoneNumber: PhoneNumber,
+        val email: String,
+        val phoneNumber: String,
     ) : User
 }
-
-fun User.LoggedIn.fullName(): String = "$firstName $lastName"
