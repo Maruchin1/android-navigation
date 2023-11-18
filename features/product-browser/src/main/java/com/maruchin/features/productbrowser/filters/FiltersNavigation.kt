@@ -1,6 +1,7 @@
 package com.maruchin.features.productbrowser.filters
 
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -9,17 +10,19 @@ import androidx.navigation.compose.dialog
 
 private const val FILTERS_ROUTE = "filters"
 
-internal fun NavGraphBuilder.filtersScreen(onBack: () -> Unit) {
+internal fun NavGraphBuilder.filtersScreen(onBackClick: () -> Unit) {
     dialog(
         route = FILTERS_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: FiltersViewModel = hiltViewModel()
+        val filters by viewModel.filters.collectAsState()
+
         FiltersScreen(
-            filters = viewModel.filters.collectAsState().value,
-            onBack = onBack,
+            filters = filters,
+            onBackClick = onBackClick,
             onSortingChange = viewModel::updateSorting,
-            onPriceChange = viewModel::updatePrice
+            onPriceChange = viewModel::updatePrice,
         )
     }
 }

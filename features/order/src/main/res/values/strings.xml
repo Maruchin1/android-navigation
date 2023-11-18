@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="order_number">Order number</string>
+    <string name="we_received_your_order">We received your order</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_delivery">Choose delivery</string>
+    <string name="submit_order">Submit order</string>
+    <string name="summary">Summary</string>
+    <string name="products">Products</string>
+    <string name="delivery">Delivery</string>
+    <string name="address">Address</string>
+    <string name="payment">Payment</string>
+    <string name="next">Next</string>
+    <string name="your_order">Your order</string>
+</resources>

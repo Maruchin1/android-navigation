@@ -1,13 +1,14 @@
 package com.maruchin.features.login.changepassword
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maruchin.data.user.User
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,16 +20,12 @@ internal class ChangePasswordViewModel @Inject constructor(
 
     private val args = ChangePasswordArgs(savedStateHandle)
 
-    val changePasswordFormState = ChangePasswordFormState()
+    val isLoggedIn = userRepository.get()
+        .map { it is User.LoggedIn }
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
 
-    var passwordChangeState by mutableStateOf<PasswordChangeState>(PasswordChangeState.Idle)
-        private set
-
-    fun changePassword() = viewModelScope.launch {
-        passwordChangeState = PasswordChangeState.Processing
-        val newPassword = changePasswordFormState.newPassword
+    fun changePassword(newPassword: String) = viewModelScope.launch {
         userRepository.changePassword(newPassword, args.token)
         userRepository.login(args.email, newPassword)
-        passwordChangeState = PasswordChangeState.LoggedIn
     }
 }

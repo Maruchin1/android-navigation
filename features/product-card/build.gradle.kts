@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":ui"))
     implementation(project(":data:products"))
     implementation(project(":data:cart"))
 

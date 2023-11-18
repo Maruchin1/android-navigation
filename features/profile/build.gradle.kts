@@ -37,8 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    implementation(project(":core:intent"))
+    implementation(project(":ui"))
     implementation(project(":data:user"))
     implementation(project(":data:promotions"))
 

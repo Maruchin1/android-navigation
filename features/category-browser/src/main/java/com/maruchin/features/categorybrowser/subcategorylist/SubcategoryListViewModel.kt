@@ -6,8 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.maruchin.data.categories.CategoriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -19,8 +17,6 @@ internal class SubcategoryListViewModel @Inject constructor(
 
     private val args = SubcategoryListArgs(savedStateHandle)
 
-    val uiState = categoriesRepository.getById(args.categoryId)
-        .filterNotNull()
-        .map(::createSubcategoryListUiState)
-        .stateIn(viewModelScope, SharingStarted.Lazily, SubcategoryListUiState())
+    val category = categoriesRepository.getById(args.categoryId)
+        .stateIn(viewModelScope, SharingStarted.Lazily, null)
 }

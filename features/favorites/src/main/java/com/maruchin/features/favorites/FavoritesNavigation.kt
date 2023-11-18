@@ -6,14 +6,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.maruchin.core.ui.ROOT_DEEPLINK
-import com.maruchin.core.ui.screenFadeIn
-import com.maruchin.core.ui.screenFadeOut
+import com.maruchin.ui.ROOT_DEEPLINK
+import com.maruchin.ui.screenFadeIn
+import com.maruchin.ui.screenFadeOut
 
 internal const val FAVORITES_ROUTE = "favorites"
 private const val FAVORITES_DEEPLINK = "$ROOT_DEEPLINK/favorites"
 
-internal fun NavGraphBuilder.favoritesScreen(onNavigateToProductCard: (productId: String) -> Unit) {
+internal fun NavGraphBuilder.favoritesScreen(onProductClick: (productId: String) -> Unit) {
     composable(
         route = FAVORITES_ROUTE,
         deepLinks = listOf(
@@ -25,8 +25,8 @@ internal fun NavGraphBuilder.favoritesScreen(onNavigateToProductCard: (productId
         popExitTransition = { screenFadeOut() },
     ) {
         val viewModel: FavoritesViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val products by viewModel.products.collectAsState()
 
-        FavoritesScreen(state = state, onProductClick = onNavigateToProductCard)
+        FavoritesScreen(products = products, onProductClick = onProductClick)
     }
 }

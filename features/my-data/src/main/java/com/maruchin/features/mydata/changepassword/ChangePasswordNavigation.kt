@@ -1,8 +1,6 @@
 package com.maruchin.features.mydata.changepassword
 
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -11,27 +9,26 @@ import androidx.navigation.compose.dialog
 
 internal const val CHANGE_PASSWORD_ROUTE = "change-password"
 
-internal fun NavGraphBuilder.changePasswordScreen(onClose: () -> Unit) {
+internal fun NavController.navigateToChangePassword() {
+    navigate(CHANGE_PASSWORD_ROUTE)
+}
+
+internal fun NavGraphBuilder.changePasswordScreen(onCloseClick: () -> Unit) {
     dialog(
-        CHANGE_PASSWORD_ROUTE,
+        route = CHANGE_PASSWORD_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: ChangePasswordViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
 
-        if (state.isSaved) {
+        if (viewModel.isSaved) {
             LaunchedEffect(Unit) {
-                onClose()
+                onCloseClick()
             }
         }
 
         ChangePasswordScreen(
-            onClose = onClose,
+            onCloseClick = onCloseClick,
             onSaveClick = viewModel::changePassword,
         )
     }
-}
-
-internal fun NavController.navigateToChangePassword() {
-    navigate(CHANGE_PASSWORD_ROUTE)
 }

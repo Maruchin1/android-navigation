@@ -35,8 +35,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:forms"))
-    implementation(project(":core:ui"))
+    implementation(project(":ui"))
+    implementation(project(":forms"))
     implementation(project(":data:order"))
 
     implementation(platform(libs.compose.bom))

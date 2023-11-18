@@ -1,5 +1,6 @@
 package com.maruchin.features.profile.purchasehistory
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -12,36 +13,48 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.core.ui.ScreenContentPlaceholder
+import com.maruchin.ui.ScreenContentPlaceholder
+import com.maruchin.features.profile.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PurchaseHistoryScreen(onClose: () -> Unit) {
+internal fun PurchaseHistoryScreen(onCloseClick: () -> Unit) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Purchase history")
-                },
-                actions = {
-                    IconButton(onClick = onClose) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onCloseClick = onCloseClick)
         }
     ) { padding ->
-        ScreenContentPlaceholder(
-            icon = Icons.Default.Folder,
-            text = "We haven't recorded any transactions yet, but everything is ahead of you.",
-            modifier = Modifier.padding(padding)
-        )
+        Placeholder(padding)
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onCloseClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.purchase_history))
+        },
+        navigationIcon = {
+            IconButton(onClick = onCloseClick) {
+                Icon(imageVector = Icons.Default.Close, contentDescription = null)
+            }
+        }
+    )
+}
+
+@Composable
+private fun Placeholder(padding: PaddingValues) {
+    ScreenContentPlaceholder(
+        icon = Icons.Default.Folder,
+        text = stringResource(R.string.purchase_history_placeholder),
+        modifier = Modifier.padding(padding)
+    )
 }
 
 @Preview
 @Composable
 private fun PurchaseHistoryScreenPreview() {
-    PurchaseHistoryScreen(onClose = {})
+    PurchaseHistoryScreen(onCloseClick = {})
 }

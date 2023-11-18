@@ -34,48 +34,52 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maruchin.data.products.Product
 import com.maruchin.data.products.Rating
 import com.maruchin.data.products.sampleProducts
+import com.maruchin.features.productcard.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CardScreen(
-    state: CardUiState,
-    onBack: () -> Unit,
-    onOpenGallery: () -> Unit,
-    onAddToCart: () -> Unit,
-    onToggleIsFavorite: () -> Unit,
+    product: Product?,
+    onBackClick: () -> Unit,
+    onGalleryClick: () -> Unit,
+    onAddToCartClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     Scaffold(
         topBar = {
-            TopAppBar(scrollBehavior = scrollBehavior, onBack = onBack)
+            TopAppBar(scrollBehavior = scrollBehavior, onBackClick = onBackClick)
         }
     ) { padding ->
-        if (state.product == null) return@Scaffold
+        if (product == null) return@Scaffold
+
         Content(
-            product = state.product,
+            product = product,
             modifier = Modifier
                 .padding(padding)
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
-            onOpenGallery = onOpenGallery,
-            onAddToCart = onAddToCart,
-            onToggleIsFavorite = onToggleIsFavorite
+            onGalleryClick = onGalleryClick,
+            onAddToCartClick = onAddToCartClick,
+            onFavoriteClick = onFavoriteClick
         )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, onBack: () -> Unit) {
+private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, onBackClick: () -> Unit) {
     TopAppBar(
         title = {},
         navigationIcon = {
-            IconButton(onClick = onBack) {
+            IconButton(onClick = onBackClick) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
             }
         },
@@ -87,9 +91,9 @@ private fun TopAppBar(scrollBehavior: TopAppBarScrollBehavior, onBack: () -> Uni
 private fun Content(
     product: Product,
     modifier: Modifier,
-    onOpenGallery: () -> Unit,
-    onAddToCart: () -> Unit,
-    onToggleIsFavorite: () -> Unit,
+    onGalleryClick: () -> Unit,
+    onAddToCartClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -97,7 +101,7 @@ private fun Content(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
-            ProductImage(image = product.images.first(), onOpenGallery = onOpenGallery)
+            ProductImage(image = product.images.first(), onOpenGallery = onGalleryClick)
         }
         item {
             TitleText(text = product.name)
@@ -109,25 +113,38 @@ private fun Content(
             RatingStars(stars = product.rating.stars, ratingCount = product.rating.count)
         }
         item {
-            Row {
-                OutlinedButton(onClick = onAddToCart, modifier = Modifier.weight(1f)) {
-                    Text(text = "Add to cart")
-                }
-                Spacer(modifier = Modifier.width(8.dp))
-                OutlinedButton(onClick = onToggleIsFavorite) {
-                    Icon(
-                        imageVector = if (product.isFavorite) {
-                            Icons.Default.Favorite
-                        } else {
-                            Icons.Default.FavoriteBorder
-                        },
-                        contentDescription = null
-                    )
-                }
-            }
+            AddToCartSection(
+                isFavorite = product.isFavorite,
+                onAddToCartClick = onAddToCartClick,
+                onFavoriteClick = onFavoriteClick
+            )
         }
         item {
             Description(description = product.description)
+        }
+    }
+}
+
+@Composable
+private fun AddToCartSection(
+    isFavorite: Boolean,
+    onAddToCartClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
+) {
+    Row {
+        OutlinedButton(onClick = onAddToCartClick, modifier = Modifier.weight(1f)) {
+            Text(text = stringResource(R.string.add_to_cart))
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        OutlinedButton(onClick = onFavoriteClick) {
+            Icon(
+                imageVector = if (isFavorite) {
+                    Icons.Default.Favorite
+                } else {
+                    Icons.Default.FavoriteBorder
+                },
+                contentDescription = null
+            )
         }
     }
 }
@@ -191,11 +208,11 @@ private fun Description(description: String) {
 private fun CardScreenPreview() {
     MaterialTheme {
         CardScreen(
-            state = CardUiState(product = sampleProducts.first()),
-            onBack = {},
-            onOpenGallery = {},
-            onAddToCart = {},
-            onToggleIsFavorite = {},
+            product = sampleProducts.first(),
+            onBackClick = {},
+            onGalleryClick = {},
+            onAddToCartClick = {},
+            onFavoriteClick = {},
         )
     }
 }

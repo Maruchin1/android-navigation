@@ -38,6 +38,8 @@ dependencies {
     implementation(project(":data:products"))
     implementation(project(":data:deliveries"))
     implementation(project(":data:payments"))
+    implementation(project(":data:user"))
+    implementation(project(":data:addresses"))
 
     api(platform(libs.compose.bom))
     api(libs.bundles.ui)

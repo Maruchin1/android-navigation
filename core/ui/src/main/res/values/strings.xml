@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="new_password">New password</string>
+    <string name="repeat_new_password">Repeat new password</string>
+    <string name="current_password">Current password</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="city">City</string>
+    <string name="postal_code">Postal code</string>
+    <string name="apartment">Apartment</string>
+    <string name="house">House</string>
+    <string name="street">Street</string>
+    <string name="email">Email</string>
+</resources>

@@ -8,13 +8,7 @@ interface UserRepository {
 
     suspend fun login(email: String, password: String)
 
-    suspend fun register(
-        firstName: String,
-        lastName: String,
-        email: String,
-        phoneNumber: String,
-        password: String
-    )
+    suspend fun register(personalData: PersonalData, password: String)
 
     suspend fun logout()
 
@@ -24,10 +18,5 @@ interface UserRepository {
 
     suspend fun deleteAccount()
 
-    suspend fun updatePersonalData(
-        firstName: String,
-        lastName: String,
-        email: String,
-        phoneNumber: String,
-    )
+    suspend fun updatePersonalData(personalData: PersonalData)
 }

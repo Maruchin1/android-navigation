@@ -37,8 +37,8 @@ android {
 }
 
 dependencies {
-    api(project(":core:ui"))
-    api(project(":data:categories"))
+    implementation(project(":ui"))
+    implementation(project(":data:categories"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

@@ -18,38 +18,23 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.core.ui.DeliveryItem
+import com.maruchin.ui.DeliveryItem
+import com.maruchin.data.deliveries.Delivery
 import com.maruchin.data.deliveries.sampleDeliveries
+import com.maruchin.features.order.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun DeliveryScreen(
-    state: DeliveryUiState,
+    deliveries: List<Delivery>,
     onBackClick: () -> Unit,
     onCancelClick: () -> Unit,
-    onSelectDelivery: (deliveryId: String) -> Unit
+    onDeliveryClick: (delivery: Delivery) -> Unit
 ) {
     Scaffold(
         topBar = {
-            Column {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(text = "Choose delivery")
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                        }
-                    },
-                    actions = {
-                        TextButton(onClick = onCancelClick) {
-                            Text(text = "Cancel")
-                        }
-                    }
-                )
-                LinearProgressIndicator(progress = 0.25f, modifier = Modifier.fillMaxWidth())
-            }
+            TopBar(onBackClick = onBackClick, onCancelClick = onCancelClick)
         }
     ) { padding ->
         Column(
@@ -58,15 +43,38 @@ internal fun DeliveryScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(padding)
         ) {
-            state.deliveries.forEach { delivery ->
+            deliveries.forEach { delivery ->
                 DeliveryItem(
                     logo = delivery.logo,
                     name = delivery.name,
                     price = delivery.price,
-                    onClick = { onSelectDelivery(delivery.id) }
+                    onClick = { onDeliveryClick(delivery) }
                 )
             }
         }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
+    Column {
+        CenterAlignedTopAppBar(
+            title = {
+                Text(text = stringResource(R.string.choose_delivery))
+            },
+            navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                }
+            },
+            actions = {
+                TextButton(onClick = onCancelClick) {
+                    Text(text = stringResource(R.string.cancel))
+                }
+            }
+        )
+        LinearProgressIndicator(progress = 0.25f, modifier = Modifier.fillMaxWidth())
     }
 }
 
@@ -74,11 +82,9 @@ internal fun DeliveryScreen(
 @Composable
 private fun DeliveryScreenPreview() {
     DeliveryScreen(
-        state = DeliveryUiState(
-            deliveries = sampleDeliveries
-        ),
+        deliveries = sampleDeliveries,
         onBackClick = {},
         onCancelClick = {},
-        onSelectDelivery = {},
+        onDeliveryClick = {},
     )
 }

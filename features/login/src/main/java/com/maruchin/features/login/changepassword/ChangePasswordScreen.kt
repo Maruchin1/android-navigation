@@ -21,20 +21,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.ui.Loading
+import com.maruchin.features.login.R
+import com.maruchin.forms.passwordsform.PasswordsForm
+import com.maruchin.forms.passwordsform.rememberNewPasswordFormState
 
 @Composable
 internal fun ChangePasswordScreen(
-    changePasswordFormState: ChangePasswordFormState,
-    passwordChangeState: PasswordChangeState,
-    onClose: () -> Unit,
-    onChangePassword: () -> Unit,
+    onCloseClick: () -> Unit,
+    onChangePasswordClick: (newPassword: String) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(onClose = onClose)
+            TopAppBar(onCloseClick = onCloseClick)
         }
     ) { padding ->
         Column(
@@ -44,34 +45,35 @@ internal fun ChangePasswordScreen(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            val formState = rememberNewPasswordFormState()
+
             Spacer(modifier = Modifier.height(32.dp))
             Header()
             Spacer(modifier = Modifier.height(32.dp))
-            ChangePasswordForm(
-                state = changePasswordFormState,
+            PasswordsForm(
+                state = formState,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
             ChangePasswordButton(
-                isEnabled = changePasswordFormState.isValid,
-                onClick = onChangePassword
+                isEnabled = formState.isValid,
+                onClick = {
+                    onChangePasswordClick(formState.firstPassword.value)
+                }
             )
-        }
-        if (passwordChangeState is PasswordChangeState.Processing) {
-            Loading()
         }
     }
 }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun TopAppBar(onClose: () -> Unit) {
+private fun TopAppBar(onCloseClick: () -> Unit) {
     CenterAlignedTopAppBar(
         title = {
-            Text(text = "Password change")
+            Text(text = stringResource(R.string.password_change))
         },
-        actions = {
-            IconButton(onClick = onClose) {
+        navigationIcon = {
+            IconButton(onClick = onCloseClick) {
                 Icon(imageVector = Icons.Default.Close, contentDescription = null)
             }
         }
@@ -81,7 +83,7 @@ private fun TopAppBar(onClose: () -> Unit) {
 @Composable
 private fun Header() {
     Text(
-        text = "Change your password",
+        text = stringResource(R.string.change_your_password),
         style = MaterialTheme.typography.titleMedium,
         modifier = Modifier.padding(horizontal = 24.dp)
     )
@@ -96,7 +98,7 @@ private fun ChangePasswordButton(isEnabled: Boolean, onClick: () -> Unit) {
             .fillMaxWidth(),
         enabled = isEnabled
     ) {
-        Text(text = "Change password")
+        Text(text = stringResource(R.string.change_password))
     }
 }
 
@@ -104,9 +106,7 @@ private fun ChangePasswordButton(isEnabled: Boolean, onClick: () -> Unit) {
 @Composable
 private fun ChangePasswordScreenPreview() {
     ChangePasswordScreen(
-        changePasswordFormState = ChangePasswordFormState(),
-        passwordChangeState = PasswordChangeState.Idle,
-        onClose = {},
-        onChangePassword = {}
+        onCloseClick = {},
+        onChangePasswordClick = {}
     )
 }

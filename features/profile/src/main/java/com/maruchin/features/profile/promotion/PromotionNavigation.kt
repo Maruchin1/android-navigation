@@ -17,17 +17,15 @@ internal data class PromotionArgs(val promotionId: String) {
     )
 }
 
-internal fun NavGraphBuilder.promotionScreen(onBack: () -> Unit) {
+internal fun NavController.navigateToPromotion(promotionId: String) {
+    navigate(PROMOTION_ROUTE.replace("{$PROMOTION_ID}", promotionId))
+}
+
+internal fun NavGraphBuilder.promotionScreen(onBackClick: () -> Unit) {
     composable(PROMOTION_ROUTE) {
         val viewModel: PromotionsViewModel = hiltViewModel()
         val promotion by viewModel.promotion.collectAsState()
 
-        if (promotion == null) return@composable
-
-        PromotionScreen(promotion = promotion!!, onBack = onBack)
+        PromotionScreen(promotion = promotion, onBackClick = onBackClick)
     }
-}
-
-internal fun NavController.navigateToPromotion(promotionId: String) {
-    navigate(PROMOTION_ROUTE.replace("{$PROMOTION_ID}", promotionId))
 }

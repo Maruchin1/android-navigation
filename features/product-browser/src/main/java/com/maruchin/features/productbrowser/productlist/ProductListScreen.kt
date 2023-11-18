@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.core.ui.ProductGrid
+import com.maruchin.ui.ProductGrid
 import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.data.products.Product
@@ -25,36 +25,40 @@ import com.maruchin.data.products.Product
 internal fun ProductListScreen(
     category: Category?,
     products: List<Product>,
-    onBack: () -> Unit,
-    onShowProduct: (productId: String) -> Unit,
-    onShowFilters: () -> Unit,
+    onBackClick: () -> Unit,
+    onProductClick: (productId: String) -> Unit,
+    onFiltersClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(category = category, onBack = onBack, onShowFilters = onShowFilters)
+            TopAppBar(
+                category = category,
+                onBackClick = onBackClick,
+                onFiltersClick = onFiltersClick
+            )
         }
     ) { padding ->
         ProductGrid(
             modifier = Modifier.padding(padding),
             products = products,
-            onShowProduct = onShowProduct
+            onShowProduct = onProductClick
         )
     }
 }
 
 @Composable
-private fun TopAppBar(category: Category?, onBack: () -> Unit, onShowFilters: () -> Unit) {
+private fun TopAppBar(category: Category?, onBackClick: () -> Unit, onFiltersClick: () -> Unit) {
     CenterAlignedTopAppBar(
         title = {
             Text(text = category?.name?.replaceFirstChar { it.titlecase() } ?: "")
         },
         navigationIcon = {
-            IconButton(onClick = onBack) {
+            IconButton(onClick = onBackClick) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
             }
         },
         actions = {
-            IconButton(onClick = onShowFilters) {
+            IconButton(onClick = onFiltersClick) {
                 Icon(imageVector = Icons.Default.FilterList, contentDescription = null)
             }
         }
@@ -68,9 +72,9 @@ private fun ProductListScreenPreview() {
         ProductListScreen(
             category = sampleCategories.first(),
             products = emptyList(),
-            onBack = {},
-            onShowProduct = {},
-            onShowFilters = {},
+            onBackClick = {},
+            onProductClick = {},
+            onFiltersClick = {},
         )
     }
 }

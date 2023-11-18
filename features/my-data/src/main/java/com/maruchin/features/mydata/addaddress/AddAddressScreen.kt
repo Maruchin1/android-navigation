@@ -18,37 +18,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.forms.addressform.AddressForm
-import com.maruchin.core.forms.addressform.rememberAddressFormState
+import com.maruchin.data.addresses.Address
+import com.maruchin.features.mydata.R
+import com.maruchin.forms.addressform.AddressForm
+import com.maruchin.forms.addressform.rememberAddressFormState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddAddressScreen(
-    onClose: () -> Unit,
-    onSaveClick: (
-        firstName: String,
-        lastName: String,
-        street: String,
-        house: String,
-        apartment: String,
-        postalCode: String,
-        city: String
-    ) -> Unit
+    onCloseClick: () -> Unit,
+    onSaveClick: (Address) -> Unit
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Add address")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onClose) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onCloseClick)
         }
     ) { padding ->
         Column(
@@ -59,28 +44,46 @@ internal fun AddAddressScreen(
         ) {
             val formState = rememberAddressFormState()
 
-            AddressForm(state = formState)
+            AddressForm(
+                state = formState,
+                modifier = Modifier.padding(16.dp)
+            )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = {
-                    onSaveClick(
-                        formState.firstName,
-                        formState.lastName,
-                        formState.street,
-                        formState.house,
-                        formState.apartment,
-                        formState.postalCode,
-                        formState.city,
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+            SaveButton(
                 enabled = formState.isValid,
-            ) {
-                Text(text = "Save")
+                onClick = {
+                    onSaveClick(formState.address)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onClose: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.add_address))
+        },
+        navigationIcon = {
+            IconButton(onClick = onClose) {
+                Icon(imageVector = Icons.Default.Close, contentDescription = null)
             }
         }
+    )
+}
+
+@Composable
+private fun SaveButton(enabled: Boolean, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        enabled = enabled,
+    ) {
+        Text(text = stringResource(R.string.save))
     }
 }
 
@@ -88,7 +91,7 @@ internal fun AddAddressScreen(
 @Composable
 private fun AddAddressScreenPreview() {
     AddAddressScreen(
-        onClose = {},
-        onSaveClick = { _, _, _, _, _, _, _ -> }
+        onCloseClick = {},
+        onSaveClick = {}
     )
 }

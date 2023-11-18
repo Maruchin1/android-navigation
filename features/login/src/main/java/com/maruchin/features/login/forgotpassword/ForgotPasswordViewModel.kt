@@ -13,18 +13,15 @@ import javax.inject.Inject
 @HiltViewModel
 internal class ForgotPasswordViewModel @Inject constructor() : ViewModel() {
 
-    val forgotPasswordFormState = ForgotPasswordFormState()
-
-    var emailState by mutableStateOf<EmailState>(EmailState.Idle)
+    var emailSent: Boolean by mutableStateOf(false)
         private set
 
-    fun sendLink() = viewModelScope.launch {
-        emailState = EmailState.Sending
+    fun sendLink(email: String) = viewModelScope.launch {
         delay(1_000)
-        emailState = EmailState.Sent
+        emailSent = true
     }
 
     fun emailSentInformationShown() {
-        emailState = EmailState.Idle
+        emailSent = false
     }
 }

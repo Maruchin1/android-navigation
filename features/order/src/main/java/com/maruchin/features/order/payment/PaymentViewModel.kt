@@ -7,7 +7,6 @@ import com.maruchin.data.payments.Payment
 import com.maruchin.data.payments.PaymentsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,9 +17,8 @@ internal class PaymentViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
 ) : ViewModel() {
 
-    val uiState = paymentsRepository.getAll()
-        .map(::PaymentUiState)
-        .stateIn(viewModelScope, SharingStarted.Lazily, PaymentUiState())
+    val payments = paymentsRepository.getAll()
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     fun selectPayment(payment: Payment) = viewModelScope.launch {
         orderRepository.selectPayment(payment)

@@ -54,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":ui"))
+
     implementation(project(":features:home"))
     implementation(project(":features:category-browser"))
     implementation(project(":features:product-browser"))

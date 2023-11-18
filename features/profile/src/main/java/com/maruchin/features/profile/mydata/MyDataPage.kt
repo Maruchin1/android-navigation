@@ -18,23 +18,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maruchin.features.profile.R
 
 @Composable
 internal fun MyDataPage(
-    onOpenMyData: () -> Unit,
-    onOpenMyOrders: () -> Unit,
-    onOpenReturns: () -> Unit
+    onMyDataClick: () -> Unit,
+    onMyOrdersClick: () -> Unit,
+    onReturnsClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        MyDataItem(text = "My data", onClick = onOpenMyData)
-        MyDataItem(text = "My orders", onClick = onOpenMyOrders)
-        MyDataItem(text = "Returns", onClick = onOpenReturns)
+        MyDataItem(text = stringResource(R.string.my_data), onClick = onMyDataClick)
+        MyDataItem(text = stringResource(R.string.my_orders), onClick = onMyOrdersClick)
+        MyDataItem(text = stringResource(R.string.returns), onClick = onReturnsClick)
     }
 }
 
@@ -58,8 +60,8 @@ internal fun MyDataItem(text: String, onClick: () -> Unit) {
 @Composable
 private fun MyDataPagePreview() {
     MyDataPage(
-        onOpenMyData = {},
-        onOpenMyOrders = {},
-        onOpenReturns = {},
+        onMyDataClick = {},
+        onMyOrdersClick = {},
+        onReturnsClick = {},
     )
 }

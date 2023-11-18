@@ -35,9 +35,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    api(project(":data:cart"))
-    api(project(":data:order"))
+    implementation(project(":ui"))
+    implementation(project(":data:cart"))
+    implementation(project(":data:order"))
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)

@@ -15,11 +15,7 @@ internal class ProfileViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val uiState = userRepository.get()
-        .map {
-            ProfileUiState(
-                isLoggedIn = it is User.LoggedIn,
-            )
-        }
-        .stateIn(viewModelScope, SharingStarted.Lazily, ProfileUiState())
+    val isLoggedIn = userRepository.get()
+        .map { it is User.LoggedIn }
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
 }

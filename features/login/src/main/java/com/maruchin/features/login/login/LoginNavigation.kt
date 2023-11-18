@@ -1,22 +1,21 @@
 package com.maruchin.features.login.login
 
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.maruchin.core.ui.ROOT_DEEPLINK
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import com.maruchin.ui.ROOT_DEEPLINK
 
 internal const val LOGIN_ROUTE = "login"
 private const val LOGIN_DEEPLINK = "$ROOT_DEEPLINK/login"
 
 internal fun NavGraphBuilder.loginScreen(
-    onBack: () -> Unit,
-    onRegister: () -> Unit,
-    onForgotPassword: () -> Unit,
+    onBackClick: () -> Unit,
+    onRegisterClick: () -> Unit,
+    onForgotPasswordClick: () -> Unit,
     onLoggedIn: () -> Unit,
 ) {
     composable(
@@ -26,21 +25,19 @@ internal fun NavGraphBuilder.loginScreen(
         )
     ) {
         val viewModel: LoginViewModel = hiltViewModel()
+        val isLoggedIn by viewModel.isLoggedIn.collectAsState()
 
-        LaunchedEffect(Unit) {
-            viewModel.isLoggedIn
-                .filter { it }
-                .onEach { onLoggedIn() }
-                .launchIn(this)
+        if (isLoggedIn) {
+            LaunchedEffect(Unit) {
+                onLoggedIn()
+            }
         }
 
         LoginScreen(
-            loginFormState = viewModel.loginFormState,
-            isLoading = viewModel.isLoading,
-            onBack = onBack,
-            onLogin = viewModel::login,
-            onRegister = onRegister,
-            onForgotPassword = onForgotPassword,
+            onBackClick = onBackClick,
+            onLoginClick = viewModel::login,
+            onRegisterClick = onRegisterClick,
+            onForgotPasswordClick = onForgotPasswordClick,
         )
     }
 }

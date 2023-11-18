@@ -5,10 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.maruchin.androidnavigation.navigationbar.NAVIGATION_BAR_HOST_ROUTE
 import com.maruchin.androidnavigation.navigationbar.navigationBarHost
-import com.maruchin.core.ui.screenFadeIn
-import com.maruchin.core.ui.screenFadeOut
-import com.maruchin.core.ui.screenSlideIn
-import com.maruchin.core.ui.screenSlideOut
+import com.maruchin.ui.screenSlideIn
+import com.maruchin.ui.screenSlideOut
 import com.maruchin.features.login.loginGraph
 import com.maruchin.features.login.navigateToLoginGraph
 import com.maruchin.features.order.ORDER_GRAPH_ROUTE
@@ -27,8 +25,8 @@ internal fun RootHost() {
         navController = rootController,
         startDestination = NAVIGATION_BAR_HOST_ROUTE,
         enterTransition = { screenSlideIn() },
-        exitTransition = { screenFadeOut() },
-        popEnterTransition = { screenFadeIn() },
+        exitTransition = { com.maruchin.ui.screenFadeOut() },
+        popEnterTransition = { com.maruchin.ui.screenFadeIn() },
         popExitTransition = { screenSlideOut() },
     ) {
         navigationBarHost(
@@ -52,9 +50,9 @@ internal fun RootHost() {
         registrationGraph(navController = rootController)
         orderGraph(
             navController = rootController,
-            onNavigateToProductCard = { product ->
+            onProductClick = { productId ->
                 rootController.popBackStack(ORDER_GRAPH_ROUTE, inclusive = true)
-                navigationBarController.navigateToProductCardGraph(product.id)
+                navigationBarController.navigateToProductCardGraph(productId)
             }
         )
     }

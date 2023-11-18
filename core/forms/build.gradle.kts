@@ -34,6 +34,7 @@ android {
 
 dependencies {
     api(project(":data:addresses"))
+    api(project(":data:user"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

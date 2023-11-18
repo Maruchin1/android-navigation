@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,10 +35,11 @@ import coil.compose.AsyncImage
 import com.maruchin.data.user.ClubLevel
 import com.maruchin.data.user.User
 import com.maruchin.data.user.sampleLoggedUser
+import com.maruchin.features.profile.R
 import java.net.URL
 
 @Composable
-internal fun ClubPage(onOpenPurchaseHistory: () -> Unit, onOpenFindOutMore: () -> Unit) {
+internal fun ClubPage(onPurchaseHistoryClick: () -> Unit, onFindOutMoreClick: () -> Unit) {
     val viewModel: ClubViewModel = hiltViewModel()
     val user by viewModel.user.collectAsState()
 
@@ -45,16 +47,16 @@ internal fun ClubPage(onOpenPurchaseHistory: () -> Unit, onOpenFindOutMore: () -
 
     ClubPage(
         user = user!!,
-        onOpenPurchaseHistory = onOpenPurchaseHistory,
-        onOpenFindOutMore = onOpenFindOutMore
+        onPurchaseHistoryClick = onPurchaseHistoryClick,
+        onFindOutMoreClick = onFindOutMoreClick
     )
 }
 
 @Composable
 private fun ClubPage(
     user: User.LoggedIn,
-    onOpenPurchaseHistory: () -> Unit,
-    onOpenFindOutMore: () -> Unit
+    onPurchaseHistoryClick: () -> Unit,
+    onFindOutMoreClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -63,9 +65,12 @@ private fun ClubPage(
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        BardCodeCard(barCode = user.cardBarCode)
-        ClubLevelCard(clubLevel = user.clubLevel, onOpenPurchaseHistory = onOpenPurchaseHistory)
-        BenefitsListCard(onOpenFindOutMore = onOpenFindOutMore)
+        BardCodeCard(barCode = user.clubData.cardBarCode)
+        ClubLevelCard(
+            clubLevel = user.clubData.clubLevel,
+            onPurchaseHistoryClick = onPurchaseHistoryClick
+        )
+        BenefitsListCard(onFindOutMoreClick = onFindOutMoreClick)
     }
 }
 
@@ -83,7 +88,7 @@ private fun BardCodeCard(barCode: URL) {
 }
 
 @Composable
-private fun ClubLevelCard(clubLevel: ClubLevel, onOpenPurchaseHistory: () -> Unit) {
+private fun ClubLevelCard(clubLevel: ClubLevel, onPurchaseHistoryClick: () -> Unit) {
     OutlinedCard {
         Column {
             ClubLevelAndBalance(clubLevel = clubLevel)
@@ -91,7 +96,7 @@ private fun ClubLevelCard(clubLevel: ClubLevel, onOpenPurchaseHistory: () -> Uni
             Timeline()
             TimelineLabels()
             Divider()
-            PurchaseHistoryButton(onClick = onOpenPurchaseHistory)
+            PurchaseHistoryButton(onClick = onPurchaseHistoryClick)
         }
     }
 }
@@ -131,9 +136,9 @@ private fun UserBalance() {
         horizontalAlignment = Alignment.End,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(text = "0 zł", style = MaterialTheme.typography.headlineMedium)
+        Text(text = "$ 0", style = MaterialTheme.typography.headlineMedium)
         Text(
-            text = "SALDO",
+            text = stringResource(R.string.balance),
             style = MaterialTheme.typography.labelMedium,
             color = Color.Gray
         )
@@ -171,17 +176,17 @@ private fun TimelineLabels() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         ClubLevelBalance(
-            balance = "0 zł",
+            balance = "$ 0",
             clubLevel = ClubLevel.STANDARD,
             alignment = Alignment.Start,
         )
         ClubLevelBalance(
-            balance = "400 zł",
+            balance = "$ 400",
             clubLevel = ClubLevel.SILVER,
             alignment = Alignment.CenterHorizontally,
         )
         ClubLevelBalance(
-            balance = "800 zł",
+            balance = "$ 800",
             clubLevel = ClubLevel.GOLD,
             alignment = Alignment.End,
         )
@@ -231,7 +236,7 @@ private fun ClubLevelBalance(
 @Composable
 private fun PurchaseHistoryButton(onClick: () -> Unit) {
     Text(
-        text = "Purchase history",
+        text = stringResource(R.string.purchase_history),
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
             .clickable { onClick() }
@@ -242,7 +247,7 @@ private fun PurchaseHistoryButton(onClick: () -> Unit) {
 }
 
 @Composable
-private fun BenefitsListCard(onOpenFindOutMore: () -> Unit) {
+private fun BenefitsListCard(onFindOutMoreClick: () -> Unit) {
     OutlinedCard {
         Column(
             modifier = Modifier
@@ -261,7 +266,7 @@ private fun BenefitsListCard(onOpenFindOutMore: () -> Unit) {
             BulletItem(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit")
         }
         Divider()
-        FindOutMoreButton(onClick = onOpenFindOutMore)
+        FindOutMoreButton(onClick = onFindOutMoreClick)
     }
 }
 
@@ -296,7 +301,7 @@ private fun BulletItem(text: String) {
 @Composable
 private fun FindOutMoreButton(onClick: () -> Unit) {
     Text(
-        text = "Find out more",
+        text = stringResource(R.string.find_out_more),
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier
             .clickable { onClick() }
@@ -310,6 +315,6 @@ private fun FindOutMoreButton(onClick: () -> Unit) {
 @Composable
 private fun ClubScreenPreview() {
     MaterialTheme {
-        ClubPage(user = sampleLoggedUser, onOpenPurchaseHistory = {}, onOpenFindOutMore = {})
+        ClubPage(user = sampleLoggedUser, onPurchaseHistoryClick = {}, onFindOutMoreClick = {})
     }
 }

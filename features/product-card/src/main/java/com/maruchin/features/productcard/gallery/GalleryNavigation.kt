@@ -18,18 +18,18 @@ internal data class GalleryArgs(val productId: String) {
     )
 }
 
+internal fun NavController.navigateToGallery(productId: String) {
+    navigate(GALLERY_ROUTE.replace("{$PRODUCT_ID_ARG}", productId))
+}
+
 internal fun NavGraphBuilder.galleryScreen(onBack: () -> Unit) {
     dialog(
         route = GALLERY_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: GalleryViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val images by viewModel.images.collectAsState()
 
-        GalleryScreen(state = state, onBack = onBack)
+        GalleryScreen(images = images, onBackClick = onBack)
     }
-}
-
-internal fun NavController.navigateToGallery(productId: String) {
-    navigate(GALLERY_ROUTE.replace("{$PRODUCT_ID_ARG}", productId))
 }

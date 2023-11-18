@@ -1,5 +1,6 @@
 package com.maruchin.features.profile.myorders
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -12,36 +13,48 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.core.ui.ScreenContentPlaceholder
+import com.maruchin.ui.ScreenContentPlaceholder
+import com.maruchin.features.profile.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun MyOrdersScreen(onBack: () -> Unit) {
+internal fun MyOrdersScreen(onBackClick: () -> Unit) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "My orders")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onBackClick = onBackClick)
         }
     ) { padding ->
-        ScreenContentPlaceholder(
-            icon = Icons.Default.Folder,
-            text = "There are no orders in your account yet",
-            modifier = Modifier.padding(padding)
-        )
+        Placeholder(padding)
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.my_orders))
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            }
+        }
+    )
+}
+
+@Composable
+private fun Placeholder(padding: PaddingValues) {
+    ScreenContentPlaceholder(
+        icon = Icons.Default.Folder,
+        text = stringResource(R.string.there_are_no_orders_in_your_account_yet),
+        modifier = Modifier.padding(padding)
+    )
 }
 
 @Preview
 @Composable
 private fun MyOrdersScreenPreview() {
-    MyOrdersScreen(onBack = {})
+    MyOrdersScreen(onBackClick = {})
 }

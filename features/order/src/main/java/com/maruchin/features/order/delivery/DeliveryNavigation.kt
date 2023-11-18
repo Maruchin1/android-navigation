@@ -9,21 +9,21 @@ import androidx.navigation.compose.composable
 internal const val DELIVERY_ROUTE = "delivery"
 
 internal fun NavGraphBuilder.deliveryScreen(
-    onNavigateBack: () -> Unit,
-    onExitOrder: () -> Unit,
-    onNavigateToAddress: () -> Unit
+    onBackClick: () -> Unit,
+    onCancelClick: () -> Unit,
+    onDeliveryClick: () -> Unit
 ) {
     composable(DELIVERY_ROUTE) {
         val viewModel: DeliveryViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val state by viewModel.deliveries.collectAsState()
 
         DeliveryScreen(
-            state = state,
-            onBackClick = onNavigateBack,
-            onCancelClick = onExitOrder,
-            onSelectDelivery = { deliveryId ->
-                viewModel.selectDelivery(deliveryId)
-                onNavigateToAddress()
+            deliveries = state,
+            onBackClick = onBackClick,
+            onCancelClick = onCancelClick,
+            onDeliveryClick = { delivery ->
+                viewModel.selectDelivery(delivery)
+                onDeliveryClick()
             },
         )
     }

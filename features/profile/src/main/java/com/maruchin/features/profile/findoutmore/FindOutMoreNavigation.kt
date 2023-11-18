@@ -7,15 +7,15 @@ import androidx.navigation.compose.dialog
 
 internal const val FIND_OUT_MORE_ROUTE = "find-out-more"
 
-internal fun NavGraphBuilder.findOutMoreScreen(onClose: () -> Unit) {
+internal fun NavController.navigateToFindOutMore() {
+    navigate(FIND_OUT_MORE_ROUTE)
+}
+
+internal fun NavGraphBuilder.findOutMoreScreen(onCloseClick: () -> Unit) {
     dialog(
         route = FIND_OUT_MORE_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-        FindOutMoreScreen(onClose = onClose)
+        FindOutMoreScreen(onCloseClick = onCloseClick)
     }
-}
-
-internal fun NavController.navigateToFindOutMore() {
-    navigate(FIND_OUT_MORE_ROUTE)
 }

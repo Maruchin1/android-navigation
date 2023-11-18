@@ -12,23 +12,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.features.categorybrowser.categorylist.CategoryList
 
 @Composable
 internal fun SubcategoryListScreen(
-    state: SubcategoryListUiState,
+    category: Category?,
     onBackClick: () -> Unit,
     onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit
 ) {
+    if (category == null) return
+
     Scaffold(
         topBar = {
-            TopBar(categoryName = state.name, onBackClick = onBackClick)
+            TopBar(categoryName = category.name, onBackClick = onBackClick)
         }
     ) { padding ->
         CategoryList(
             modifier = Modifier.padding(padding),
-            categories = state.subcategories,
+            categories = category.subcategories,
             onCategoryClick = onCategoryClick,
         )
     }
@@ -53,7 +56,7 @@ private fun TopBar(categoryName: String, onBackClick: () -> Unit) {
 @Composable
 private fun SubcategoryListScreenPreview() {
     SubcategoryListScreen(
-        state = createSubcategoryListUiState(sampleCategories[1]),
+        category = sampleCategories[1],
         onBackClick = {},
         onCategoryClick = { _, _ -> }
     )

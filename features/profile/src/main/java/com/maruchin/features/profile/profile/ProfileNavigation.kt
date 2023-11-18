@@ -5,20 +5,20 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.core.ui.screenFadeIn
-import com.maruchin.core.ui.screenFadeOut
+import com.maruchin.ui.screenFadeIn
+import com.maruchin.ui.screenFadeOut
 
 internal const val PROFILE_ROUTE = "profile"
 
 internal fun NavGraphBuilder.profileScreen(
-    onOpenPurchaseHistory: () -> Unit,
-    onOpenFindOutMore: () -> Unit,
-    onOpenPromotion: (promotionId: String) -> Unit,
-    onOpenMyData: () -> Unit,
-    onOpenMyOrders: () -> Unit,
-    onOpenReturns: () -> Unit,
-    onNavigateToLogin: () -> Unit,
-    onNavigateToJoinClub: () -> Unit
+    onPurchaseHistoryClick: () -> Unit,
+    onFindOutMoreClick: () -> Unit,
+    onPromotionClick: (promotionId: String) -> Unit,
+    onMyDataClick: () -> Unit,
+    onMyOrdersClick: () -> Unit,
+    onReturnsClick: () -> Unit,
+    onLoginClick: () -> Unit,
+    onJoinClubClick: () -> Unit
 ) {
     composable(
         route = PROFILE_ROUTE,
@@ -28,18 +28,18 @@ internal fun NavGraphBuilder.profileScreen(
         popExitTransition = { screenFadeOut() },
     ) {
         val viewModel: ProfileViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val isLoggedIn by viewModel.isLoggedIn.collectAsState()
 
         ProfileScreen(
-            state = state,
-            onOpenPurchaseHistory = onOpenPurchaseHistory,
-            onOpenFindOutMore = onOpenFindOutMore,
-            onOpenPromotion = onOpenPromotion,
-            onOpenMyData = onOpenMyData,
-            onOpenMyOrders = onOpenMyOrders,
-            onOpenReturns = onOpenReturns,
-            onNavigateToLogin = onNavigateToLogin,
-            onNavigateToJoinClub = onNavigateToJoinClub,
+            isLoggedIn = isLoggedIn,
+            onPurchaseHistoryClick = onPurchaseHistoryClick,
+            onFindOutMoreClick = onFindOutMoreClick,
+            onPromotionClick = onPromotionClick,
+            onMyDataClick = onMyDataClick,
+            onMyOrdersClick = onMyOrdersClick,
+            onReturnsClick = onReturnsClick,
+            onLoginClick = onLoginClick,
+            onJoinClubClick = onJoinClubClick,
         )
     }
 }

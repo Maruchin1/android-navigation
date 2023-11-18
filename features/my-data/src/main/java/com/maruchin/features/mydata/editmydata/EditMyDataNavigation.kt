@@ -11,28 +11,28 @@ import androidx.navigation.compose.dialog
 
 internal const val EDIT_MY_DATE_ROUTE = "edit-my-data"
 
-internal fun NavGraphBuilder.editMyDataScreen(onClose: () -> Unit) {
+internal fun NavController.navigateToEditMyData() {
+    navigate(EDIT_MY_DATE_ROUTE)
+}
+
+internal fun NavGraphBuilder.editMyDataScreen(onCloseClick: () -> Unit) {
     dialog(
-        EDIT_MY_DATE_ROUTE,
+        route = EDIT_MY_DATE_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: EditMyDataViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val personalData by viewModel.personalData.collectAsState()
 
-        if (state.isSaved) {
+        if (viewModel.isSaved) {
             LaunchedEffect(Unit) {
-                onClose()
+                onCloseClick()
             }
         }
 
         EditMyDataScreen(
-            state = state,
-            onClose = onClose,
+            personalData = personalData,
+            onCloseClick = onCloseClick,
             onSaveClick = viewModel::submitChange,
         )
     }
-}
-
-internal fun NavController.navigateToEditMyData() {
-    navigate(EDIT_MY_DATE_ROUTE)
 }

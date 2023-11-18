@@ -37,10 +37,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":ui"))
     implementation(project(":data:user"))
     implementation(project(":data:categories"))
     implementation(project(":data:products"))
-    implementation(project(":core:ui"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

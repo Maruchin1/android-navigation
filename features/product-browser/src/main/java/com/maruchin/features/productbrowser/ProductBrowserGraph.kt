@@ -24,16 +24,16 @@ fun NavGraphBuilder.productBrowserGraph(
 ) {
     navigation(startDestination = PRODUCT_LIST_ROUTE, route = PRODUCT_BROWSER_GRAPH_ROUTE) {
         productListScreen(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onShowProduct = onShowProduct,
-            onShowFilters = {
+            onProductClick = onShowProduct,
+            onFiltersClick = {
                 navController.navigateToFilters()
             }
         )
         filtersScreen(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             }
         )

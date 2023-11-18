@@ -24,29 +24,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maruchin.features.profile.R
 
 private const val STANDARD = 0
 private const val SILVER = 1
 private const val GOLD = 2
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun FindOutMoreScreen(onClose: () -> Unit) {
+internal fun FindOutMoreScreen(onCloseClick: () -> Unit) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Find out more")
-                },
-                actions = {
-                    IconButton(onClick = onClose) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onCloseClick = onCloseClick)
         },
     ) { padding ->
         Column(
@@ -55,31 +48,13 @@ internal fun FindOutMoreScreen(onClose: () -> Unit) {
                 .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 40.dp, vertical = 16.dp)
-            )
-
             val pagerState = rememberFindOutPagerState()
 
+            ExplanationText()
             TabRow(selectedTabIndex = pagerState.currentPage) {
-                Tab(
-                    selected = pagerState.isSelectedPage(STANDARD),
-                    onClick = { pagerState.selectPage(STANDARD) },
-                    text = { Text(text = "Standard") },
-                )
-                Tab(
-                    selected = pagerState.isSelectedPage(SILVER),
-                    onClick = { pagerState.selectPage(SILVER) },
-                    text = { Text(text = "Silver") },
-                )
-                Tab(
-                    selected = pagerState.isSelectedPage(GOLD),
-                    onClick = { pagerState.selectPage(GOLD) },
-                    text = { Text(text = "Gold") },
-                )
+                StandardTab(pagerState)
+                SilverTab(pagerState)
+                GoldTab(pagerState)
             }
             HorizontalPager(pagerState.pagerState) { page ->
                 when (page) {
@@ -90,6 +65,64 @@ internal fun FindOutMoreScreen(onClose: () -> Unit) {
             }
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onCloseClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.find_out_more))
+        },
+        navigationIcon = {
+            IconButton(onClick = onCloseClick) {
+                Icon(imageVector = Icons.Default.Close, contentDescription = null)
+            }
+        }
+    )
+}
+
+@Composable
+private fun ExplanationText() {
+    Text(
+        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        style = MaterialTheme.typography.bodyMedium,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.padding(horizontal = 40.dp, vertical = 16.dp)
+    )
+}
+
+@Composable
+private fun StandardTab(pagerState: FindOutMorePagerState) {
+    Tab(
+        selected = pagerState.isSelectedPage(STANDARD),
+        onClick = { pagerState.selectPage(STANDARD) },
+        text = {
+            Text(text = stringResource(R.string.standard))
+        },
+    )
+}
+
+@Composable
+private fun SilverTab(pagerState: FindOutMorePagerState) {
+    Tab(
+        selected = pagerState.isSelectedPage(SILVER),
+        onClick = { pagerState.selectPage(SILVER) },
+        text = {
+            Text(text = stringResource(R.string.silver))
+        },
+    )
+}
+
+@Composable
+private fun GoldTab(pagerState: FindOutMorePagerState) {
+    Tab(
+        selected = pagerState.isSelectedPage(GOLD),
+        onClick = { pagerState.selectPage(GOLD) },
+        text = {
+            Text(text = stringResource(R.string.gold))
+        },
+    )
 }
 
 @Composable
@@ -116,5 +149,5 @@ private fun BenefitsList(numOfBenefits: Int) {
 @Preview
 @Composable
 private fun FindOutMoreScreenPreview() {
-    FindOutMoreScreen(onClose = {})
+    FindOutMoreScreen(onCloseClick = {})
 }

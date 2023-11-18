@@ -10,30 +10,31 @@ import androidx.navigation.compose.composable
 internal const val MY_DATA_ROUTE = "my-data"
 
 internal fun NavGraphBuilder.myDataScreen(
-    onBack: () -> Unit,
-    onNavigateToEditMyData: () -> Unit,
-    onNavigateToMyAddresses: () -> Unit,
-    onNavigateToChangePassword: () -> Unit,
-    onNavigateToDeleteAccount: () -> Unit,
-    onNavigateToProfile: () -> Unit,
+    onBackClick: () -> Unit,
+    onPersonalDataClick: () -> Unit,
+    onMyAddressesClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
+    onDeleteAccountClick: () -> Unit,
+    onLoggedOut: () -> Unit,
 ) {
     composable(MY_DATA_ROUTE) {
         val viewModel: MyDataViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val personalData by viewModel.personalData.collectAsState()
+        val isLoggedOut by viewModel.isLoggedOut.collectAsState()
 
-        if (state.isLoggedOut) {
+        if (isLoggedOut) {
             LaunchedEffect(Unit) {
-                onNavigateToProfile()
+                onLoggedOut()
             }
         }
 
         MyDataScreen(
-            state = state,
-            onBack = onBack,
-            onPersonalDataClick = onNavigateToEditMyData,
-            onMyAddressesClick = onNavigateToMyAddresses,
-            onChangePasswordClick = onNavigateToChangePassword,
-            onDeleteAccountClick = onNavigateToDeleteAccount,
+            personalData = personalData,
+            onBackClick = onBackClick,
+            onPersonalDataClick = onPersonalDataClick,
+            onMyAddressesClick = onMyAddressesClick,
+            onChangePasswordClick = onChangePasswordClick,
+            onDeleteAccountClick = onDeleteAccountClick,
             onLogoutClick = viewModel::logout,
         )
     }

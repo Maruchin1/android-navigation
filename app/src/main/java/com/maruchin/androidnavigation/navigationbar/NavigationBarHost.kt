@@ -12,10 +12,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.maruchin.core.ui.screenFadeIn
-import com.maruchin.core.ui.screenFadeOut
-import com.maruchin.core.ui.screenSlideIn
-import com.maruchin.core.ui.screenSlideOut
 import com.maruchin.features.cart.cartGraph
 import com.maruchin.features.categorybrowser.categoryBrowserGraph
 import com.maruchin.features.favorites.favoritesGraph
@@ -30,6 +26,10 @@ import com.maruchin.features.productcard.navigateToProductCardGraph
 import com.maruchin.features.productcard.productCardGraph
 import com.maruchin.features.profile.navigateToProfileGraph
 import com.maruchin.features.profile.profileGraph
+import com.maruchin.ui.screenFadeIn
+import com.maruchin.ui.screenFadeOut
+import com.maruchin.ui.screenSlideIn
+import com.maruchin.ui.screenSlideOut
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
@@ -70,39 +70,39 @@ internal fun NavGraphBuilder.navigationBarHost(
                 popExitTransition = { screenSlideOut() },
             ) {
                 homeGraph(
-                    onNavigateToCategoryBrowser = { categoryId ->
+                    onCategoryClick = { categoryId ->
                         navController.navigateToProductBrowserGraph(categoryId)
                     },
-                    onNavigateToProductCard = { productId ->
+                    onProductClick = { productId ->
                         navController.navigateToProductCardGraph(productId)
                     },
-                    onNavigateToLogin = onNavigateToLogin
+                    onLoginClick = onNavigateToLogin
                 )
                 categoryBrowserGraph(
                     navController = navController,
-                    onNavigateToProductBrowser = { categoryId ->
+                    onFinalCategoryClick = { categoryId ->
                         navController.navigateToProductBrowserGraph(categoryId)
                     }
                 )
                 favoritesGraph(
-                    onNavigateToProductCard = { productId ->
+                    onProductClick = { productId ->
                         navController.navigateToProductCardGraph(productId)
                     }
                 )
                 cartGraph(
-                    onNavigateToOrder = onNavigateToOrder,
-                    onNavigateToProduct = { productId ->
+                    onNextClick = onNavigateToOrder,
+                    onProductClick = { productId ->
                         navController.navigateToProductCardGraph(productId)
                     }
                 )
                 profileGraph(
                     navController = navController,
                     context = context,
-                    onNavigateToMyData = {
+                    onMyDataClick = {
                         navController.navigateToMyDataGraph()
                     },
-                    onNavigateToLogin = onNavigateToLogin,
-                    onNavigateToJoinClub = onNavigateToJoinClub,
+                    onLoginClick = onNavigateToLogin,
+                    onJoinClubClick = onNavigateToJoinClub,
                 )
                 productBrowserGraph(
                     navController = navController,

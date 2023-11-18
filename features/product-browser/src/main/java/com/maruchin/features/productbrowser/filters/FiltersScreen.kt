@@ -24,16 +24,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maruchin.data.products.ProductFilters
+import com.maruchin.features.productbrowser.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FiltersScreen(
     filters: ProductFilters,
-    onBack: () -> Unit,
+    onBackClick: () -> Unit,
     onSortingChange: (ProductFilters.Sorting) -> Unit,
     onPriceChange: (ProductFilters.Price) -> Unit,
 ) {
@@ -41,10 +43,10 @@ internal fun FiltersScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Filtry")
+                    Text(text = stringResource(R.string.filters))
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = onBackClick) {
                         Icon(imageVector = Icons.Default.Close, contentDescription = null)
                     }
                 }
@@ -94,7 +96,7 @@ private fun SortingSection(
 
 @Composable
 private fun PriceRangeSection() {
-    Text(text = "Price range", style = MaterialTheme.typography.titleMedium)
+    Text(text = stringResource(R.string.price_range), style = MaterialTheme.typography.titleMedium)
     Spacer(modifier = Modifier.height(8.dp))
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -135,7 +137,7 @@ private fun FiltersScreenPreview() {
     MaterialTheme {
         FiltersScreen(
             filters = ProductFilters(),
-            onBack = {},
+            onBackClick = {},
             onSortingChange = {},
             onPriceChange = {}
         )

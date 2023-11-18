@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="change_password">Change password</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="password_change">Password change</string>
+    <string name="send_link">Send link</string>
+    <string name="password_change_explanation">Do not you remember the password? Enter your e-mail address to which we will send a link to change your password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="register">Register</string>
+</resources>

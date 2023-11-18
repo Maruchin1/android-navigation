@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="change_password">Change password</string>
+    <string name="complete_the_fields_below">Complete the fields below</string>
+    <string name="start_deleting_your_account_in_the_app">Start deleting your account in the app</string>
+    <string name="delete_account">Delete account</string>
+    <string name="save">Save</string>
+    <string name="my_data">My data</string>
+    <string name="edit_address">Edit address</string>
+    <string name="my_addresses">My addresses</string>
+    <string name="add">Add</string>
+    <string name="logout">Logout</string>
+    <string name="add_address">Add address</string>
+</resources>

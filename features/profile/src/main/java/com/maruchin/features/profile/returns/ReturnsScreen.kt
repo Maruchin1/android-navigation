@@ -25,25 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maruchin.features.profile.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ReturnsScreen(onBack: () -> Unit, onNavigateToReturnsForm: () -> Unit) {
+internal fun ReturnsScreen(onBackClick: () -> Unit, onGoToFormClick: () -> Unit) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Returns")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onBackClick = onBackClick)
         }
     ) { padding ->
         Column(
@@ -60,46 +52,79 @@ internal fun ReturnsScreen(onBack: () -> Unit, onNavigateToReturnsForm: () -> Un
                 modifier = Modifier.size(128.dp),
                 tint = Color.LightGray
             )
-            Text(
-                text = "Free and quick returns, also in stationary stores",
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-            )
+            ReturnsFirstExplanation()
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(horizontal = 16.dp)
             ) {
                 Divider(modifier = Modifier.weight(1f))
-                Text(text = "OR", style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = stringResource(R.string.or),
+                    style = MaterialTheme.typography.bodyMedium
+                )
                 Divider(modifier = Modifier.weight(1f))
             }
-            Text(
-                text = "Send the parcel back by courier - complete the online return form and we will refund the funds to your account",
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 40.dp)
-            )
-            Button(
-                onClick = onNavigateToReturnsForm,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
-            ) {
-                Text(text = "Go to the form")
-            }
+            ReturnsSecondExplanation()
+            GoToFormButton(onClick = onGoToFormClick)
             Box(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.returns))
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            }
+        }
+    )
+}
+
+@Composable
+private fun ReturnsFirstExplanation() {
+    Text(
+        text = stringResource(R.string.returns_first_explanation),
+        style = MaterialTheme.typography.bodyMedium,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 40.dp)
+    )
+}
+
+@Composable
+private fun ReturnsSecondExplanation() {
+    Text(
+        text = stringResource(R.string.returns_second_explanation),
+        style = MaterialTheme.typography.bodyMedium,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 40.dp)
+    )
+}
+
+@Composable
+private fun GoToFormButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp)
+    ) {
+        Text(text = stringResource(R.string.go_to_the_form))
     }
 }
 
 @Preview
 @Composable
 private fun ReturnsScreenPreview() {
-    ReturnsScreen(onBack = {}, onNavigateToReturnsForm = {})
+    ReturnsScreen(onBackClick = {}, onGoToFormClick = {})
 }

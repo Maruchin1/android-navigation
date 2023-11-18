@@ -6,17 +6,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.maruchin.core.ui.ROOT_DEEPLINK
-import com.maruchin.core.ui.screenFadeIn
-import com.maruchin.core.ui.screenFadeOut
+import com.maruchin.ui.ROOT_DEEPLINK
+import com.maruchin.ui.screenFadeIn
+import com.maruchin.ui.screenFadeOut
 
 internal const val HOME_ROUTE = "home"
 private const val HOME_DEEPLINK = "$ROOT_DEEPLINK/home"
 
 internal fun NavGraphBuilder.homeScreen(
-    onNavigateToProductBrowser: (categoryId: String) -> Unit,
-    onNavigateToProductCard: (productId: String) -> Unit,
-    onNavigateToLogin: () -> Unit,
+    onCategoryClick: (categoryId: String) -> Unit,
+    onProductClick: (productId: String) -> Unit,
+    onLoginClick: () -> Unit,
 ) {
     composable(
         route = HOME_ROUTE,
@@ -29,13 +29,15 @@ internal fun NavGraphBuilder.homeScreen(
         popExitTransition = { screenFadeOut() },
     ) {
         val viewModel: HomeViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val categories by viewModel.categories.collectAsState()
+        val canLogin by viewModel.canLogin.collectAsState()
 
         HomeScreen(
-            state = state,
-            onCategoryClick = onNavigateToProductBrowser,
-            onProductClick = onNavigateToProductCard,
-            onLoginClick = onNavigateToLogin,
+            categories = categories,
+            canLogin = canLogin,
+            onCategoryClick = onCategoryClick,
+            onProductClick = onProductClick,
+            onLoginClick = onLoginClick,
         )
     }
 }

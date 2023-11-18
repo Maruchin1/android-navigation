@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-internal fun EmailSentDialog(onClose: () -> Unit, onOpenEmailBox: () -> Unit) {
+internal fun EmailSentDialog(onDismiss: () -> Unit, onOpenEmailBoxClick: () -> Unit) {
     AlertDialog(
-        onDismissRequest = onClose,
+        onDismissRequest = onDismiss,
         icon = {
             Icon(imageVector = Icons.Default.Email, contentDescription = null)
         },
@@ -25,7 +25,7 @@ internal fun EmailSentDialog(onClose: () -> Unit, onOpenEmailBox: () -> Unit) {
             Text(text = "To change your password, use the link we sent to the email address provided")
         },
         confirmButton = {
-            Button(onClick = onOpenEmailBox, modifier = Modifier.fillMaxWidth()) {
+            Button(onClick = onOpenEmailBoxClick, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Open your email box")
             }
         }
@@ -35,5 +35,5 @@ internal fun EmailSentDialog(onClose: () -> Unit, onOpenEmailBox: () -> Unit) {
 @Preview
 @Composable
 private fun EmailSentDialogPreview() {
-    EmailSentDialog(onClose = {}, onOpenEmailBox = {})
+    EmailSentDialog(onDismiss = {}, onOpenEmailBoxClick = {})
 }

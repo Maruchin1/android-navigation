@@ -7,25 +7,25 @@ import androidx.navigation.compose.composable
 
 internal const val ADDRESS_ROUTE = "address"
 
+internal fun NavController.navigateToAddress() {
+    navigate(ADDRESS_ROUTE)
+}
+
 internal fun NavGraphBuilder.addressScreen(
-    onNavigateBack: () -> Unit,
-    onExitOrder: () -> Unit,
-    onNavigateToPayment: () -> Unit,
+    onBackClick: () -> Unit,
+    onCancelClick: () -> Unit,
+    onNextClick: () -> Unit,
 ) {
     composable(ADDRESS_ROUTE) {
         val viewModel: AddressViewModel = hiltViewModel()
 
         AddressScreen(
-            onBackClick = onNavigateBack,
-            onCancelClick = onExitOrder,
+            onBackClick = onBackClick,
+            onCancelClick = onCancelClick,
             onNextClick = { address ->
                 viewModel.selectAddress(address)
-                onNavigateToPayment()
+                onNextClick()
             }
         )
     }
-}
-
-internal fun NavController.navigateToAddress() {
-    navigate(ADDRESS_ROUTE)
 }

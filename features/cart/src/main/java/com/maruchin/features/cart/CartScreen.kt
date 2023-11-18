@@ -25,28 +25,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.ui.OrderProductItem
+import com.maruchin.ui.OrderProductItem
+import com.maruchin.data.cart.Cart
+import com.maruchin.data.cart.CartProduct
 import com.maruchin.data.cart.sampleCart
 
 @Composable
 internal fun CartScreen(
-    state: CartUiState,
+    cart: Cart?,
     onNextClick: () -> Unit,
     onProductClick: (productId: String) -> Unit,
 ) {
+    if (cart == null) return
+
     Scaffold(
         topBar = {
             TopBar()
         },
         bottomBar = {
             BottomBar(
-                totalPrice = state.totalPrice,
+                totalPrice = cart.totalPrice,
                 onNextClick = onNextClick
             )
         }
     ) { padding ->
         ProductList(
-            products = state.products,
+            products = cart.products,
             modifier = Modifier.padding(padding),
             onProductClick = onProductClick,
         )
@@ -128,7 +132,7 @@ private fun NextButton(onClick: () -> Unit) {
 
 @Composable
 private fun ProductList(
-    products: List<CartProductUiState>,
+    products: List<CartProduct>,
     modifier: Modifier = Modifier,
     onProductClick: (productId: String) -> Unit
 ) {
@@ -137,12 +141,12 @@ private fun ProductList(
             .fillMaxSize()
             .then(modifier)
     ) {
-        items(products) { product ->
+        items(products) { (product, quantity) ->
             OrderProductItem(
-                image = product.image,
+                image = product.images.first(),
                 name = product.name,
                 price = product.price,
-                quantity = product.quantity,
+                quantity = quantity,
                 onClick = { onProductClick(product.id) },
                 onDeleteClick = {},
                 onQuantityClick = {},
@@ -155,7 +159,7 @@ private fun ProductList(
 @Composable
 private fun CartScreenPreview() {
     CartScreen(
-        state = createCartUiState(sampleCart),
+        cart = sampleCart,
         onNextClick = {},
         onProductClick = {},
     )

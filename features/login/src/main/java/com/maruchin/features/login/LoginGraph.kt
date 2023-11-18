@@ -17,11 +17,11 @@ private const val LOGIN_SUCCESS = "login_success"
 fun NavGraphBuilder.loginGraph(navController: NavController, onNavigateToRegistration: () -> Unit) {
     navigation(startDestination = LOGIN_ROUTE, route = LOGIN_GRAPH_ROUTE) {
         loginScreen(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onRegister = onNavigateToRegistration,
-            onForgotPassword = {
+            onRegisterClick = onNavigateToRegistration,
+            onForgotPasswordClick = {
                 navController.navigateToForgotPassword()
             },
             onLoggedIn = {
@@ -30,12 +30,12 @@ fun NavGraphBuilder.loginGraph(navController: NavController, onNavigateToRegistr
             }
         )
         forgotPasswordScreen(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
         )
         changePasswordScreen(
-            onClose = {
+            onCloseClick = {
                 navController.navigateUp()
             },
             onLoggedIn = {

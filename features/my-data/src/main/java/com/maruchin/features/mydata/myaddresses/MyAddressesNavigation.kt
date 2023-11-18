@@ -9,24 +9,24 @@ import androidx.navigation.compose.composable
 
 internal const val MY_ADDRESSES_ROUTE = "my-addresses"
 
+internal fun NavController.navigateToMyAddresses() {
+    navigate(MY_ADDRESSES_ROUTE)
+}
+
 internal fun NavGraphBuilder.myAddresses(
-    onBack: () -> Unit,
-    onNavigateToAddAddress: () -> Unit,
-    onNavigateToEditAddress: (addressId: String) -> Unit
+    onBackClick: () -> Unit,
+    onAddAddressClick: () -> Unit,
+    onEditAddressClick: (addressId: String) -> Unit
 ) {
     composable(MY_ADDRESSES_ROUTE) {
         val viewModel: MyAddressesViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val addresses by viewModel.addresses.collectAsState()
 
         MyAddressesScreen(
-            state = state,
-            onBack = onBack,
-            onAddAddressClick = onNavigateToAddAddress,
-            onEditAddress = onNavigateToEditAddress,
+            addresses = addresses,
+            onBackClick = onBackClick,
+            onAddAddressClick = onAddAddressClick,
+            onEditAddressClick = onEditAddressClick,
         )
     }
-}
-
-internal fun NavController.navigateToMyAddresses() {
-    navigate(MY_ADDRESSES_ROUTE)
 }

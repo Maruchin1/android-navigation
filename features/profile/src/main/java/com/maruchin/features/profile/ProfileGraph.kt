@@ -5,7 +5,7 @@ import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
-import com.maruchin.core.intent.openWebsite
+import com.maruchin.ui.openWebsite
 import com.maruchin.features.profile.findoutmore.findOutMoreScreen
 import com.maruchin.features.profile.findoutmore.navigateToFindOutMore
 import com.maruchin.features.profile.myorders.myOrdersScreen
@@ -21,70 +21,70 @@ import com.maruchin.features.profile.returns.returnsScreen
 
 const val PROFILE_GRAPH_ROUTE = "profile-graph"
 
-fun NavGraphBuilder.profileGraph(
-    navController: NavController,
-    context: Context,
-    onNavigateToMyData: () -> Unit,
-    onNavigateToLogin: () -> Unit,
-    onNavigateToJoinClub: () -> Unit,
-) {
-    navigation(startDestination = PROFILE_ROUTE, route = PROFILE_GRAPH_ROUTE) {
-        profileScreen(
-            onOpenPurchaseHistory = {
-                navController.navigateToPurchaseHistory()
-            },
-            onOpenFindOutMore = {
-                navController.navigateToFindOutMore()
-            },
-            onOpenPromotion = { promotionId ->
-                navController.navigateToPromotion(promotionId)
-            },
-            onOpenMyData = onNavigateToMyData,
-            onOpenMyOrders = {
-                navController.navigateToMyOrders()
-            },
-            onOpenReturns = {
-                navController.navigateToReturns()
-            },
-            onNavigateToLogin = onNavigateToLogin,
-            onNavigateToJoinClub = onNavigateToJoinClub,
-        )
-        purchaseHistoryScreen(
-            onClose = {
-                navController.navigateUp()
-            }
-        )
-        findOutMoreScreen(
-            onClose = {
-                navController.navigateUp()
-            }
-        )
-        promotionScreen(
-            onBack = {
-                navController.navigateUp()
-            }
-        )
-        myOrdersScreen(
-            onBack = {
-                navController.navigateUp()
-            }
-        )
-        returnsScreen(
-            onBack = {
-                navController.navigateUp()
-            },
-            onNavigateToReturnsForm = {
-                val url = "https://developers.android.com"
-                context.openWebsite(url.toUri())
-            }
-        )
-    }
-}
-
 fun NavController.navigateToProfileGraph() {
     navigate(PROFILE_GRAPH_ROUTE) {
         popUpTo(PROFILE_GRAPH_ROUTE) {
             inclusive = true
         }
+    }
+}
+
+fun NavGraphBuilder.profileGraph(
+    navController: NavController,
+    context: Context,
+    onMyDataClick: () -> Unit,
+    onLoginClick: () -> Unit,
+    onJoinClubClick: () -> Unit,
+) {
+    navigation(startDestination = PROFILE_ROUTE, route = PROFILE_GRAPH_ROUTE) {
+        profileScreen(
+            onPurchaseHistoryClick = {
+                navController.navigateToPurchaseHistory()
+            },
+            onFindOutMoreClick = {
+                navController.navigateToFindOutMore()
+            },
+            onPromotionClick = { promotionId ->
+                navController.navigateToPromotion(promotionId)
+            },
+            onMyDataClick = onMyDataClick,
+            onMyOrdersClick = {
+                navController.navigateToMyOrders()
+            },
+            onReturnsClick = {
+                navController.navigateToReturns()
+            },
+            onLoginClick = onLoginClick,
+            onJoinClubClick = onJoinClubClick,
+        )
+        purchaseHistoryScreen(
+            onCloseClick = {
+                navController.navigateUp()
+            }
+        )
+        findOutMoreScreen(
+            onCloseClick = {
+                navController.navigateUp()
+            }
+        )
+        promotionScreen(
+            onBackClick = {
+                navController.navigateUp()
+            }
+        )
+        myOrdersScreen(
+            onBackClick = {
+                navController.navigateUp()
+            }
+        )
+        returnsScreen(
+            onBackClick = {
+                navController.navigateUp()
+            },
+            onGoToFormClick = {
+                val url = "https://developers.android.com"
+                context.openWebsite(url.toUri())
+            }
+        )
     }
 }

@@ -21,7 +21,7 @@ internal class HomeViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
-    private val products = categoriesRepository.getRecommended()
+    val categories = categoriesRepository.getRecommended()
         .flatMapLatest { categories ->
             val products = categories.map { category ->
                 productsRepository.getRecommendedForCategory(category.id)
@@ -29,8 +29,8 @@ internal class HomeViewModel @Inject constructor(
             }
             combine(products) { it.toMap() }
         }
-    private val canLogin = userRepository.get().map { it is User.LoggedOut }
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyMap())
 
-    val uiState = combine(products, canLogin, ::createHomeUiState)
-        .stateIn(viewModelScope, SharingStarted.Lazily, HomeUiState())
+    val canLogin = userRepository.get().map { it is User.LoggedOut }
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
 }

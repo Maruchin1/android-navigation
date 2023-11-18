@@ -1,6 +1,5 @@
 package com.maruchin.features.login.login
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,19 +22,20 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.ui.Loading
+import com.maruchin.features.login.R
+import com.maruchin.forms.loginform.LoginForm
+import com.maruchin.forms.loginform.rememberLoginFormState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginScreen(
-    loginFormState: LoginFormState,
-    isLoading: Boolean,
-    onBack: () -> Unit,
-    onLogin: () -> Unit,
-    onRegister: () -> Unit,
-    onForgotPassword: () -> Unit,
+    onBackClick: () -> Unit,
+    onLoginClick: (email: String, password: String) -> Unit,
+    onRegisterClick: () -> Unit,
+    onForgotPasswordClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -43,58 +43,59 @@ internal fun LoginScreen(
                 title = {
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = onBackClick) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
                     }
                 }
             )
         }
     ) { padding ->
-        Crossfade(targetState = isLoading, label = "") { isLoading ->
-            if (isLoading) {
-                Loading()
-            } else {
-                Column(
-                    modifier = Modifier
-                        .padding(padding)
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(text = "Login", style = MaterialTheme.typography.displayMedium)
-                    Spacer(modifier = Modifier.height(64.dp))
-                    LoginForm(
-                        state = loginFormState,
-                        modifier = Modifier.padding(horizontal = 24.dp)
-                    )
-                    TextButton(
-                        onClick = onForgotPassword,
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(end = 16.dp, top = 8.dp)
-                    ) {
-                        Text(text = "Forgot password?")
-                    }
-                    Spacer(modifier = Modifier.height(48.dp))
-                    Button(
-                        onClick = onLogin,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 24.dp),
-                        enabled = loginFormState.isValid,
-                    ) {
-                        Text(text = "Login")
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedButton(
-                        onClick = onRegister,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 24.dp)
-                    ) {
-                        Text(text = "Register")
-                    }
-                }
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            val formState = rememberLoginFormState()
+
+            Text(
+                text = stringResource(R.string.login),
+                style = MaterialTheme.typography.displayMedium
+            )
+            Spacer(modifier = Modifier.height(64.dp))
+            LoginForm(
+                state = formState,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            TextButton(
+                onClick = onForgotPasswordClick,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 16.dp, top = 8.dp)
+            ) {
+                Text(text = stringResource(R.string.forgot_password))
+            }
+            Spacer(modifier = Modifier.height(48.dp))
+            Button(
+                onClick = {
+                    onLoginClick(formState.email.value, formState.password.value)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                enabled = formState.isValid,
+            ) {
+                Text(text = stringResource(R.string.login))
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedButton(
+                onClick = onRegisterClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+            ) {
+                Text(text = stringResource(R.string.register))
             }
         }
     }
@@ -105,12 +106,10 @@ internal fun LoginScreen(
 private fun LoginScreenPreview() {
     MaterialTheme {
         LoginScreen(
-            loginFormState = rememberLoginFormState(),
-            isLoading = false,
-            onBack = {},
-            onLogin = {},
-            onRegister = {},
-            onForgotPassword = {},
+            onBackClick = {},
+            onLoginClick = { _, _ -> },
+            onRegisterClick = {},
+            onForgotPasswordClick = {},
         )
     }
 }

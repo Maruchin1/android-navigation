@@ -1,5 +1,6 @@
 package com.maruchin.data.user.internal
 
+import com.maruchin.data.user.PersonalData
 import com.maruchin.data.user.User
 import com.maruchin.data.user.UserRepository
 import com.maruchin.data.user.sampleLoggedUser
@@ -21,13 +22,7 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         user.emit(sampleLoggedUser)
     }
 
-    override suspend fun register(
-        firstName: String,
-        lastName: String,
-        email: String,
-        phoneNumber: String,
-        password: String
-    ) {
+    override suspend fun register(personalData: PersonalData, password: String) {
         user.emit(sampleLoggedUser)
     }
 
@@ -43,18 +38,10 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         user.emit(User.LoggedOut)
     }
 
-    override suspend fun updatePersonalData(
-        firstName: String,
-        lastName: String,
-        email: String,
-        phoneNumber: String
-    ) {
+    override suspend fun updatePersonalData(personalData: PersonalData) {
         val loggedUser = user.value as? User.LoggedIn ?: return
         user.value = loggedUser.copy(
-            firstName = firstName,
-            lastName = lastName,
-            email = email,
-            phoneNumber = phoneNumber
+            personalData = personalData
         )
     }
 }

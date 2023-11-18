@@ -18,44 +18,28 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.ui.PaymentItem
+import com.maruchin.ui.PaymentItem
 import com.maruchin.data.payments.Payment
 import com.maruchin.data.payments.samplePayments
+import com.maruchin.features.order.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PaymentScreen(
-    state: PaymentUiState,
+    payments: List<Payment>,
     onBackClick: () -> Unit,
     onCancelClick: () -> Unit,
     onPaymentClick: (Payment) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            Column {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(text = "Payment")
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                        }
-                    },
-                    actions = {
-                        TextButton(onClick = onCancelClick) {
-                            Text(text = "Cancel")
-                        }
-                    }
-                )
-                LinearProgressIndicator(progress = 0.75f, modifier = Modifier.fillMaxWidth())
-            }
+            TopBar(onBackClick, onCancelClick)
         }
     ) { padding ->
         LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.padding(padding)) {
-            items(state.payments) { payment ->
+            items(payments) { payment ->
                 PaymentItem(
                     logo = payment.logo,
                     modifier = Modifier.padding(16.dp),
@@ -66,11 +50,34 @@ internal fun PaymentScreen(
     }
 }
 
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
+    Column {
+        CenterAlignedTopAppBar(
+            title = {
+                Text(text = stringResource(R.string.payment))
+            },
+            navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                }
+            },
+            actions = {
+                TextButton(onClick = onCancelClick) {
+                    Text(text = stringResource(R.string.cancel))
+                }
+            }
+        )
+        LinearProgressIndicator(progress = 0.75f, modifier = Modifier.fillMaxWidth())
+    }
+}
+
 @Preview
 @Composable
 private fun PaymentScreenPreview() {
     PaymentScreen(
-        state = PaymentUiState(payments = samplePayments),
+        payments = samplePayments,
         onBackClick = {},
         onPaymentClick = {},
         onCancelClick = {},

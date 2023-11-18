@@ -7,37 +7,36 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.data.order.Order
-import com.maruchin.data.products.Product
 
 internal const val SUMMARY_ROUTE = "summary"
 
+internal fun NavController.navigateToSummary() {
+    navigate(SUMMARY_ROUTE)
+}
+
 internal fun NavGraphBuilder.summaryScreen(
-    onNavigateBack: () -> Unit,
-    onNavigateToProductCard: (Product) -> Unit,
-    onNavigateToConfirmation: () -> Unit,
-    onExitOrder: () -> Unit,
+    onBackClick: () -> Unit,
+    onProductClick: (productId: String) -> Unit,
+    onCancelClick: () -> Unit,
+    onSubmitted: () -> Unit,
 ) {
     composable(SUMMARY_ROUTE) {
         val viewModel: SummaryViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val order by viewModel.order.collectAsState()
+        val isSubmitted by viewModel.isSubmitted.collectAsState()
 
-        if (state.order is Order.Submitted) {
+        if (isSubmitted) {
             LaunchedEffect(Unit) {
-                onNavigateToConfirmation()
+                onSubmitted()
             }
         }
 
         SummaryScreen(
-            state = state,
-            onBackClick = onNavigateBack,
-            onProductClick = onNavigateToProductCard,
+            order = order,
+            onBackClick = onBackClick,
+            onProductClick = onProductClick,
             onSubmitOrderClick = viewModel::submit,
-            onCancelClick = onExitOrder,
+            onCancelClick = onCancelClick,
         )
     }
-}
-
-internal fun NavController.navigateToSummary() {
-    navigate(SUMMARY_ROUTE)
 }

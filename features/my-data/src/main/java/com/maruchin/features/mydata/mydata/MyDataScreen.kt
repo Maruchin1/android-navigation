@@ -25,14 +25,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maruchin.data.user.PersonalData
+import com.maruchin.features.mydata.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MyDataScreen(
-    state: MyDataUiState,
-    onBack: () -> Unit,
+    personalData: PersonalData?,
+    onBackClick: () -> Unit,
     onPersonalDataClick: () -> Unit,
     onMyAddressesClick: () -> Unit,
     onChangePasswordClick: () -> Unit,
@@ -41,54 +43,96 @@ internal fun MyDataScreen(
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "My data")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onBackClick)
         }
     ) { padding ->
+        if (personalData == null) return@Scaffold
+
         Column(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Bottom,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onPersonalDataClick() }
-                    .padding(16.dp),
-            ) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(64.dp)
-                    )
-                    Text(
-                        text = "${state.firstName} ${state.lastName}",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    Text(text = state.email, style = MaterialTheme.typography.bodyMedium)
-                    Text(text = state.phoneNumber, style = MaterialTheme.typography.bodyMedium)
-                }
-                Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null)
-            }
+            PersonalDataSection(personalData = personalData, onClick = onPersonalDataClick)
             Divider()
-            MyDataItem(text = "My addresses", onClick = onMyAddressesClick)
-            MyDataItem(text = "Change password", onClick = onChangePasswordClick)
-            MyDataItem(text = "Delete account", onClick = onDeleteAccountClick)
-            MyDataItem(text = "Logout", onClick = onLogoutClick)
+            MyAddressesItem(onClick = onMyAddressesClick)
+            ChangePasswordItem(onClick = onChangePasswordClick)
+            DeleteAccountItem(onClick = onDeleteAccountClick)
+            LogoutItem(onClick = onLogoutClick)
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.my_data))
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            }
+        }
+    )
+}
+
+@Composable
+private fun PersonalDataSection(personalData: PersonalData, onClick: () -> Unit) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Bottom,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(16.dp),
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Icon(
+                imageVector = Icons.Default.AccountCircle,
+                contentDescription = null,
+                modifier = Modifier.size(64.dp)
+            )
+            Text(
+                text = "${personalData.firstName} ${personalData.lastName}",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(text = personalData.email, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = personalData.phoneNumber,
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        Icon(imageVector = Icons.Default.ChevronRight, contentDescription = null)
+    }
+}
+
+@Composable
+private fun MyAddressesItem(onClick: () -> Unit) {
+    MyDataItem(text = stringResource(R.string.my_addresses), onClick = onClick)
+}
+
+@Composable
+private fun ChangePasswordItem(onClick: () -> Unit) {
+    MyDataItem(
+        text = stringResource(R.string.change_password),
+        onClick = onClick
+    )
+}
+
+@Composable
+private fun DeleteAccountItem(onClick: () -> Unit) {
+    MyDataItem(
+        text = stringResource(R.string.delete_account),
+        onClick = onClick
+    )
+}
+
+@Composable
+private fun LogoutItem(onClick: () -> Unit) {
+    MyDataItem(text = stringResource(R.string.logout), onClick = onClick)
 }
 
 @Composable
@@ -110,13 +154,13 @@ private fun MyDataItem(text: String, onClick: () -> Unit) {
 @Composable
 private fun MyDataScreenPreview() {
     MyDataScreen(
-        state = MyDataUiState(
+        personalData = PersonalData(
             firstName = "John",
             lastName = "Doe",
             email = "john.doe@gmail.com",
             phoneNumber = "+48 123 456 789",
         ),
-        onBack = {},
+        onBackClick = {},
         onPersonalDataClick = {},
         onMyAddressesClick = {},
         onChangePasswordClick = {},

@@ -20,39 +20,43 @@ import com.maruchin.features.mydata.mydata.myDataScreen
 
 const val MY_DATA_GRAPH_ROUTE = "my-data-graph"
 
+fun NavController.navigateToMyDataGraph() {
+    navigate(MY_DATA_GRAPH_ROUTE)
+}
+
 fun NavGraphBuilder.myDataGraph(navController: NavController, onNavigateToProfile: () -> Unit) {
     navigation(startDestination = MY_DATA_ROUTE, route = MY_DATA_GRAPH_ROUTE) {
         myDataScreen(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToEditMyData = {
+            onPersonalDataClick = {
                 navController.navigateToEditMyData()
             },
-            onNavigateToMyAddresses = {
+            onMyAddressesClick = {
                 navController.navigateToMyAddresses()
             },
-            onNavigateToChangePassword = {
+            onChangePasswordClick = {
                 navController.navigateToChangePassword()
             },
-            onNavigateToDeleteAccount = {
+            onDeleteAccountClick = {
                 navController.navigateToDeleteAccount()
             },
-            onNavigateToProfile = onNavigateToProfile
+            onLoggedOut = onNavigateToProfile
         )
         editMyDataScreen(
-            onClose = {
+            onCloseClick = {
                 navController.navigateUp()
             }
         )
         myAddresses(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToAddAddress = {
+            onAddAddressClick = {
                 navController.navigateToAddAddress()
             },
-            onNavigateToEditAddress = { addressId ->
+            onEditAddressClick = { addressId ->
                 navController.navigateToEditAddress(addressId)
             }
         )
@@ -62,24 +66,20 @@ fun NavGraphBuilder.myDataGraph(navController: NavController, onNavigateToProfil
             }
         )
         editAddressScreen(
-            onClose = {
+            onCloseClick = {
                 navController.navigateUp()
             }
         )
         changePasswordScreen(
-            onClose = {
+            onCloseClick = {
                 navController.navigateUp()
             }
         )
         deleteAccountScreen(
-            onClose = {
+            onCloseClick = {
                 navController.navigateUp()
             },
             onNavigateToProfile = onNavigateToProfile
         )
     }
-}
-
-fun NavController.navigateToMyDataGraph() {
-    navigate(MY_DATA_GRAPH_ROUTE)
 }

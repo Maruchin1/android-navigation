@@ -28,28 +28,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.maruchin.data.promotions.Promotion
 import com.maruchin.data.promotions.samplePromotions
+import com.maruchin.features.profile.R
+import java.net.URL
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PromotionScreen(promotion: Promotion, onBack: () -> Unit) {
+internal fun PromotionScreen(promotion: Promotion?, onBackClick: () -> Unit) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Promotions")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onBackClick = onBackClick)
         }
     ) { padding ->
         Column(
@@ -58,20 +51,10 @@ internal fun PromotionScreen(promotion: Promotion, onBack: () -> Unit) {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            AsyncImage(
-                model = promotion.image.toString(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(4f / 3f),
-            )
-            Text(
-                text = promotion.title,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.SemiBold
-            )
+            if (promotion == null) return@Scaffold
+
+            PromotionImage(image = promotion.image)
+            PromotionTitle(text = promotion.title)
             Card(modifier = Modifier.padding(16.dp)) {
                 Column(
                     modifier = Modifier
@@ -80,36 +63,93 @@ internal fun PromotionScreen(promotion: Promotion, onBack: () -> Unit) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = "Your code".uppercase(),
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                    Text(
-                        text = promotion.promoCode,
-                        style = MaterialTheme.typography.displayMedium
-                    )
-                    TextButton(onClick = { }) {
-                        Icon(
-                            imageVector = Icons.Default.CopyAll,
-                            contentDescription = null,
-                            modifier = Modifier.size(ButtonDefaults.IconSize)
-                        )
-                        Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
-                        Text(text = "Copy code")
-                    }
+                    PromoCodeLabel()
+                    PromoCodeText(text = promotion.promoCode)
+                    CopyCodeButton()
                 }
             }
-            Text(
-                text = promotion.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(16.dp)
-            )
+            DescriptionText(text = promotion.description)
         }
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.promotions))
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            }
+        }
+    )
+}
+
+@Composable
+private fun PromotionImage(image: URL) {
+    AsyncImage(
+        model = image.toString(),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(4f / 3f),
+    )
+}
+
+@Composable
+private fun PromotionTitle(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(16.dp),
+        fontWeight = FontWeight.SemiBold
+    )
+}
+
+@Composable
+private fun PromoCodeLabel() {
+    Text(
+        text = stringResource(R.string.your_code).uppercase(),
+        style = MaterialTheme.typography.labelLarge
+    )
+}
+
+@Composable
+private fun PromoCodeText(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.displayMedium
+    )
+}
+
+@Composable
+private fun CopyCodeButton() {
+    TextButton(onClick = { }) {
+        Icon(
+            imageVector = Icons.Default.CopyAll,
+            contentDescription = null,
+            modifier = Modifier.size(ButtonDefaults.IconSize)
+        )
+        Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
+        Text(text = stringResource(R.string.copy_code))
+    }
+}
+
+@Composable
+private fun DescriptionText(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(16.dp)
+    )
 }
 
 @Preview
 @Composable
 private fun PromotionScreenPreview() {
-    PromotionScreen(promotion = samplePromotions[0], onBack = {})
+    PromotionScreen(promotion = samplePromotions[0], onBackClick = {})
 }

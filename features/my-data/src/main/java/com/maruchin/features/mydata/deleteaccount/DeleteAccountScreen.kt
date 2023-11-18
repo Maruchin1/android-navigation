@@ -21,31 +21,26 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maruchin.features.mydata.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun DeleteAccountScreen(onClose: () -> Unit, onStartDeletingClick: () -> Unit) {
+internal fun DeleteAccountScreen(
+    onCloseClick: () -> Unit,
+    onStartDeletingClick: () -> Unit
+) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Delete account")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onClose) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onCloseClick = onCloseClick)
         }
     ) { padding ->
         Column(
             modifier = Modifier
-                .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .padding(padding)
         ) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -75,20 +70,40 @@ internal fun DeleteAccountScreen(onClose: () -> Unit, onStartDeletingClick: () -
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = onStartDeletingClick,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(text = "Start deleting your account in the app")
+            StartDeletingButton(onStartDeletingClick)
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onCloseClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.delete_account))
+        },
+        navigationIcon = {
+            IconButton(onClick = onCloseClick) {
+                Icon(imageVector = Icons.Default.Close, contentDescription = null)
             }
         }
+    )
+}
+
+@Composable
+private fun StartDeletingButton(onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        Text(text = stringResource(R.string.start_deleting_your_account_in_the_app))
     }
 }
 
 @Preview
 @Composable
 private fun DeleteAccountScreenPreview() {
-    DeleteAccountScreen(onClose = {}, onStartDeletingClick = {})
+    DeleteAccountScreen(onCloseClick = {}, onStartDeletingClick = {})
 }

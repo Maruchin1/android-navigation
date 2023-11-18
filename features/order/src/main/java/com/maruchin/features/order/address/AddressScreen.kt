@@ -21,14 +21,15 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.forms.addressform.AddressForm
-import com.maruchin.core.forms.addressform.rememberAddressFormState
 import com.maruchin.data.addresses.Address
 import com.maruchin.data.addresses.sampleAddress
+import com.maruchin.features.order.R
+import com.maruchin.forms.addressform.AddressForm
+import com.maruchin.forms.addressform.rememberAddressFormState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddressScreen(
     onBackClick: () -> Unit,
@@ -37,24 +38,7 @@ internal fun AddressScreen(
 ) {
     Scaffold(
         topBar = {
-            Column {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(text = "Address")
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                        }
-                    },
-                    actions = {
-                        TextButton(onClick = onCancelClick) {
-                            Text(text = "Cancel")
-                        }
-                    }
-                )
-                LinearProgressIndicator(progress = 0.5f, modifier = Modifier.fillMaxWidth())
-            }
+            TopBar(onBackClick = onBackClick, onCancelClick = onCancelClick)
         }
     ) { padding ->
         val formState = rememberAddressFormState()
@@ -69,18 +53,52 @@ internal fun AddressScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(padding)
         ) {
-            AddressForm(state = formState)
+            AddressForm(
+                state = formState,
+                modifier = Modifier.padding(16.dp)
+            )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { onNextClick(formState.address) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                enabled = formState.isValid
-            ) {
-                Text(text = "Next")
-            }
+            NextButton(
+                enabled = formState.isValid,
+                onClick = { onNextClick(formState.address) }
+            )
         }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
+    Column {
+        CenterAlignedTopAppBar(
+            title = {
+                Text(text = stringResource(R.string.address))
+            },
+            navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                }
+            },
+            actions = {
+                TextButton(onClick = onCancelClick) {
+                    Text(text = stringResource(R.string.cancel))
+                }
+            }
+        )
+        LinearProgressIndicator(progress = 0.5f, modifier = Modifier.fillMaxWidth())
+    }
+}
+
+@Composable
+private fun NextButton(enabled: Boolean, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        enabled = enabled
+    ) {
+        Text(text = stringResource(R.string.next))
     }
 }
 

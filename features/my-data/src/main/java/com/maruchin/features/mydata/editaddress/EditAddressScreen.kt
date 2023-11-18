@@ -19,80 +19,80 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.forms.addressform.AddressForm
-import com.maruchin.core.forms.addressform.rememberAddressFormState
+import com.maruchin.forms.addressform.AddressForm
+import com.maruchin.forms.addressform.rememberAddressFormState
+import com.maruchin.data.addresses.Address
+import com.maruchin.data.addresses.sampleAddress
+import com.maruchin.features.mydata.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun EditAddressScreen(
-    state: EditAddressUiState,
-    onClose: () -> Unit,
-    onSaveClick: (
-        firstName: String,
-        lastName: String,
-        street: String,
-        house: String,
-        apartment: String,
-        postalCode: String,
-        city: String,
-    ) -> Unit,
+    address: Address?,
+    onCloseClick: () -> Unit,
+    onSaveClick: (Address) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Edit address")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onClose) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-                    }
-                }
-            )
+            TopBar(onCloseClick)
         }
     ) { padding ->
+        if (address == null) return@Scaffold
+
         Column(
             modifier = Modifier
-                .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .padding(padding)
         ) {
             val formState = rememberAddressFormState()
 
-            LaunchedEffect(state) {
-                formState.firstName = state.firstName
-                formState.lastName = state.lastName
-                formState.street = state.street
-                formState.house = state.house
-                formState.apartment = state.apartment
-                formState.postalCode = state.postalCode
-                formState.city = state.city
+            LaunchedEffect(address) {
+                formState.address = address
             }
 
-            AddressForm(state = formState)
+            AddressForm(
+                state = formState,
+                modifier = Modifier.padding(16.dp)
+            )
             Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = {
-                    onSaveClick(
-                        formState.firstName,
-                        formState.lastName,
-                        formState.street,
-                        formState.house,
-                        formState.apartment,
-                        formState.postalCode,
-                        formState.city,
-                    )
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+            SaveButton(
                 enabled = formState.isValid,
-            ) {
-                Text(text = "Save")
+                onClick = {
+                    onSaveClick(formState.address)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onClose: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.edit_address))
+        },
+        navigationIcon = {
+            IconButton(onClick = onClose) {
+                Icon(imageVector = Icons.Default.Close, contentDescription = null)
             }
         }
+    )
+}
+
+@Composable
+private fun SaveButton(enabled: Boolean, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        enabled = enabled,
+    ) {
+        Text(text = stringResource(R.string.save))
     }
 }
 
@@ -100,8 +100,8 @@ internal fun EditAddressScreen(
 @Composable
 private fun EditAddressScreenPreview() {
     EditAddressScreen(
-        state = EditAddressUiState(),
-        onClose = {},
-        onSaveClick = { _, _, _, _, _, _, _ -> }
+        address = sampleAddress,
+        onCloseClick = {},
+        onSaveClick = {}
     )
 }

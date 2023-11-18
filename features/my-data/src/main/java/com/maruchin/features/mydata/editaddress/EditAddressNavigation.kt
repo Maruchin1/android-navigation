@@ -19,28 +19,28 @@ internal data class EditAddressArgs(val addressId: String) {
     )
 }
 
-internal fun NavGraphBuilder.editAddressScreen(onClose: () -> Unit) {
+internal fun NavController.navigateToEditAddress(addressId: String) {
+    navigate(EDIT_ADDRESS_ROUTE.replace("{$ADDRESS_ID}", addressId))
+}
+
+internal fun NavGraphBuilder.editAddressScreen(onCloseClick: () -> Unit) {
     dialog(
-        EDIT_ADDRESS_ROUTE,
+        route = EDIT_ADDRESS_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         val viewModel: EditAddressViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val address by viewModel.address.collectAsState()
 
-        if (state.isSaved) {
+        if (viewModel.isSaved) {
             LaunchedEffect(Unit) {
-                onClose()
+                onCloseClick()
             }
         }
 
         EditAddressScreen(
-            state = state,
-            onClose = onClose,
+            address = address,
+            onCloseClick = onCloseClick,
             onSaveClick = viewModel::saveAddress,
         )
     }
-}
-
-internal fun NavController.navigateToEditAddress(addressId: String) {
-    navigate(EDIT_ADDRESS_ROUTE.replace("{$ADDRESS_ID}", addressId))
 }

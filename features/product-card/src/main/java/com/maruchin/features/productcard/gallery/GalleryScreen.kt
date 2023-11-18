@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
-
 package com.maruchin.features.productcard.gallery
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -37,37 +35,41 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maruchin.data.products.sampleProducts
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun GalleryScreen(state: GalleryUiState, onBack: () -> Unit) {
+internal fun GalleryScreen(images: List<Int>, onBackClick: () -> Unit) {
     Scaffold(
         topBar = {
-            TopAppBar(onBack = onBack)
+            TopAppBar(onBackClick = onBackClick)
         }
     ) { padding ->
-        val pagerState = rememberPagerState { state.images.size }
+        val pagerState = rememberPagerState { images.size }
+        
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            Pager(images = state.images, pagerState = pagerState)
-            PagerIndicator(pageCount = state.images.size, currentPage = pagerState.currentPage)
+            Pager(images = images, pagerState = pagerState)
+            PagerIndicator(pageCount = images.size, currentPage = pagerState.currentPage)
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopAppBar(onBack: () -> Unit) {
+private fun TopAppBar(onBackClick: () -> Unit) {
     TopAppBar(
         title = {},
         navigationIcon = {
-            IconButton(onClick = onBack) {
+            IconButton(onClick = onBackClick) {
                 Icon(imageVector = Icons.Default.Close, contentDescription = null)
             }
         }
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun BoxScope.Pager(images: List<Int>, pagerState: PagerState) {
     OutlinedCard(
@@ -121,10 +123,8 @@ private fun ProductImage(image: Int) {
 private fun GalleryScreenPreview() {
     MaterialTheme {
         GalleryScreen(
-            state = GalleryUiState(
-                images = sampleProducts.first().images,
-            ),
-            onBack = {},
+            images = sampleProducts.first().images,
+            onBackClick = {},
         )
     }
 }

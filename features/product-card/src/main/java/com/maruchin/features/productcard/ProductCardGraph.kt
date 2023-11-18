@@ -21,11 +21,11 @@ internal data class ProductCardArgs(val productId: String) {
 fun NavGraphBuilder.productCardGraph(navController: NavController) {
     navigation(startDestination = CARD_ROUTE, route = PRODUCT_CARD_GRAPH_ROUTE) {
         cardScreen(
-            onBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onOpenGallery = {
-                navController.navigateToGallery(it.id)
+            onGalleryClick = { productId ->
+                navController.navigateToGallery(productId)
             }
         )
         galleryScreen(

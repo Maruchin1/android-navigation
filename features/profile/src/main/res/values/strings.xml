@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="find_out_more">Find out more</string>
+    <string name="purchase_history">Purchase history</string>
+    <string name="balance">BALANCE</string>
+    <string name="join_club">Join Club</string>
+    <string name="login">Login</string>
+    <string name="click_and_learn_more">Click and learn more</string>
+    <string name="join_the_club_and_receive_a_10_discount">Join the Club and receive a 10% discount</string>
+    <string name="club">Club</string>
+    <string name="gold">Gold</string>
+    <string name="silver">Silver</string>
+    <string name="standard">Standard</string>
+    <string name="my_data">My data</string>
+    <string name="my_orders">My orders</string>
+    <string name="returns">Returns</string>
+    <string name="there_are_no_orders_in_your_account_yet">There are no orders in your account yet</string>
+    <string name="promotions">Promotions</string>
+    <string name="profile">Profile</string>
+    <string name="copy_code">Copy code</string>
+    <string name="your_code">Your code</string>
+    <string name="purchase_history_placeholder">We haven\'t recorded any transactions yet, but everything is ahead of you.</string>
+    <string name="go_to_the_form">Go to the form</string>
+    <string name="returns_second_explanation">Send the parcel back by courier - complete the online return form and we will refund the funds to your account</string>
+    <string name="or">OR</string>
+    <string name="returns_first_explanation">Free and quick returns, also in stationary stores</string>
+</resources>

@@ -22,17 +22,17 @@ import com.maruchin.data.promotions.samplePromotions
 import java.net.URL
 
 @Composable
-internal fun PromotionsPage(onOpenPromotion: (promotionId: String) -> Unit) {
+internal fun PromotionsPage(onPromotionClick: (promotionId: String) -> Unit) {
     val viewModel: PromotionsViewModel = hiltViewModel()
     val promotions by viewModel.promotions.collectAsState()
 
-    PromotionsPage(promotions = promotions, onOpenPromotion = onOpenPromotion)
+    PromotionsPage(promotions = promotions, onPromotionClick = onPromotionClick)
 }
 
 @Composable
 private fun PromotionsPage(
     promotions: List<Promotion>,
-    onOpenPromotion: (promotionId: String) -> Unit
+    onPromotionClick: (promotionId: String) -> Unit
 ) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 16.dp),
@@ -41,7 +41,7 @@ private fun PromotionsPage(
         items(promotions) { promotion ->
             PromotionItem(
                 image = promotion.image,
-                onClick = { onOpenPromotion(promotion.id) }
+                onClick = { onPromotionClick(promotion.id) }
             )
         }
     }
@@ -65,5 +65,5 @@ private fun PromotionItem(image: URL, onClick: () -> Unit) {
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 private fun PromotionsPagePreview() {
-    PromotionsPage(promotions = samplePromotions, onOpenPromotion = {})
+    PromotionsPage(promotions = samplePromotions, onPromotionClick = {})
 }

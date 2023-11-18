@@ -22,13 +22,16 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maruchin.core.ui.AllProductsButton
-import com.maruchin.core.ui.ProductItem
+import com.maruchin.ui.AllProductsButton
+import com.maruchin.ui.ProductItem
+import com.maruchin.data.categories.Category
+import com.maruchin.data.products.Product
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
-    state: HomeUiState,
+    categories: Map<Category, List<Product>>,
+    canLogin: Boolean,
     onCategoryClick: (categoryId: String) -> Unit,
     onProductClick: (productId: String) -> Unit,
     onLoginClick: () -> Unit,
@@ -38,14 +41,14 @@ internal fun HomeScreen(
     Scaffold(
         topBar = {
             TopBar(
-                canLogin = state.canLogin,
+                canLogin = canLogin,
                 scrollBehavior = scrollBehavior,
                 onLoginClick = onLoginClick
             )
         },
         content = { padding ->
             CategoryProductsList(
-                categories = state.products,
+                categories = categories,
                 modifier = Modifier
                     .padding(padding)
                     .nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -80,7 +83,7 @@ private fun TopBar(
 
 @Composable
 private fun CategoryProductsList(
-    categories: List<CategoryUiState>,
+    categories: Map<Category, List<Product>>,
     modifier: Modifier = Modifier,
     onCategoryClick: (categoryId: String) -> Unit,
     onProductClick: (productId: String) -> Unit,
@@ -91,11 +94,11 @@ private fun CategoryProductsList(
             .then(modifier),
         verticalArrangement = Arrangement.spacedBy(32.dp),
     ) {
-        items(categories) { category ->
+        items(categories.entries.toList()) { (category, products) ->
             Column {
                 CategoryHeadline(name = category.name)
                 ProductRow(
-                    products = category.products,
+                    products = products,
                     onShowAllClick = { onCategoryClick(category.id) },
                     onProductClick = onProductClick,
                 )
@@ -115,14 +118,14 @@ private fun CategoryHeadline(name: String) {
 
 @Composable
 private fun ProductRow(
-    products: List<ProductUiState>,
+    products: List<Product>,
     onShowAllClick: () -> Unit,
     onProductClick: (productId: String) -> Unit
 ) {
     LazyRow(modifier = Modifier.fillMaxWidth()) {
         items(products) { product ->
             ProductItem(
-                image = product.image,
+                image = product.images.first(),
                 title = product.name,
                 price = product.price,
                 isFavorite = product.isFavorite,
@@ -140,7 +143,8 @@ private fun ProductRow(
 private fun HomeScreenPreview() {
     MaterialTheme {
         HomeScreen(
-            state = HomeUiState(),
+            categories = emptyMap(),
+            canLogin = true,
             onCategoryClick = {},
             onProductClick = {},
             onLoginClick = {}

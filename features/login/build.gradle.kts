@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":ui"))
+    implementation(project(":forms"))
     implementation(project(":data:user"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:intent"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.ui)

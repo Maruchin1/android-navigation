@@ -6,13 +6,13 @@ import androidx.navigation.navigation
 const val CART_GRAPH_ROUTE = "cart-graph"
 
 fun NavGraphBuilder.cartGraph(
-    onNavigateToOrder: () -> Unit,
-    onNavigateToProduct: (product: String) -> Unit,
+    onNextClick: () -> Unit,
+    onProductClick: (product: String) -> Unit,
 ) {
     navigation(startDestination = CART_ROUTE, route = CART_GRAPH_ROUTE) {
         cartScreen(
-            onNavigateToOrder = onNavigateToOrder,
-            onNavigateToProductCard = onNavigateToProduct,
+            onNextClick = onNextClick,
+            onProductClick = onProductClick,
         )
     }
 }

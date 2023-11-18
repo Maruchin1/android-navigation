@@ -7,15 +7,15 @@ import androidx.navigation.compose.dialog
 
 internal const val PURCHASE_HISTORY_ROUTE = "purchase-history"
 
-internal fun NavGraphBuilder.purchaseHistoryScreen(onClose: () -> Unit) {
+internal fun NavController.navigateToPurchaseHistory() {
+    navigate(route = PURCHASE_HISTORY_ROUTE)
+}
+
+internal fun NavGraphBuilder.purchaseHistoryScreen(onCloseClick: () -> Unit) {
     dialog(
         route = PURCHASE_HISTORY_ROUTE,
         dialogProperties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
-        PurchaseHistoryScreen(onClose = onClose)
+        PurchaseHistoryScreen(onCloseClick = onCloseClick)
     }
-}
-
-internal fun NavController.navigateToPurchaseHistory() {
-    navigate(route = PURCHASE_HISTORY_ROUTE)
 }

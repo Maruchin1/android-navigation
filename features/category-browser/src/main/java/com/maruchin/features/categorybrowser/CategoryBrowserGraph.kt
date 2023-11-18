@@ -12,23 +12,29 @@ const val CATEGORY_BROWSER_GRAPH_ROUTE = "category-browser-graph"
 
 fun NavGraphBuilder.categoryBrowserGraph(
     navController: NavController,
-    onNavigateToProductBrowser: (categoryId: String) -> Unit,
+    onFinalCategoryClick: (categoryId: String) -> Unit,
 ) {
     navigation(startDestination = CATEGORY_LIST_ROUTE, route = CATEGORY_BROWSER_GRAPH_ROUTE) {
         categoryListScreen(
-            onNavigateToSubcategoryList = { categoryId ->
-                navController.navigateToSubcategoryList(categoryId)
+            onCategoryClick = { categoryId, isFinal ->
+                if (isFinal) {
+                    onFinalCategoryClick(categoryId)
+                } else {
+                    navController.navigateToSubcategoryList(categoryId)
+                }
             },
-            onNavigateToProductBrowser = onNavigateToProductBrowser
         )
         subcategoryListScreen(
-            onNavigateBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToSubcategoryList = { categoryId ->
-                navController.navigateToSubcategoryList(categoryId)
-            },
-            onNavigateToProductBrowser = onNavigateToProductBrowser,
+            onCategoryClick = { categoryId, isFinal ->
+                if (isFinal) {
+                    onFinalCategoryClick(categoryId)
+                } else {
+                    navController.navigateToSubcategoryList(categoryId)
+                }
+            }
         )
     }
 }

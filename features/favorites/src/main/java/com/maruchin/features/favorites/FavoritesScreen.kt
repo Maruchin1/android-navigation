@@ -13,12 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.core.ui.ProductItem
+import com.maruchin.ui.ProductItem
+import com.maruchin.data.products.Product
 import com.maruchin.data.products.sampleFavoriteProducts
 
 @Composable
 internal fun FavoritesScreen(
-    state: FavoritesUiState,
+    products: List<Product>,
     onProductClick: (productId: String) -> Unit
 ) {
     Scaffold(
@@ -27,7 +28,7 @@ internal fun FavoritesScreen(
         }
     ) { padding ->
         ProductGrid(
-            products = state.products,
+            products = products,
             modifier = Modifier.padding(padding),
             onProductClick = onProductClick,
         )
@@ -46,7 +47,7 @@ private fun TopBar() {
 
 @Composable
 private fun ProductGrid(
-    products: List<ProductUiState>,
+    products: List<Product>,
     modifier: Modifier = Modifier,
     onProductClick: (productId: String) -> Unit
 ) {
@@ -58,7 +59,7 @@ private fun ProductGrid(
     ) {
         items(products) { product ->
             ProductItem(
-                image = product.image,
+                image = product.images.first(),
                 title = product.name,
                 price = product.price,
                 isFavorite = product.isFavorite,
@@ -74,7 +75,7 @@ private fun ProductGrid(
 @Composable
 private fun FavoritesScreenPreview() {
     FavoritesScreen(
-        state = createFavoritesUiState(sampleFavoriteProducts),
+        products = sampleFavoriteProducts,
         onProductClick = {},
     )
 }

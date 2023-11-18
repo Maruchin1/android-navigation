@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.maruchin.data.categories.Category
 import com.maruchin.data.categories.sampleCategories
 import com.maruchin.features.categorybrowser.R
 
 @Composable
 internal fun CategoryListScreen(
-    state: CategoryListUiState,
+    categories: List<Category>,
     onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit,
 ) {
     Scaffold(
@@ -24,7 +25,7 @@ internal fun CategoryListScreen(
         }
     ) { padding ->
         CategoryList(
-            categories = state.categories,
+            categories = categories,
             modifier = Modifier.padding(padding),
             onCategoryClick = onCategoryClick,
         )
@@ -46,7 +47,7 @@ private fun TopBar() {
 private fun CategoriesScreenPreview() {
     MaterialTheme {
         CategoryListScreen(
-            state = createCategoryListUiState(sampleCategories),
+            categories = sampleCategories,
             onCategoryClick = { _, _ -> },
         )
     }

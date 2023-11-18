@@ -1,14 +1,19 @@
 package com.maruchin.features.mydata.editmydata
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maruchin.data.user.PersonalData
 import com.maruchin.data.user.User
 import com.maruchin.data.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,39 +22,17 @@ internal class EditMyDataViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(EditMyDataUiState())
-    val uiState = _uiState.asStateFlow()
+    val personalData = userRepository.get()
+        .filterIsInstance<User.LoggedIn>()
+        .map { it.personalData }
+        .take(1)
+        .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
-    init {
-        loadUserData()
-    }
+    var isSaved: Boolean by mutableStateOf(false)
+        private set
 
-    fun submitChange(
-        firstName: String,
-        lastName: String,
-        email: String,
-        phoneNumber: String
-    ) = viewModelScope.launch {
-        userRepository.updatePersonalData(
-            firstName = firstName,
-            lastName = lastName,
-            email = email,
-            phoneNumber = phoneNumber,
-        )
-        _uiState.update {
-            it.copy(isSaved = true)
-        }
-    }
-
-    private fun loadUserData() = viewModelScope.launch {
-        val loggedUser = userRepository.get().first() as? User.LoggedIn ?: return@launch
-        _uiState.update {
-            it.copy(
-                firstName = loggedUser.firstName,
-                lastName = loggedUser.lastName,
-                email = loggedUser.email,
-                phoneNumber = loggedUser.phoneNumber,
-            )
-        }
+    fun submitChange(personalData: PersonalData) = viewModelScope.launch {
+        userRepository.updatePersonalData(personalData)
+        isSaved = true
     }
 }

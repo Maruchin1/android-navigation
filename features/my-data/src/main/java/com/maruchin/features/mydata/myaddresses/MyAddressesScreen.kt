@@ -16,44 +16,32 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.maruchin.core.ui.AddressItem
+import com.maruchin.ui.AddressItem
+import com.maruchin.data.addresses.Address
 import com.maruchin.data.addresses.sampleAddress
+import com.maruchin.features.mydata.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MyAddressesScreen(
-    state: MyAddressesUiState,
-    onBack: () -> Unit,
+    addresses: List<Address>,
+    onBackClick: () -> Unit,
     onAddAddressClick: () -> Unit,
-    onEditAddress: (addressId: String) -> Unit,
+    onEditAddressClick: (addressId: String) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "My addresses")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-                    }
-                },
-                actions = {
-                    TextButton(onClick = onAddAddressClick) {
-                        Text(text = "Add")
-                    }
-                }
-            )
+            TopBar(onBackClick = onBackClick, onAddAddressClick = onAddAddressClick)
         }
     ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
                 .verticalScroll(rememberScrollState())
+                .padding(padding)
         ) {
-            state.addresses.forEach { address ->
+            addresses.forEach { address ->
                 AddressItem(
                     firstName = address.firstName,
                     lastName = address.lastName,
@@ -62,20 +50,40 @@ internal fun MyAddressesScreen(
                     apartment = address.apartment,
                     postalCode = address.postalCode,
                     city = address.postalCode,
-                    onEditClick = { onEditAddress(address.id) }
+                    onEditClick = { onEditAddressClick(address.id) }
                 )
             }
         }
     }
 }
 
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun TopBar(onBackClick: () -> Unit, onAddAddressClick: () -> Unit) {
+    CenterAlignedTopAppBar(
+        title = {
+            Text(text = stringResource(R.string.my_addresses))
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            }
+        },
+        actions = {
+            TextButton(onClick = onAddAddressClick) {
+                Text(text = stringResource(R.string.add))
+            }
+        }
+    )
+}
+
 @Preview
 @Composable
 private fun MyAddressesScreenPreview() {
     MyAddressesScreen(
-        state = MyAddressesUiState(addresses = listOf(sampleAddress)),
-        onBack = {},
+        addresses = listOf(sampleAddress),
+        onBackClick = {},
         onAddAddressClick = {},
-        onEditAddress = {},
+        onEditAddressClick = {},
     )
 }

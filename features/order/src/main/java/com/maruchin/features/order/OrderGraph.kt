@@ -3,7 +3,6 @@ package com.maruchin.features.order
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
-import com.maruchin.data.products.Product
 import com.maruchin.features.order.address.addressScreen
 import com.maruchin.features.order.address.navigateToAddress
 import com.maruchin.features.order.confirmation.confirmationScreen
@@ -17,9 +16,13 @@ import com.maruchin.features.order.summary.summaryScreen
 
 const val ORDER_GRAPH_ROUTE = "order-graph"
 
+fun NavController.navigateToOrderGraph() {
+    navigate(ORDER_GRAPH_ROUTE)
+}
+
 fun NavGraphBuilder.orderGraph(
     navController: NavController,
-    onNavigateToProductCard: (Product) -> Unit
+    onProductClick: (productId: String) -> Unit
 ) {
 
     fun exitOrder() {
@@ -28,48 +31,44 @@ fun NavGraphBuilder.orderGraph(
 
     navigation(startDestination = DELIVERY_ROUTE, route = ORDER_GRAPH_ROUTE) {
         deliveryScreen(
-            onNavigateBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToAddress = {
+            onDeliveryClick = {
                 navController.navigateToAddress()
             },
-            onExitOrder = ::exitOrder,
+            onCancelClick = ::exitOrder,
         )
         addressScreen(
-            onNavigateBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToPayment = {
+            onNextClick = {
                 navController.navigateToPayment()
             },
-            onExitOrder = ::exitOrder,
+            onCancelClick = ::exitOrder,
         )
         paymentScreen(
-            onNavigateBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToSummary = {
+            onPaymentClick = {
                 navController.navigateToSummary()
             },
-            onExitOrder = ::exitOrder,
+            onCancelClick = ::exitOrder,
         )
         summaryScreen(
-            onNavigateBack = {
+            onBackClick = {
                 navController.navigateUp()
             },
-            onNavigateToProductCard = onNavigateToProductCard,
-            onNavigateToConfirmation = {
+            onProductClick = onProductClick,
+            onSubmitted = {
                 navController.navigateToConfirmation()
             },
-            onExitOrder = ::exitOrder,
+            onCancelClick = ::exitOrder,
         )
         confirmationScreen(
-            onExitOrder = ::exitOrder,
+            onCloseClick = ::exitOrder,
         )
     }
-}
-
-fun NavController.navigateToOrderGraph() {
-    navigate(ORDER_GRAPH_ROUTE)
 }

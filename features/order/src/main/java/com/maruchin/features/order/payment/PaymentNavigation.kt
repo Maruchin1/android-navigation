@@ -9,27 +9,27 @@ import androidx.navigation.compose.composable
 
 internal const val PAYMENT_ROUTE = "payment"
 
+internal fun NavController.navigateToPayment() {
+    navigate(PAYMENT_ROUTE)
+}
+
 internal fun NavGraphBuilder.paymentScreen(
-    onNavigateBack: () -> Unit,
-    onNavigateToSummary: () -> Unit,
-    onExitOrder: () -> Unit,
+    onBackClick: () -> Unit,
+    onPaymentClick: () -> Unit,
+    onCancelClick: () -> Unit,
 ) {
     composable(PAYMENT_ROUTE) {
         val viewModel: PaymentViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val state by viewModel.payments.collectAsState()
 
         PaymentScreen(
-            state = state,
-            onBackClick = onNavigateBack,
-            onCancelClick = onExitOrder,
+            payments = state,
+            onBackClick = onBackClick,
+            onCancelClick = onCancelClick,
             onPaymentClick = { payment ->
                 viewModel.selectPayment(payment)
-                onNavigateToSummary()
+                onPaymentClick()
             }
         )
     }
-}
-
-internal fun NavController.navigateToPayment() {
-    navigate(PAYMENT_ROUTE)
 }

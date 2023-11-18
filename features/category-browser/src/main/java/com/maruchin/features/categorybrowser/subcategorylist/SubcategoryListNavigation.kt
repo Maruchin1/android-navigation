@@ -22,24 +22,17 @@ internal fun NavController.navigateToSubcategoryList(categoryId: String) {
 }
 
 internal fun NavGraphBuilder.subcategoryListScreen(
-    onNavigateBack: () -> Unit,
-    onNavigateToSubcategoryList: (categoryId: String) -> Unit,
-    onNavigateToProductBrowser: (categoryId: String) -> Unit,
+    onBackClick: () -> Unit,
+    onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit
 ) {
     composable(SUBCATEGORY_LIST_ROUTE) {
         val viewModel: SubcategoryListViewModel = hiltViewModel()
-        val state by viewModel.uiState.collectAsState()
+        val category by viewModel.category.collectAsState()
 
         SubcategoryListScreen(
-            state = state,
-            onBackClick = onNavigateBack,
-            onCategoryClick = { categoryId, isFinal ->
-                if (isFinal) {
-                    onNavigateToProductBrowser(categoryId)
-                } else {
-                    onNavigateToSubcategoryList(categoryId)
-                }
-            }
+            category = category,
+            onBackClick = onBackClick,
+            onCategoryClick = onCategoryClick,
         )
     }
 }

@@ -17,11 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.maruchin.data.categories.Category
 
 @Composable
 internal fun CategoryList(
     modifier: Modifier = Modifier,
-    categories: List<CategoryUiState>,
+    categories: List<Category>,
     onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
