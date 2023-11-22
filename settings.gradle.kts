@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -14,6 +15,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "android-navigation"
+
 include(":app")
 
 include(":features:home")
