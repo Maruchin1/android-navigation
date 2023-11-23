@@ -5,21 +5,13 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.maruchin.ui.screenFadeIn
-import com.maruchin.ui.screenFadeOut
 
 internal const val CATEGORY_LIST_ROUTE = "category-list"
 
 internal fun NavGraphBuilder.categoryListScreen(
     onCategoryClick: (categoryId: String, isFinal: Boolean) -> Unit,
 ) {
-    composable(
-        route = CATEGORY_LIST_ROUTE,
-        enterTransition = { screenFadeIn() },
-        exitTransition = { screenFadeOut() },
-        popEnterTransition = { screenFadeIn() },
-        popExitTransition = { screenFadeOut() },
-    ) {
+    composable(route = CATEGORY_LIST_ROUTE) {
         val viewModel: CategoryListViewModel = hiltViewModel()
         val categories by viewModel.categories.collectAsState()
 

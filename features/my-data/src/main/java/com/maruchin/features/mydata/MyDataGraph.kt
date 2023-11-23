@@ -2,7 +2,8 @@ package com.maruchin.features.mydata
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.navigation
+import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import com.maruchin.features.mydata.addaddress.addAddressScreen
 import com.maruchin.features.mydata.addaddress.navigateToAddAddress
 import com.maruchin.features.mydata.changepassword.changePasswordScreen
@@ -17,18 +18,26 @@ import com.maruchin.features.mydata.myaddresses.myAddresses
 import com.maruchin.features.mydata.myaddresses.navigateToMyAddresses
 import com.maruchin.features.mydata.mydata.MY_DATA_ROUTE
 import com.maruchin.features.mydata.mydata.myDataScreen
+import com.maruchin.ui.ROOT_DEEPLINK
 
 const val MY_DATA_GRAPH_ROUTE = "my-data-graph"
+private const val MY_DATA_DEEPLINK = "$ROOT_DEEPLINK/my-data"
 
 fun NavController.navigateToMyDataGraph() {
     navigate(MY_DATA_GRAPH_ROUTE)
 }
 
 fun NavGraphBuilder.myDataGraph(navController: NavController, onNavigateToProfile: () -> Unit) {
-    navigation(startDestination = MY_DATA_ROUTE, route = MY_DATA_GRAPH_ROUTE) {
+    navigation(
+        startDestination = MY_DATA_ROUTE,
+        route = MY_DATA_GRAPH_ROUTE,
+        deepLinks = listOf(
+            navDeepLink { uriPattern = MY_DATA_DEEPLINK }
+        )
+    ) {
         myDataScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onPersonalDataClick = {
                 navController.navigateToEditMyData()
@@ -46,12 +55,12 @@ fun NavGraphBuilder.myDataGraph(navController: NavController, onNavigateToProfil
         )
         editMyDataScreen(
             onCloseClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         myAddresses(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onAddAddressClick = {
                 navController.navigateToAddAddress()
@@ -62,22 +71,22 @@ fun NavGraphBuilder.myDataGraph(navController: NavController, onNavigateToProfil
         )
         addAddressScreen(
             onClose = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         editAddressScreen(
             onCloseClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         changePasswordScreen(
             onCloseClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         deleteAccountScreen(
             onCloseClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onNavigateToProfile = onNavigateToProfile
         )

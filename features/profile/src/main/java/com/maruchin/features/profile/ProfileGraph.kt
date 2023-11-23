@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.core.net.toUri
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.navigation
+import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import com.maruchin.ui.openWebsite
 import com.maruchin.features.profile.findoutmore.findOutMoreScreen
 import com.maruchin.features.profile.findoutmore.navigateToFindOutMore
@@ -18,8 +19,10 @@ import com.maruchin.features.profile.purchasehistory.navigateToPurchaseHistory
 import com.maruchin.features.profile.purchasehistory.purchaseHistoryScreen
 import com.maruchin.features.profile.returns.navigateToReturns
 import com.maruchin.features.profile.returns.returnsScreen
+import com.maruchin.ui.ROOT_DEEPLINK
 
 const val PROFILE_GRAPH_ROUTE = "profile-graph"
+private const val PROFILE_DEEPLINK = "$ROOT_DEEPLINK/profile"
 
 fun NavController.navigateToProfileGraph() {
     navigate(PROFILE_GRAPH_ROUTE) {
@@ -36,7 +39,13 @@ fun NavGraphBuilder.profileGraph(
     onLoginClick: () -> Unit,
     onJoinClubClick: () -> Unit,
 ) {
-    navigation(startDestination = PROFILE_ROUTE, route = PROFILE_GRAPH_ROUTE) {
+    navigation(
+        startDestination = PROFILE_ROUTE,
+        route = PROFILE_GRAPH_ROUTE,
+        deepLinks = listOf(
+            navDeepLink { uriPattern = PROFILE_DEEPLINK }
+        )
+    ) {
         profileScreen(
             onPurchaseHistoryClick = {
                 navController.navigateToPurchaseHistory()
@@ -59,27 +68,27 @@ fun NavGraphBuilder.profileGraph(
         )
         purchaseHistoryScreen(
             onCloseClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         findOutMoreScreen(
             onCloseClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         promotionScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         myOrdersScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             }
         )
         returnsScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onGoToFormClick = {
                 val url = "https://developers.android.com"

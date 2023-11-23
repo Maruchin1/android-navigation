@@ -1,60 +1,58 @@
 package com.maruchin.features.login
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.navigation
+import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import com.maruchin.features.login.changepassword.changePasswordScreen
 import com.maruchin.features.login.forgotpassword.forgotPasswordScreen
 import com.maruchin.features.login.forgotpassword.navigateToForgotPassword
 import com.maruchin.features.login.login.LOGIN_ROUTE
 import com.maruchin.features.login.login.loginScreen
-import kotlinx.coroutines.flow.StateFlow
+import com.maruchin.ui.ROOT_DEEPLINK
 
 internal const val LOGIN_GRAPH_ROUTE = "login_graph"
-private const val LOGIN_SUCCESS = "login_success"
-
-fun NavGraphBuilder.loginGraph(navController: NavController, onNavigateToRegistration: () -> Unit) {
-    navigation(startDestination = LOGIN_ROUTE, route = LOGIN_GRAPH_ROUTE) {
-        loginScreen(
-            onBackClick = {
-                navController.navigateUp()
-            },
-            onRegisterClick = onNavigateToRegistration,
-            onForgotPasswordClick = {
-                navController.navigateToForgotPassword()
-            },
-            onLoggedIn = {
-                navController.setLoginSuccess(true)
-                navController.popBackStack()
-            }
-        )
-        forgotPasswordScreen(
-            onBackClick = {
-                navController.navigateUp()
-            },
-        )
-        changePasswordScreen(
-            onCloseClick = {
-                navController.navigateUp()
-            },
-            onLoggedIn = {
-                navController.setLoginSuccess(true)
-                navController.popBackStack(route = LOGIN_GRAPH_ROUTE, inclusive = true)
-            }
-        )
-    }
-}
+private const val LOGIN_DEEPLINK = "$ROOT_DEEPLINK/login"
 
 fun NavController.navigateToLoginGraph() {
     navigate(LOGIN_GRAPH_ROUTE)
 }
 
-fun SavedStateHandle.getLoginSuccess(): StateFlow<Boolean> {
-    return getStateFlow(LOGIN_SUCCESS, false)
-}
-
-fun NavController.setLoginSuccess(success: Boolean) {
-    val previousEntry = checkNotNull(previousBackStackEntry)
-    previousEntry.savedStateHandle[LOGIN_SUCCESS] = success
+fun NavGraphBuilder.loginGraph(
+    navController: NavController,
+    onRegisterClick: () -> Unit
+) {
+    navigation(
+        startDestination = LOGIN_ROUTE,
+        route = LOGIN_GRAPH_ROUTE,
+        deepLinks = listOf(
+            navDeepLink { uriPattern = LOGIN_DEEPLINK }
+        )
+    ) {
+        loginScreen(
+            onBackClick = {
+                navController.popBackStack()
+            },
+            onRegisterClick = onRegisterClick,
+            onForgotPasswordClick = {
+                navController.navigateToForgotPassword()
+            },
+            onLoggedIn = {
+                navController.popBackStack()
+            }
+        )
+        forgotPasswordScreen(
+            onBackClick = {
+                navController.popBackStack()
+            },
+        )
+        changePasswordScreen(
+            onCloseClick = {
+                navController.popBackStack()
+            },
+            onLoggedIn = {
+                navController.popBackStack(route = LOGIN_GRAPH_ROUTE, inclusive = true)
+            }
+        )
+    }
 }

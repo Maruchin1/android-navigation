@@ -2,7 +2,8 @@ package com.maruchin.features.order
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.navigation
+import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import com.maruchin.features.order.address.addressScreen
 import com.maruchin.features.order.address.navigateToAddress
 import com.maruchin.features.order.confirmation.confirmationScreen
@@ -13,8 +14,10 @@ import com.maruchin.features.order.payment.navigateToPayment
 import com.maruchin.features.order.payment.paymentScreen
 import com.maruchin.features.order.summary.navigateToSummary
 import com.maruchin.features.order.summary.summaryScreen
+import com.maruchin.ui.ROOT_DEEPLINK
 
 const val ORDER_GRAPH_ROUTE = "order-graph"
+private const val ORDER_DEEPLINK = "$ROOT_DEEPLINK/order"
 
 fun NavController.navigateToOrderGraph() {
     navigate(ORDER_GRAPH_ROUTE)
@@ -29,10 +32,16 @@ fun NavGraphBuilder.orderGraph(
         navController.popBackStack(ORDER_GRAPH_ROUTE, inclusive = true)
     }
 
-    navigation(startDestination = DELIVERY_ROUTE, route = ORDER_GRAPH_ROUTE) {
+    navigation(
+        startDestination = DELIVERY_ROUTE,
+        route = ORDER_GRAPH_ROUTE,
+        deepLinks = listOf(
+            navDeepLink { uriPattern = ORDER_DEEPLINK }
+        )
+    ) {
         deliveryScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onDeliveryClick = {
                 navController.navigateToAddress()
@@ -41,7 +50,7 @@ fun NavGraphBuilder.orderGraph(
         )
         addressScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onNextClick = {
                 navController.navigateToPayment()
@@ -50,7 +59,7 @@ fun NavGraphBuilder.orderGraph(
         )
         paymentScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onPaymentClick = {
                 navController.navigateToSummary()
@@ -59,7 +68,7 @@ fun NavGraphBuilder.orderGraph(
         )
         summaryScreen(
             onBackClick = {
-                navController.navigateUp()
+                navController.popBackStack()
             },
             onProductClick = onProductClick,
             onSubmitted = {

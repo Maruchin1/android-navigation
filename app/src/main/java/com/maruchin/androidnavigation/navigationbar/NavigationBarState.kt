@@ -27,7 +27,7 @@ internal class NavigationBarState(private val navController: NavController) {
         return navController.currentBackStack.map { backStack ->
             backStack
                 .map { it.destination.route }
-                .last { navigationBarRoutes.contains(it) }
+                .lastOrNull { navigationBarRoutes.contains(it) }
                 .let { it == route }
         }
     }

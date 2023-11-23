@@ -13,7 +13,7 @@ import com.maruchin.ui.ROOT_DEEPLINK
 private const val EMAIL = "email"
 private const val TOKEN = "token"
 internal const val CHANGE_PASSWORD_ROUTE = "change_password"
-internal const val CHANGE_PASSWORD_LINK = "$ROOT_DEEPLINK/change-password/{$EMAIL}/{$TOKEN}"
+internal const val CHANGE_PASSWORD_DEEPLINK = "$ROOT_DEEPLINK/change-password/{$EMAIL}/{$TOKEN}"
 
 internal data class ChangePasswordArgs(val email: String, val token: String) {
     constructor(savedStateHandle: SavedStateHandle) : this(
@@ -29,7 +29,7 @@ internal fun NavGraphBuilder.changePasswordScreen(
     composable(
         route = CHANGE_PASSWORD_ROUTE,
         deepLinks = listOf(
-            navDeepLink { uriPattern = CHANGE_PASSWORD_LINK }
+            navDeepLink { uriPattern = CHANGE_PASSWORD_DEEPLINK }
         )
     ) {
         val viewModel: ChangePasswordViewModel = hiltViewModel()

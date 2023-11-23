@@ -15,6 +15,8 @@ import com.maruchin.features.order.orderGraph
 import com.maruchin.features.productcard.navigateToProductCardGraph
 import com.maruchin.features.registration.navigateToRegistrationGraph
 import com.maruchin.features.registration.registrationGraph
+import com.maruchin.ui.screenFadeIn
+import com.maruchin.ui.screenFadeOut
 
 @Composable
 internal fun RootHost() {
@@ -25,25 +27,25 @@ internal fun RootHost() {
         navController = rootController,
         startDestination = NAVIGATION_BAR_HOST_ROUTE,
         enterTransition = { screenSlideIn() },
-        exitTransition = { com.maruchin.ui.screenFadeOut() },
-        popEnterTransition = { com.maruchin.ui.screenFadeIn() },
+        exitTransition = { screenFadeOut() },
+        popEnterTransition = { screenFadeIn() },
         popExitTransition = { screenSlideOut() },
     ) {
         navigationBarHost(
             navController = navigationBarController,
-            onNavigateToLogin = {
+            onLoginClick = {
                 rootController.navigateToLoginGraph()
             },
-            onNavigateToJoinClub = {
+            onJoinClubClick = {
                 rootController.navigateToRegistrationGraph()
             },
-            onNavigateToOrder = {
+            onGoToOrderClick = {
                 rootController.navigateToOrderGraph()
             }
         )
         loginGraph(
             navController = rootController,
-            onNavigateToRegistration = {
+            onRegisterClick = {
                 rootController.navigateToRegistrationGraph()
             }
         )
