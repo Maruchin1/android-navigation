@@ -6,6 +6,7 @@ import com.maruchin.data.user.UserRepository
 import com.maruchin.data.user.sampleLoggedUser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,6 +43,15 @@ internal class FakeUserRepository @Inject constructor() : UserRepository {
         val loggedUser = user.value as? User.LoggedIn ?: return
         user.value = loggedUser.copy(
             personalData = personalData
+        )
+    }
+
+    override suspend fun updateBirthDate(birthDate: LocalDate) {
+        val loggedUser = user.value as? User.LoggedIn ?: return
+        user.value = loggedUser.copy(
+            clubData = loggedUser.clubData.copy(
+                birthDate = birthDate
+            )
         )
     }
 }

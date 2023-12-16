@@ -1,4 +1,4 @@
-package com.maruchin.features.registration
+package com.maruchin.features.registration.registrationform
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

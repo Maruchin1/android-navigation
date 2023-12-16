@@ -4,6 +4,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.navigation
 import androidx.navigation.navDeepLink
+import com.maruchin.features.registration.birthdate.birthDateScreen
+import com.maruchin.features.registration.birthdate.navigateToBirthDate
+import com.maruchin.features.registration.registrationform.REGISTRATION_ROUTE
+import com.maruchin.features.registration.registrationform.registrationFormScreen
 import com.maruchin.ui.ROOT_DEEPLINK
 
 const val REGISTRATION_GRAPH_ROUTE = "registration-graph"
@@ -21,8 +25,16 @@ fun NavGraphBuilder.registrationGraph(navController: NavController) {
             navDeepLink { uriPattern = REGISTRATION_DEEPLINK }
         )
     ) {
-        registrationScreen(
-            onBackClick = {
+        registrationFormScreen(
+            onNavigateBack = {
+                navController.popBackStack()
+            },
+            onNavigateToBirthDate = {
+                navController.navigateToBirthDate()
+            }
+        )
+        birthDateScreen(
+            onExitRegistration = {
                 navController.popBackStack()
             }
         )

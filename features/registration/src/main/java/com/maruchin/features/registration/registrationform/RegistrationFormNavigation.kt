@@ -1,4 +1,4 @@
-package com.maruchin.features.registration
+package com.maruchin.features.registration.registrationform
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -7,21 +7,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
-internal const val REGISTRATION_ROUTE = "registration"
+internal const val REGISTRATION_ROUTE = "registration-form"
 
-internal fun NavGraphBuilder.registrationScreen(onBackClick: () -> Unit) {
+internal fun NavGraphBuilder.registrationFormScreen(
+    onNavigateBack: () -> Unit,
+    onNavigateToBirthDate: () -> Unit
+) {
     composable(REGISTRATION_ROUTE) {
         val viewModel: RegistrationViewModel = hiltViewModel()
         val isLoggedIn by viewModel.isLoggedIn.collectAsState()
 
         if (isLoggedIn) {
             LaunchedEffect(Unit) {
-                onBackClick()
+                onNavigateToBirthDate()
             }
         }
 
-        RegistrationScreen(
-            onBackClick = onBackClick,
+        RegistrationFormScreen(
+            onBackClick = onNavigateBack,
             onRegisterClick = viewModel::submitRegistration,
         )
     }

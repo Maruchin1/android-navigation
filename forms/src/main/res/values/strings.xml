@@ -14,4 +14,5 @@
     <string name="house">House</string>
     <string name="street">Street</string>
     <string name="email">Email</string>
+    <string name="birth_date">Birth date</string>
 </resources>

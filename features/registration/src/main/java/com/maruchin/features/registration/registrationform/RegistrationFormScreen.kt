@@ -1,4 +1,4 @@
-package com.maruchin.features.registration
+package com.maruchin.features.registration.registrationform
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,16 +17,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maruchin.data.user.PersonalData
+import com.maruchin.features.registration.R
 import com.maruchin.forms.registrationform.RegistrationForm
 import com.maruchin.forms.registrationform.rememberRegistrationFormState
 
 @Composable
-internal fun RegistrationScreen(
+internal fun RegistrationFormScreen(
     onBackClick: () -> Unit,
     onRegisterClick: (personalData: PersonalData, password: String) -> Unit
 ) {
@@ -42,6 +44,19 @@ internal fun RegistrationScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             val formState = rememberRegistrationFormState()
+
+            LaunchedEffect(Unit) {
+                formState.personalData.run {
+                    firstName.value = "John"
+                    lastName.value = "Doe"
+                    email.onValueChanged("john.doe@gmail.com")
+                    phoneNumber.value = "123456789"
+                }
+                formState.passwords.run {
+                    firstPassword.onValueChanged("StrongPassword123")
+                    secondPassword.onValueChanged("StrongPassword123")
+                }
+            }
 
             RegistrationForm(
                 state = formState,
@@ -83,6 +98,6 @@ private fun TopBar(onBackClick: () -> Unit) {
 
 @Preview
 @Composable
-private fun RegistrationScreenPreview() {
-    RegistrationScreen(onBackClick = {}, onRegisterClick = { _, _ -> })
+private fun RegistrationFormScreenPreview() {
+    RegistrationFormScreen(onBackClick = {}, onRegisterClick = { _, _ -> })
 }

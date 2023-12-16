@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="register">Register</string>
+    <string name="birth_date">Birth date</string>
+    <string name="save_birth_date">Save birth date</string>
 </resources>

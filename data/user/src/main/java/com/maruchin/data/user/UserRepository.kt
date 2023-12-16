@@ -1,6 +1,7 @@
 package com.maruchin.data.user
 
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 interface UserRepository {
 
@@ -19,4 +20,6 @@ interface UserRepository {
     suspend fun deleteAccount()
 
     suspend fun updatePersonalData(personalData: PersonalData)
+
+    suspend fun updateBirthDate(birthDate: LocalDate)
 }
