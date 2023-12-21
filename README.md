@@ -41,3 +41,23 @@
 ## Registration
 
 ![features_registration](https://github.com/Maruchin1/android-navigation/assets/46427781/626d2879-db0a-4bc7-b4ea-81040a866b06)
+
+## Home navigation
+
+![home_navigation](https://github.com/Maruchin1/android-navigation/assets/46427781/7474f764-c8f8-49b2-9523-992b54352d16)
+
+## Category browser navigation
+
+![category_browser_navigation](https://github.com/Maruchin1/android-navigation/assets/46427781/d7ca4b11-7fc4-49ec-92c7-612eb6ae2193)
+
+## Favorites navigation
+
+![favorites_navigation](https://github.com/Maruchin1/android-navigation/assets/46427781/ffffcf9a-9dc1-4cc9-b0f0-423c239ecf4f)
+
+## Cart navigation
+
+![cart_navigation](https://github.com/Maruchin1/android-navigation/assets/46427781/d4991db1-2738-443b-8293-a6df0e1253de)
+
+## Profile navigation
+
+![profile_navigation](https://github.com/Maruchin1/android-navigation/assets/46427781/245f5340-6080-4cde-bb89-5a6610301ece)
